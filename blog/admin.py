@@ -1,14 +1,23 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from blog.models import Post
+from blog.models import Post, Category
 
 
 @admin.register(Post)
 class PostAdmin(SummernoteModelAdmin):
+    """
+    Add fields for Post in admin panel
+    """
     list_display = (
-                   'title', 'status', 'created_on', 'author', 'featured'
+                   'title',
+                   'status',
+                   'created_on',
+                   'author',
+                   'featured'
                    )
-    prepopulated_fields = {'slug': ('title',)}
+    prepopulated_fields = {
+        'slug': ('title',),
+        }
     list_filter = ('status', 'created_on', 'regions')
     search_fields = ['title', 'content']
     summernote_fields = ('content',)
@@ -16,3 +25,13 @@ class PostAdmin(SummernoteModelAdmin):
 
     def approve_posts(self, request, queryset):
         queryset.update(status=True)
+
+
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    """
+    Add fields for Category in admin panel
+    """
+    list_display = ['title']
+    search_fields = ['title']
+    prepopulated_fields = {'slug': ('title',)}
