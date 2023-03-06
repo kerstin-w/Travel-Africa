@@ -33,7 +33,7 @@ class Post(models.Model):
         User, on_delete=models.CASCADE, related_name="blog_posts")
     created_on = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
-    country = models.TextField(max_length=100)
+    country = models.CharField(max_length=100)
     featured_image = CloudinaryField('image', default='placeholder')
     regions = models.ManyToManyField(Category)
     status = models.IntegerField(choices=STATUS, default=0)
