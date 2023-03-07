@@ -23,6 +23,7 @@
             <p>About you: {{ profile.description }}</p>
             {% endif %}
         </div>
+        <a href="{% url 'users:profile_update' pk=profile.pk %}">Update</a>
     </div>
 </div>
 
