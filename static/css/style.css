@@ -234,3 +234,10 @@ h3 {
 .btn-highlights:hover {
     font-size: 20px;
 }
+
+/*=============== Login ===============*/
+.vertical-center {
+    min-height: 74vh;
+    display: flex;
+    align-items: center;
+}
