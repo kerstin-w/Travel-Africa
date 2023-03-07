@@ -268,3 +268,10 @@ h3 {
     text-decoration-color: var(--orange-color);
     letter-spacing: 3px;
 }
+
+.edit {
+    color: var(--blue-color);
+    background-color: var(--orange-color);
+    border-radius: 50%;
+    padding: 8px;
+}
