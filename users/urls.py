@@ -4,5 +4,5 @@ from django.urls import path
 app_name = 'users'
 
 urlpatterns = [
-    path("", views.ProfileHomeView.as_view(), name='profile_home'),
+    path("<str:username>/", views.ProfileHomeView.as_view(), name='profile_home'),
 ]

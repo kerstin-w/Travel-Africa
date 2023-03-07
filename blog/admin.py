@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from blog.models import Post, Category
+from .models import Post, Category, Profile
 
 
 @admin.register(Post)
@@ -35,3 +35,11 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['title']
     search_fields = ['title']
     prepopulated_fields = {'slug': ('title',)}
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    """
+    Add fields for the profile in the admin panel
+    """
+    list_display = ('user',)
+    search_fields = ['user']
