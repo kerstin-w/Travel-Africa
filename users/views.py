@@ -8,7 +8,6 @@ from .models import Profile
 
 
 class ProfileHomeView(LoginRequiredMixin, TemplateView):
-    model = Profile
     template_name = 'profile.html'
     user_check_failure_path = reverse_lazy("account_signup")
 
