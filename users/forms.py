@@ -39,7 +39,7 @@ class ProfileForm(forms.ModelForm):
 
     def clean_username(self):
         username = self.cleaned_data["username"]
-        if username == self.instance.user.email:
+        if username == self.instance.user.username:
             return username
         username_exists = (
             User.objects.filter(username__iexact=username)
