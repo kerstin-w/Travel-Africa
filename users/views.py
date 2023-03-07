@@ -9,11 +9,13 @@ from django.views.generic.edit import UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Profile
 from .forms import ProfileForm
+from blog.views import PageTitleViewMixin
 
 
 
-class ProfileHomeView(LoginRequiredMixin, TemplateView):
+class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
     model = Profile
+    title = "Profile"
     template_name = 'profile.html'
     user_check_failure_path = reverse_lazy("account_signup")
 
@@ -28,8 +30,9 @@ class ProfileHomeView(LoginRequiredMixin, TemplateView):
         context['profile'] = profile
         return context
 
-class ProfileUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class ProfileUpdateView(PageTitleViewMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Profile
+    title = "Update Profile"
     form_class = ProfileForm
     template_name = 'profile_update.html'
 
