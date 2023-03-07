@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, get_object_or_404
 from django.views import generic
 from django.urls import reverse
+from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
@@ -32,6 +33,11 @@ class ProfileUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     form_class = ProfileForm
     template_name = 'profile_update.html'
 
+    def get_form_kwargs(self):
+        kwargs = super(ProfileUpdateView, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
     def test_func(self):
         profile = get_object_or_404(Profile, user=self.request.user)
         return self.request.user == profile.user
@@ -39,4 +45,5 @@ class ProfileUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     def form_valid(self, form):
         form.instance.status = 0
         self.object = form.save()
+        messages.success(self.request, 'Profile updated successfully')
         return redirect(reverse('home'))

@@ -39,6 +39,13 @@ h3 {
     font-family: 'Waiting for the Sunrise', sans-serif;
 }
 
+.errorlist {
+    list-style-type: none;
+    color: var(--orange-color);
+    padding: 0;
+}
+
+
 /*=============== Navbar ===============*/
 .navbar {
     border-radius: 50px;
