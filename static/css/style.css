@@ -117,6 +117,14 @@ h3 {
     list-style: none;
 }
 
+.alert-box {
+    position: fixed;
+    top: 5em;
+    right: 0;
+    left: 0;
+    z-index: 2;
+}
+
 
 /*=============== Footer ===============*/
 .footer {

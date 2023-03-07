@@ -8,5 +8,12 @@ $(window).on("scroll", function () {
     }
 });
 
-// Get fully year on the footer
+// Get full year on the footer
 $("#year").text(new Date().getFullYear());
+
+//Set Time Out for alert messages
+setTimeout(function () {
+    let messages = $('#msg');
+    let alert = new bootstrap.Alert(messages);
+    alert.close();
+}, 2000);
