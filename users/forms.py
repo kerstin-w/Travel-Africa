@@ -46,10 +46,24 @@ class ProfileForm(forms.ModelForm):
         )
         if username_exists:
             messages.error(self.request, "Username already taken")
-            raise ValidationError(
+            raise forms.ValidationError(
                 "Username already taken. Please choose another username."
             )
         return username.capitalize()
+
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        email_exists = (
+            User.objects.filter(email__iexact=email)
+            .exclude(pk=self.instance.user.pk)
+            .exists()
+        )
+        if email_exists:
+            messages.error(
+                self.request, "A user with that email address already exists"
+            )
+            raise forms.ValidationError("Please enter another email.")
+        return email.lower()
 
     def save(self, commit=True):
         profile = super(ProfileForm, self).save(commit=False)
