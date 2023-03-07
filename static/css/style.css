@@ -46,7 +46,6 @@ html {
     padding-bottom: 5px;
 }
 
-/* Color of the links BEFORE scroll */
 .navbar-before-scroll .nav-link,
 .navbar-before-scroll .navbar-toggler-icon {
     color: var(--blue-color);
@@ -68,7 +67,7 @@ html {
 .navbar-toggler {
     border-radius: 100%;
     border: none;
-    background-color: #fbe4a1;
+    background-color: var(--yellow-color);
 }
 
 .navbar-toggler:focus {
@@ -77,4 +76,23 @@ html {
 
 .navbar-toggler i {
     padding: 5px;
+}
+
+.logo {
+    border: 2px solid;
+    padding: 5px;
+    margin: 0 auto;
+    border-color: var(--blue-color);
+    -webkit-box-shadow: 4px 4px 0px 0px var(--orange-color);
+    -moz-box-shadow: 4px 4px 0px 0px var(--orange-color);
+    box-shadow: 4px 4px 0px 0px var(--orange-color);
+    letter-spacing: 3px;
+    font-family: 'Waiting for the Sunrise', sans-serif;
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+}
+
+.africa-icon {
+    color: var(--orange-color);
 }
