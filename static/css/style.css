@@ -1,0 +1,31 @@
+/*--------------- Google fonts ---------------*/
+/* Waiting for the Sunrise */
+@import url('https://fonts.googleapis.com/css2?family=Waiting+for+the+Sunrise&display=swap');
+
+/* Roboto */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+
+/*--------------- Custom properties ---------------*/
+:root {
+    --dark-blue-color: #253558;
+    --blue-color: #686e9f;
+    --yellow-color: #fbe4a1;
+    --skin-color: #fcb395;
+    --orange-color: #e48152;
+    --white-color: #faebd7;
+}
+
+/*--------------- General Styles ---------------*/
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    height: 100vh;
+}
+
+html {
+    scroll-behavior: smooth;
+}
