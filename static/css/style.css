@@ -78,6 +78,14 @@ html {
     padding: 5px;
 }
 
+.nav-link:hover {
+    text-decoration: underline;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--orange-color);
+}
+
 .logo {
     border: 2px solid;
     padding: 5px;
