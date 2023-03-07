@@ -170,3 +170,19 @@ h3 {
 .carousel-item {
     height: 100vh;
 }
+
+.btn-highlights {
+    padding: 15px;
+    border-radius: 50px;
+    background-color: var(--white-color);
+    color: var(--blue-color);
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    text-decoration: none;
+    border: 1px solid var(--dark-blue-color);
+    transition: all .2s ease;
+}
+
+.btn-highlights:hover {
+    font-size: 20px;
+}
