@@ -111,6 +111,11 @@ h3 {
     color: var(--orange-color);
 }
 
+.nav-item {
+    list-style: none;
+}
+
+
 /*=============== Footer ===============*/
 .footer {
     background-color: var(--white-color);
