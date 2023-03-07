@@ -7,3 +7,6 @@ $(window).on("scroll", function () {
         $navbar.removeClass("navbar-after-scroll");
     }
 });
+
+// Get fully year on the footer
+$("#year").text(new Date().getFullYear());

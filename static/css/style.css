@@ -24,6 +24,7 @@
 
 body {
     height: 100vh;
+    overflow-x: hidden;
 }
 
 html {
@@ -86,7 +87,6 @@ h3 {
 
 .nav-link:hover {
     text-decoration: underline;
-    text-decoration: underline;
     text-underline-offset: 10px;
     text-decoration-thickness: 2px;
     text-decoration-color: var(--orange-color);
@@ -109,6 +109,49 @@ h3 {
 
 .africa-icon {
     color: var(--orange-color);
+}
+
+/*=============== Footer ===============*/
+.footer {
+    background-color: var(--white-color);
+    color: var(--blue-color);
+    width: 100vw;
+}
+
+.footer h3 {
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--orange-color);
+}
+
+.footer-text {
+    width: 80%;
+    font-size: large;
+    padding: 15px 40px;
+}
+
+.copyright {
+    font-size: small;
+}
+
+.social-text {
+    padding: 15px 10px;
+}
+
+.social {
+    list-style: none;
+}
+
+.social li {
+    margin-bottom: .5em;
+}
+
+.social-icon {
+    padding: 8px;
+    margin-right: 4px;
+    background-color: var(--orange-color);
+    border-radius: 50%;
 }
 
 /*=============== Homepage ===============*/
