@@ -24,19 +24,30 @@
                         </li>
                     </ul>
                     <a class="navbar-brand logo d-none d-md-block" id="logo" href="{% url 'home' %}"><i
-                            class="fa-solid fa-earth-africa africa-icon">
-                        </i>TRAVELAFRICA</a>
+                            class="fa-solid fa-earth-africa africa-icon"> </i>TRAVELAFRICA</a>
 
-                    <ul class="navbar-nav mb-2 d-flex justify-content-end login">
+                    <ul class="navbar-nav mb-2 d-flex justify-content-end align-items-center login">
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" data-bs-toggle="modal" href="#signOutModal"><i
-                                    class="fa-solid fa-arrow-right-from-bracket"></i></a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Create Post</a></li>
-                        <li class="nav-item"><a class="nav-link"
-                                href="{% url 'users:profile_home' username=request.user.username %}">Profile</a></li>
-                        {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Register</a>
+                        <li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="modal" href="#signOutModal"><i
+                                    class="fa-solid fa-arrow-right-from-bracket nav-icon"></i></a>
                         </li>
+                        <li class="nav-item"><a class="nav-link" href="#">Create Post</a></li>
+                        <li class="nav-item">
+                            {% with profile=request.user.profile %} {% if "placeholder" in profile.image.url %}
+                            <a class="nav-link" href="{% url 'users:profile_home' username=request.user.username %}">
+                                <i class="fa-solid fa-user nav-icon"></i>
+                            </a>
+                            {% else %}
+                            <a href="{% url 'users:profile_home' username=request.user.username %}">
+                                <img src="{{ profile.image.url }}" class="profile-img profile-img-small"
+                                    alt="{{ profile.user.username }}" />
+                            </a>
+
+                            {% endif %} {% endwith %}
+                        </li>
+                        {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Register</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
                         {% endif %}
                     </ul>
@@ -59,3 +70,4 @@
             </div>
         </div>
     </div>
+</body>

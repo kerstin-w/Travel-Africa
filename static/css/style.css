@@ -124,6 +124,13 @@ h3 {
     list-style: none;
 }
 
+.nav-icon:hover {
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--orange-color);
+}
+
 .alert-box {
     position: fixed;
     top: 5em;
@@ -274,6 +281,10 @@ h3 {
 .profile-img {
     max-width: 300px;
     border-radius: 50%;
+}
+
+.profile-img-small {
+    max-width: 40px;
 }
 
 .heading-profile {
