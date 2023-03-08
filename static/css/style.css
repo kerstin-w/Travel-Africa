@@ -45,6 +45,12 @@ h3 {
     padding: 0;
 }
 
+.heading-underline {
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+    text-decoration-color: var(--orange-color);
+}
 
 /*=============== Navbar ===============*/
 .navbar {
@@ -131,6 +137,10 @@ h3 {
     text-decoration-color: var(--orange-color);
 }
 
+.profile-img-small {
+    max-width: 40px;
+}
+
 .alert-box {
     position: fixed;
     top: 5em;
@@ -145,13 +155,6 @@ h3 {
     background-color: var(--white-color);
     color: var(--blue-color);
     width: 100vw;
-}
-
-.footer h3 {
-    text-decoration: underline;
-    text-underline-offset: 10px;
-    text-decoration-thickness: 2px;
-    text-decoration-color: var(--orange-color);
 }
 
 .footer-text {
@@ -206,10 +209,6 @@ h3 {
 }
 
 .hero-content h1 {
-    text-decoration: underline;
-    text-underline-offset: 10px;
-    text-decoration-thickness: 2px;
-    text-decoration-color: var(--orange-color);
     letter-spacing: 3px;
     color: #686e9f;
     text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.6);
@@ -283,15 +282,7 @@ h3 {
     border-radius: 50%;
 }
 
-.profile-img-small {
-    max-width: 40px;
-}
-
 .heading-profile {
-    text-decoration: underline;
-    text-underline-offset: 10px;
-    text-decoration-thickness: 2px;
-    text-decoration-color: var(--orange-color);
     letter-spacing: 3px;
 }
 
