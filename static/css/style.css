@@ -138,7 +138,7 @@ h3 {
 }
 
 .profile-img-small {
-    max-width: 40px;
+    max-width: 40px !important;
 }
 
 .alert-box {
