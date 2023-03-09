@@ -10,6 +10,8 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fas fa-bars"></i>
                 </button>
+                <a class="navbar-brand logo d-flex align-items-center" id="logo" href="{% url 'home' %}"><i
+                        class="fa-solid fa-earth-africa africa-icon"> </i>TRAVELAFRICA</a>
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -23,9 +25,6 @@
                             <a class="nav-link" href="#!">Regions</a>
                         </li>
                     </ul>
-                    <a class="navbar-brand logo d-none d-md-block" id="logo" href="{% url 'home' %}"><i
-                            class="fa-solid fa-earth-africa africa-icon"> </i>TRAVELAFRICA</a>
-
                     <ul class="navbar-nav mb-2 d-flex justify-content-end align-items-center login">
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="#">Create Post</a></li>
