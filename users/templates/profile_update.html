@@ -19,7 +19,8 @@
                     {% csrf_token %}
                     {{ profile_form | crispy }}
                     {{ form.as_p }}
-                    <button><i type="submit" class="fa-solid fa-floppy-disk icon"></i></button>
+                    <button class="btn-save"><i type="submit"
+                            class="fa-solid fa-floppy-disk icon-save"></i>Save</button>
                 </form>
             </div>
         </div>

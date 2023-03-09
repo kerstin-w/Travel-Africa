@@ -296,3 +296,22 @@ h3 {
 .icon:hover {
     transform: rotate(45deg);
 }
+
+.btn-save {
+    padding: 5px 10px;
+    border-radius: 50px;
+    background-color: var(--orange-color);
+    text-transform: uppercase;
+    letter-spacing: 1.6px;
+    border: 1px solid var(--blue-color);
+    color: var(--white-color);
+}
+
+.btn-save:hover {
+    background-color: var(--white-color);
+    color: var(--blue-color);
+}
+
+.icon-save {
+    padding-right: 5px;
+}
