@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.core.paginator import Paginator
 from django.views import generic
-from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.shortcuts import render, get_object_or_404
+from django.views.generic import TemplateView, DetailView
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -68,6 +68,15 @@ class PostFeaturedList(PageTitleViewMixin, generic.ListView):
         "-created_on"
     )
     template_name = "index.html"
+
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'post_detail.html'
+    context_object_name = 'post'
+
+    def get_object(self):
+        return get_object_or_404(Post, slug=self.kwargs.get('slug'))
 
 
 class PostCreateView(
