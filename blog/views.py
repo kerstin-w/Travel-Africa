@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.views import generic
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
+from django.views.generic.list import ListView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
@@ -30,6 +31,7 @@ class SuperuserFieldsMixin:
     """
     Allowes only the Admin to set the Post to featured
     """
+
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         if not self.request.user.is_superuser:
@@ -42,6 +44,17 @@ class AboutView(PageTitleViewMixin, TemplateView):
     template_name = "about.html"
 
 
+class PostListView(ListView):
+    model = Post
+    title = "Posts"
+    template_name = "post_list.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["posts"] = Post.objects.all()
+        return context
+
+
 class PostFeaturedList(PageTitleViewMixin, generic.ListView):
     model = Post
     title = "Home"
@@ -52,7 +65,11 @@ class PostFeaturedList(PageTitleViewMixin, generic.ListView):
 
 
 class PostCreateView(
-    PageTitleViewMixin, SuperuserFieldsMixin, UserPassesTestMixin, SuccessMessageMixin, CreateView
+    PageTitleViewMixin,
+    SuperuserFieldsMixin,
+    UserPassesTestMixin,
+    SuccessMessageMixin,
+    CreateView,
 ):
     model = Post
     title = "Create Post"
@@ -60,15 +77,15 @@ class PostCreateView(
     template_name = "post_create.html"
     success_url = reverse_lazy("home")
     login_url = reverse_lazy("account_login")
-    success_message = 'Your post has been successfully saved.'
+    success_message = "Your post has been successfully saved."
 
     def test_func(self):
         return self.request.user.is_authenticated
 
     def get_context_data(self, **kwargs):
-        print('context')
+        print("context")
         context = super().get_context_data(**kwargs)
-        context['messages'] = messages.get_messages(self.request)
+        context["messages"] = messages.get_messages(self.request)
         return context
 
     def form_valid(self, form):
@@ -77,5 +94,5 @@ class PostCreateView(
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(self.request, 'Form submission is not valid!')
+        messages.error(self.request, "Form submission is not valid!")
         return self.render_to_response(self.get_context_data(form=form))
