@@ -1,5 +1,5 @@
-from django.shortcuts import render
 from django.views import generic
+from django.views.generic import TemplateView
 from .models import Post
 
 
@@ -24,3 +24,9 @@ class PostFeaturedList(PageTitleViewMixin, generic.ListView):
     queryset = Post.objects.filter(
         featured=True, status=1).order_by('-created_on')
     template_name = "index.html"
+
+
+class AboutView(PageTitleViewMixin, TemplateView):
+    title = "About"
+    template_name = "about.html"
+
