@@ -52,6 +52,16 @@ h3 {
     text-decoration-color: var(--orange-color);
 }
 
+.box-shadow {
+    margin-top: 5.5em;
+    margin-bottom: 3em;
+    background-color: var(--white-color);
+    border-radius: 40px;
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(37, 53, 88, 1);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(37, 53, 88, 1);
+    box-shadow: 5px 5px 5px 0px rgba(37, 53, 88, 1);
+}
+
 /*=============== Navbar ===============*/
 .navbar {
     border-radius: 50px;
@@ -266,16 +276,6 @@ h3 {
 }
 
 /*=============== Profile ===============*/
-
-.profile-container {
-    margin-top: 5.5em;
-    margin-bottom: 3em;
-    background-color: var(--white-color);
-    border-radius: 40px;
-    -webkit-box-shadow: 5px 5px 5px 0px rgba(37, 53, 88, 1);
-    -moz-box-shadow: 5px 5px 5px 0px rgba(37, 53, 88, 1);
-    box-shadow: 5px 5px 5px 0px rgba(37, 53, 88, 1);
-}
 
 .profile-img {
     max-width: 300px;
