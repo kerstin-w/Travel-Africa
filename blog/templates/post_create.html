@@ -1,4 +1,26 @@
 {% extends 'base.html' %}
+{% include 'partials/messages.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block content %}
+<main>
+    <section>
+        <div class="container box-shadow post-form">
+            <div class="row">
+                <div class="col-md-8 d-flex justify-content-center mx-auto">
+                    <h1 class="heading-underline">Create Post</h1>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+                <form method="post" enctype="multipart/form-data" class="form">
+                    {% csrf_token %}
+                    {{ post_form | crispy }}
+                    {{ form.as_p }}
+                    <button type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+
+    </section>
+</main>
 {% endblock content %}

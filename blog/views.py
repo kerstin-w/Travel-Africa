@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.views import generic
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
@@ -65,4 +66,5 @@ class PostCreateView(
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.slug = slugify(form.instance.title)
+        messages.success(self.request, "Post created successfully!")
         return super().form_valid(form)
