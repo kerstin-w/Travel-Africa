@@ -50,7 +50,7 @@ class PostListView(ListView):
     model = Post
     title = "Posts"
     template_name = "post_list.html"
-    paginate_by = 2
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

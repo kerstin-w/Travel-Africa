@@ -1,22 +1,27 @@
 {% extends 'base.html' %} {% block content %}
-
-<div class="row">
-    {% for post in object_list %}
-    <div class="col-md-4">
-        <div class="card" style="width: 18rem;">
-            {% if "placeholder" in post.featured_image.url %}
-            <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
-                class="card-img-top" alt="{ post.title }}" />
-            {% else %}
-            <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}" />
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ post.title }}</h5>
-                <p class="card-title">{{ post.content|safe|truncatechars:200 }}</p>
-                <a href="#" class="btn btn-primary">Read More</a>
+<main>
+    <section id="post-list">
+        <div class="container post-list-content">
+            <div class="row">
+                {% for post in object_list %}
+                <div class="col-md-4 d-flex justify-content-around">
+                    <div class="card post-card" style="width: 18rem;">
+                        {% if "placeholder" in post.featured_image.url %}
+                        <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
+                            class="card-img-top" alt="{ post.title }}" />
+                        {% else %}
+                        <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}" />
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ post.title }}</h5>
+                            <p class="card-title">{{ post.content|safe|truncatechars:200 }}</p>
+                            <a href="" class="btn btn-read">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
         </div>
-    </div>
-    {% endfor %}
-</div>
+    </section>
+</main>
 {% endblock %}
