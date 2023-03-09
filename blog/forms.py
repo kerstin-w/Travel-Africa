@@ -41,7 +41,7 @@ class PostForm(ModelForm):
             ),
             "region": forms.Select(
                 attrs={
-                    "class": "form-control",
+                    "class": "form-select",
                 }
             ),
         }

@@ -3,6 +3,7 @@ from django.views import generic
 from django.views.generic import TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from .models import Post
@@ -51,7 +52,7 @@ class PostFeaturedList(PageTitleViewMixin, generic.ListView):
 
 
 class PostCreateView(
-    PageTitleViewMixin, SuperuserFieldsMixin, UserPassesTestMixin, CreateView
+    PageTitleViewMixin, SuperuserFieldsMixin, UserPassesTestMixin, SuccessMessageMixin, CreateView
 ):
     model = Post
     title = "Create Post"
@@ -59,12 +60,22 @@ class PostCreateView(
     template_name = "post_create.html"
     success_url = reverse_lazy("home")
     login_url = reverse_lazy("account_login")
+    success_message = 'Your post has been successfully saved.'
 
     def test_func(self):
         return self.request.user.is_authenticated
 
+    def get_context_data(self, **kwargs):
+        print('context')
+        context = super().get_context_data(**kwargs)
+        context['messages'] = messages.get_messages(self.request)
+        return context
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         form.instance.slug = slugify(form.instance.title)
-        messages.success(self.request, "Post created successfully!")
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Form submission is not valid!')
+        return self.render_to_response(self.get_context_data(form=form))
