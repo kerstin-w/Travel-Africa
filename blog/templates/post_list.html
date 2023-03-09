@@ -1,4 +1,5 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %}
+{% block content %}
 <main>
     <section id="post-list">
         <div class="container post-list-content">
@@ -23,5 +24,39 @@
             </div>
         </div>
     </section>
+    <!-- Pagination -->
+    {% if is_paginated %}
+    <nav class="mt-auto" aria-label="Page navigation">
+        <ul class="pagination pagination-sm justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link text-dark" href="?page={{ page_obj.previous_page_number }}"
+                    aria-label="Previous page"><span aria-hidden="true">&laquo;</span></a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+            {% endif %}
+
+            {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+            <li class="page-item active" aria-current="page"><a class="page-link" href="?page={{ i }}"
+                    aria-label="Current page"><span aria-hidden="true">{{ i }}</span></a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link text-dark" href="?page={{ i }}" aria-label="Page {{ i }}"><span
+                        aria-hidden="true">{{ i }}</span></a></li>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link text-dark" href="?page={{ page_obj.next_page_number }}" aria-label="Next page"><span
+                        aria-hidden="true">&raquo;</span></a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
 </main>
 {% endblock %}
