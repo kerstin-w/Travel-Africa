@@ -50,6 +50,8 @@ class PostListView(ListView):
     model = Post
     title = "Posts"
     template_name = "post_list.html"
+    queryset = Post.objects.filter(
+        featured=True, status=1).order_by('-created_on')
     paginate_by = 6
 
     def get_context_data(self, **kwargs):
