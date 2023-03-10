@@ -3,9 +3,9 @@ from django.core.paginator import Paginator
 from django.views import generic
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.text import slugify
@@ -77,12 +77,11 @@ class PostDetailView(DetailView):
 
     def get_object(self):
         return get_object_or_404(Post, slug=self.kwargs.get("slug"))
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = self.object.title.title()
         return context
-    
 
 
 class PostCreateView(
@@ -147,3 +146,23 @@ class PostUpdateView(
         form.instance.status = 0
         self.object = form.save()
         return super().form_valid(form)
+
+
+class PostDeleteView(
+    PageTitleViewMixin,
+    SuperuserFieldsMixin,
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    DeleteView,
+):
+    model = Post
+    title = "Delete Post"
+    template_name = "post_detail.html"
+    success_message = "Your post has been successfully deleted."
+    success_url = reverse_lazy("home")
+
+    def test_func(self):
+        post = self.get_object()
+        return (
+            self.request.user.is_superuser or self.request.user == post.author
+        )
