@@ -15,16 +15,17 @@
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5">
-                  <form>
-                    <h2 class="fw-normal mb-3 pb-3 heading-underline">{% trans "Sign In" %}
-                    </h2>
+                  <h2 class="fw-normal mb-3 pb-3 heading-underline">{% trans "Sign In" %}
+                  </h2>
+                  <form class="login" method="POST" action="{% url 'account_login' %}">
                     {% csrf_token %}
                     {{ form.as_p }}
                     {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                     {% endif %}
                     <div class="pt-1 mb-4">
-                      <button class="btn btn-dark btn-lg btn-block" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                      <button class="primaryAction btn btn-dark btn-lg btn-block"
+                        type="submit">{% trans "Sign In" %}&raquo;</button>
                     </div>
                   </form>
                 </div>
