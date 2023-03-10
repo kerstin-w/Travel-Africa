@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from django.urls import reverse
+from .fields import CaseInsensitiveCharField
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
@@ -27,7 +28,7 @@ class Post(models.Model):
     Model for posts
     """
     id = models.BigAutoField(primary_key=True)
-    title = models.CharField(max_length=100, unique=True)
+    title = CaseInsensitiveCharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=100, unique=True, null=False)
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="blog_posts")

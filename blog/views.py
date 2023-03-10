@@ -105,10 +105,6 @@ class PostCreateView(
 
     def form_valid(self, form):
         form.instance.author = self.request.user
-        title = form.cleaned_data.get('title')
-        if Post.objects.filter(title__iexact=title).exists():
-            form.add_error('title', 'A post with this title already exists.')
-            return self.form_invalid(form)
         form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
 
