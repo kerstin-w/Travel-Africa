@@ -22,11 +22,18 @@
     font-family: 'Roboto', sans-serif;
 }
 
+html {
+    height: 100%;
+}
+
 body {
-    min-height: 100vh;
     overflow-x: hidden;
     background-color: var(--yellow-color);
     color: var(--blue-color);
+}
+
+main {
+    height: fit-content;
 }
 
 html {
@@ -171,13 +178,15 @@ hr {
 .footer {
     background-color: var(--white-color);
     color: var(--blue-color);
-    width: 100vw;
 }
 
-.footer-text {
-    width: 80%;
-    font-size: large;
+.footer-text,
+.social-text {
     padding: 15px 40px;
+}
+
+.footer-text. {
+    font-size: large;
 }
 
 .copyright {
