@@ -1,25 +1,38 @@
 {% extends "base.html" %}
-
 {% load i18n %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <main>
-  <div class="container login-container">
-    <div class="row justify-content-center align-items-center vertical-center">
-      <div class="col-md-8 mt-3 offset-md-2">
-        <h1>{% trans "Sign In" %}</h1>
-
-        <form class="login" method="POST" action="{% url 'account_login' %}">
-          {% csrf_token %}
-          {{ form.as_p }}
-          {% if redirect_field_value %}
-          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-          {% endif %}
-          <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-        </form>
+  <section class="vh-100">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-10">
+          <div class="card box-shadow card-signup">
+            <div class="row g-0">
+              <div class="col-md-6 col-lg-5 d-none d-md-block">
+                <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678455433/signin_c311o5.webp"
+                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+              </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5">
+                  <form>
+                    <h2 class="fw-normal mb-3 pb-3 heading-underline">{% trans "Sign In" %}
+                    </h2>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    {% if redirect_field_value %}
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    {% endif %}
+                    <div class="pt-1 mb-4">
+                      <button class="btn btn-dark btn-lg btn-block" type="submit">{% trans "Sign Up" %} &raquo;</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-
-</main>
-{% endblock %}
+  </section>
+  {% endblock %}

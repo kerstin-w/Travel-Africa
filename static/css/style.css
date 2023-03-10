@@ -23,7 +23,7 @@
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     overflow-x: hidden;
     background-color: var(--yellow-color);
     color: var(--blue-color);
