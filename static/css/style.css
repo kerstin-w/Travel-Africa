@@ -285,8 +285,9 @@ hr {
 /*=============== Profile ===============*/
 
 .profile-img {
-    max-width: 300px;
-    border-radius: 50%;
+    max-height: 300px;
+    max-width: 250px;
+    clip-path: circle();
 }
 
 .heading-profile {
