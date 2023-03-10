@@ -23,6 +23,12 @@
                                     </span>{{ post.country|capfirst  }}</li>
                                 <li class="list-group-item post-detail-list"><span class="heading-underline">Written by:
                                     </span>{{ post.author|capfirst  }}
+                                    {% if "placeholder" in profile.image.url %}
+                                    <i class="fa-solid fa-user nav-icon"></i>
+                                    {% else %}
+                                    <img src="{{ post.author.profile.image.url }}" class="profile-img profile-img-small"
+                                        alt="{{ post.author }}">
+                                    {% endif %}
                                 </li>
                                 <li class="list-group-item post-detail-list">
                                     {% for region in post.regions.all %}
