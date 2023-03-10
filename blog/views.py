@@ -153,6 +153,7 @@ class PostDeleteView(
     SuperuserFieldsMixin,
     LoginRequiredMixin,
     UserPassesTestMixin,
+    SuccessMessageMixin,
     DeleteView,
 ):
     model = Post
@@ -160,9 +161,17 @@ class PostDeleteView(
     template_name = "post_detail.html"
     success_message = "Your post has been successfully deleted."
     success_url = reverse_lazy("home")
+    
 
     def test_func(self):
         post = self.get_object()
+        print("test")
+        print(self.success_message)
         return (
             self.request.user.is_superuser or self.request.user == post.author
         )
+
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        messages.success(self.request, self.success_message % obj.__dict__)
+        return super(PostDeleteView, self).delete(request, *args, **kwargs)
