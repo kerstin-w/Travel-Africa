@@ -2,22 +2,52 @@
 
 {% block content %}
 
-<div class="col-md-6">
-    <h2>
-        {{ post.title }}
-    </h2>
-    <p>
-        {{ post.content }}
-    </p>
-    <p>
-        {{ post.country }}
-    </p>
-    <p>
-        {{ post.author }}
-    </p>
-    <p>
-        {{ post.regions.title }}
-    </p>
-</div>
+<main>
+    <section>
+        <div class="container box-shadow post-form">
+            <div class="row">
+                <div class="col-md-8 d-flex justify-content-center mx-auto">
+                    <h1 class="heading-underline mt-2 mb-5">{{ post.title|title  }}</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card post-detail-card">
+                            {% if "placeholder" in post.featured_image.url %}
+                            <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
+                                class="img-fluid" alt="{ post.title }}" />
+                            {% else %}
+                            <img src="{{ post.featured_image.url }}" class="img-fluid" alt="{{ post.title }}" />
+                            {% endif %}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item post-detail-list"><span class="heading-underline">Country:
+                                    </span>{{ post.country|capfirst  }}</li>
+                                <li class="list-group-item post-detail-list"><span class="heading-underline">Written by:
+                                    </span>{{ post.author|capfirst  }}
+                                </li>
+                                <li class="list-group-item post-detail-list">
+                                    {% for region in post.regions.all %}
+                                    <span class="heading-underline">Region: </span>{{ region }}
+                                    {% endfor %}</li>
+                                <li class="list-group-item post-detail-list"><i>Create on: {{ post.created_on }}</i>
+                                </li>
+                                {% if user.is_authenticated and user == post.author or user.is_superuser %}
+                                <li class="list-group-item post-detail-list"><a
+                                        href="{% url 'post_update' post.slug %}"><i
+                                            class="fa-solid fa-pen icon"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
 
+                    </div>
+                    <div class="col-md-8">
+                        <p>
+                            {{ post.content|safe }}
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
