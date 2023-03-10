@@ -282,6 +282,13 @@ hr {
     align-items: center;
 }
 
+.card-signup {
+    border-radius: 1rem;
+    border: 0;
+}
+
+
+
 /*=============== Profile ===============*/
 
 .profile-img {
