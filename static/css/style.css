@@ -402,11 +402,7 @@ hr {
 
 .post-detail-list {
     color: var(--blue-color);
-    background-color: var(--yellow-color);
-}
-
-.post-detail-list {
-    border-color: var(--yellow-color);
+    background-color: var(--white-color);
 }
 
 
