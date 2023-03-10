@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
-
 {% block content %}
 <main>
+    <!-- Hero Section -->
     <section id="hero">
         <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -59,6 +59,85 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
             </button>
+        </div>
+    </section>
+    <!-- Content Feature Section -->
+    <section id="content" class="content">
+        <div class="container">
+            <h2 class="heading-underline">Highlight Recipes</h2>
+            <div class="row row-reverse">
+                {% for post in post_list %}
+                {% if forloop.counter == 1 %}
+                <div class="col-md-8">
+                    <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
+                        <div class="content-img">
+                            <div class="overlay"></div>
+                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <div class="content-categorie">
+                                <h4></i> {{ post.title|title }}</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% elif forloop.counter == 2 %}
+                <div class="col-md-4">
+                    <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
+                        <div class="content-img">
+                            <div class="overlay"></div>
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <div class="content-categorie">
+                                <h4></i> {{ post.title|title }}</h4>
+                            </div>
+                        </div>
+                    </a>
+                    {% elif forloop.counter == 3 %}
+                    <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
+                        <div class="content-img">
+                            <div class="overlay"></div>
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <div class="content-categorie">
+                                <h4></i> {{ post.title|title }}</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% elif forloop.counter == 4 %}
+                <div class="col-md-4">
+                    <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
+                        <div class="content-img">
+                            <div class="overlay"></div>
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <div class="content-categorie">
+                                <h4></i> {{ post.title|title }}</h4>
+                            </div>
+                        </div>
+                    </a>
+                    {% elif forloop.counter == 5 %}
+                    <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
+                        <div class="content-img">
+                            <div class="overlay"></div>
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <div class="content-categorie">
+                                <h4></i> {{ post.title|title }}</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% elif forloop.counter == 6 %}
+                <div class="col-md-8">
+                    <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
+                        <div class="content-img">
+                            <div class="overlay"></div>
+                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <div class="content-categorie">
+                                <h4></i> {{ post.title|title }}</h4>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
         </div>
     </section>
 </main>
