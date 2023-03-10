@@ -177,3 +177,15 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'users.backends.CaseInsensitiveModelBackend',
 ]
+
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+
+    'summernote': {
+
+        # Change editor size
+        'width': '100%',
+        'height': '480',
+
+}
+}
