@@ -77,6 +77,12 @@ class PostDetailView(DetailView):
 
     def get_object(self):
         return get_object_or_404(Post, slug=self.kwargs.get("slug"))
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = self.object.title.title()
+        return context
+    
 
 
 class PostCreateView(
