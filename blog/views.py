@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.views import generic
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView, DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -59,7 +59,7 @@ class PostListView(ListView):
         context = super().get_context_data(**kwargs)
         context["posts"] = Post.objects.all()
         return context
-    
+
 
 class PostFeaturedList(PageTitleViewMixin, generic.ListView):
     model = Post
@@ -72,11 +72,11 @@ class PostFeaturedList(PageTitleViewMixin, generic.ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'post_detail.html'
-    context_object_name = 'post'
+    template_name = "post_detail.html"
+    context_object_name = "post"
 
     def get_object(self):
-        return get_object_or_404(Post, slug=self.kwargs.get('slug'))
+        return get_object_or_404(Post, slug=self.kwargs.get("slug"))
 
 
 class PostCreateView(
@@ -92,13 +92,14 @@ class PostCreateView(
     template_name = "post_create.html"
     success_url = reverse_lazy("home")
     login_url = reverse_lazy("account_login")
-    success_message = "Your post has been successfully saved."
+    success_message = (
+        "Your post has been successfully created and is waiting for approval."
+    )
 
     def test_func(self):
         return self.request.user.is_authenticated
 
     def get_context_data(self, **kwargs):
-        print("context")
         context = super().get_context_data(**kwargs)
         context["messages"] = messages.get_messages(self.request)
         return context
@@ -111,3 +112,32 @@ class PostCreateView(
     def form_invalid(self, form):
         messages.error(self.request, "Form submission is not valid!")
         return self.render_to_response(self.get_context_data(form=form))
+
+
+class PostUpdateView(
+    PageTitleViewMixin,
+    SuperuserFieldsMixin,
+    UserPassesTestMixin,
+    SuccessMessageMixin,
+    UpdateView,
+):
+    model = Post
+    title = "Update Post"
+    form_class = PostForm
+    template_name = "post_create.html"
+    success_message = (
+        "Your post has been successfully updated and is waiting for approval."
+    )
+    success_url = reverse_lazy("home")
+
+    def test_func(self):
+        post = self.get_object()
+        return (
+            self.request.user.is_superuser or self.request.user == post.author
+        )
+
+    def form_valid(self, form):
+        form.instance.slug = slugify(form.instance.title)
+        form.instance.status = 0
+        self.object = form.save()
+        return super().form_valid(form)
