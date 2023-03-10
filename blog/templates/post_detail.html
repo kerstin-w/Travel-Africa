@@ -25,16 +25,18 @@
                                     </span>{{ post.author|capfirst  }}
                                     {% if user.is_authenticated %}
                                     <a href="{% url 'users:profile_home' username=post.author.username %}">
-                                        {% if "placeholder" in profile.image.url %}
-                                        <i class="fa-solid fa-user nav-icon"></i>
+                                        {% if "placeholder" in post.author.profile.image.url %}
+                                        <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
+                                            class="profile-img profile-img-small" alt="Profile Image Placeholder">
                                         {% else %}
                                         <img src="{{ post.author.profile.image.url }}"
                                             class="profile-img profile-img-small" alt="{{ post.author }}">
                                         {% endif %}
                                     </a>
                                     {% else %}
-                                    {% if "placeholder" in profile.image.url %}
-                                    <i class="fa-solid fa-user nav-icon"></i>
+                                    {% if "placeholder" in post.author.profile.image.url %}
+                                    <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
+                                        class="profile-img profile-img-small" alt="Profile Image Placeholder">
                                     {% else %}
                                     <img src="{{ post.author.profile.image.url }}" class="profile-img profile-img-small"
                                         alt="{{ post.author }}">
