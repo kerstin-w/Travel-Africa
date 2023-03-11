@@ -7,6 +7,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.db.models import Q
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from .models import Post
@@ -67,6 +68,7 @@ class PostFeaturedList(PageTitleViewMixin, generic.ListView):
     """
     Render featured posts on home page
     """
+
     model = Post
     title = "Home"
     queryset = Post.objects.filter(featured=True, status=1).order_by(
@@ -79,6 +81,7 @@ class PostDetailView(DetailView):
     """
     Render Post Detail Page
     """
+
     model = Post
     template_name = "post_detail.html"
     context_object_name = "post"
@@ -187,6 +190,18 @@ class PostDeleteView(
         )
 
     def delete(self, request, *args, **kwargs):
-        obj = self.get_object()
-        messages.success(self.request, self.success_message % obj.__dict__)
+        profile = self.get_object()
+        messages.success(self.request, self.success_message % profile.__dict__)
         return super(PostDeleteView, self).delete(request, *args, **kwargs)
+
+
+class PostSearchResultsView(ListView):
+    model = Post
+    template_name = "search_results.html"
+
+    def get_queryset(self):
+        search = self.request.GET.get("q")
+        results = Post.objects.filter(
+            Q(title__icontains=search) | Q(country__icontains=search)
+        )
+        return results
