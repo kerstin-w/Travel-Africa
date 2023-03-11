@@ -42,11 +42,20 @@ class SuperuserFieldsMixin:
 
 
 class AboutView(PageTitleViewMixin, TemplateView):
+    """
+    Render About Page
+    """
+
     title = "About"
     template_name = "about.html"
 
 
 class PostListView(ListView):
+    """
+    Render Post List Page and only displays
+    approved posts
+    """
+
     model = Post
     title = "Posts"
     queryset = Post.objects.filter(status=1)
@@ -55,6 +64,9 @@ class PostListView(ListView):
 
 
 class PostFeaturedList(PageTitleViewMixin, generic.ListView):
+    """
+    Render featured posts on home page
+    """
     model = Post
     title = "Home"
     queryset = Post.objects.filter(featured=True, status=1).order_by(
@@ -64,6 +76,9 @@ class PostFeaturedList(PageTitleViewMixin, generic.ListView):
 
 
 class PostDetailView(DetailView):
+    """
+    Render Post Detail Page
+    """
     model = Post
     template_name = "post_detail.html"
     context_object_name = "post"
