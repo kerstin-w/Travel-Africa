@@ -96,6 +96,10 @@ class PostCreateView(
     SuccessMessageMixin,
     CreateView,
 ):
+    """
+    Render Post Create Page
+    """
+
     model = Post
     title = "Create Post"
     form_class = PostForm
@@ -131,6 +135,10 @@ class PostUpdateView(
     SuccessMessageMixin,
     UpdateView,
 ):
+    """
+    Allow Author of Post or Superuser to update the post
+    """
+
     model = Post
     title = "Update Post"
     form_class = PostForm
@@ -161,6 +169,10 @@ class PostDeleteView(
     SuccessMessageMixin,
     DeleteView,
 ):
+    """
+    Allow Author of Post or Superuser to delete the post
+    """
+
     model = Post
     title = "Delete Post"
     template_name = "post_detail.html"
