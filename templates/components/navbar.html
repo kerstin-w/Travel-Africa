@@ -25,6 +25,10 @@
                             <a class="nav-link" href="#!">Regions</a>
                         </li>
                     </ul>
+                    <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                        <input type="search" class="form-control form-control-dark" placeholder="Search..."
+                            aria-label="Search">
+                    </form>
                     <ul class="navbar-nav mb-2 d-flex justify-content-end align-items-center login">
                         {% if user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'post_create' %}">Create Post</a></li>
