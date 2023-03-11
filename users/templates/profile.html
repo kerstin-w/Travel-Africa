@@ -17,7 +17,7 @@
                     <div class="col-md-7">
                         <h2 class="heading-profile heading-underline">User Profile</h2>
                     </div>
-                    {% if request.user == profile.user %}
+                    {% if request.user == profile.user or user.is_superuser %}
                     <div class="col-md-5">
                         <a href="{% url 'users:profile_update' pk=profile.pk %}"><i
                                 class="fa-solid fa-pen icon"></i></a>
