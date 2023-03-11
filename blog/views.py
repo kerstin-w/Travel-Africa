@@ -151,11 +151,9 @@ class PostDeleteView(
     template_name = "post_detail.html"
     success_message = "Your post has been successfully deleted."
     success_url = reverse_lazy("home")
-    
 
     def test_func(self):
         post = self.get_object()
-        print("test")
         print(self.success_message)
         return (
             self.request.user.is_superuser or self.request.user == post.author
