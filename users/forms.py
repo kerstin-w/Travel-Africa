@@ -7,6 +7,9 @@ from .models import Profile
 
 
 class ProfileForm(forms.ModelForm):
+    """
+    Form to create and update user profile
+    """
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={"class": "form-control register"})
     )
