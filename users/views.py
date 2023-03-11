@@ -10,6 +10,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Profile
 from .forms import ProfileForm
 from blog.views import PageTitleViewMixin
+from blog.models import Post
 
 
 class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
@@ -27,6 +28,8 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         context["profile"] = profile
+        posts = Post.objects.filter(author=user).order_by('-created_on')
+        context['posts'] = posts
         return context
 
 
