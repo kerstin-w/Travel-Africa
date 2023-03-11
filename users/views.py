@@ -21,8 +21,8 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super(ProfileHomeView, self).get_context_data(**kwargs)
         username = self.kwargs.get('username')
-        user = User.objects.get(username=username)
-        profile = Profile.objects.get_or_create(user=user)[0]
+        user = get_object_or_404(User, username=username)
+        profile = get_object_or_404(Profile, user=user)
         context["profile"] = profile
         return context
 
