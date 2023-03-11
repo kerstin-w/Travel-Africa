@@ -4,7 +4,7 @@
     <section id="post-list">
         <div class="container post-list-content">
             <div class="row">
-                {% for post in object_list %}
+                {% for post in posts %}
                 <div class="col-md-4 d-flex justify-content-around">
                     <div class="card post-card" style="width: 18rem;">
                         {% if "placeholder" in post.featured_image.url %}
