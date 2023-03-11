@@ -49,11 +49,9 @@ class AboutView(PageTitleViewMixin, TemplateView):
 class PostListView(ListView):
     model = Post
     title = "Posts"
+    queryset = Post.objects.filter(status=1)
     template_name = "post_list.html"
     paginate_by = 6
-
-    def get_queryset(self):
-        return Post.objects.filter(status=1)
 
 
 class PostFeaturedList(PageTitleViewMixin, generic.ListView):
