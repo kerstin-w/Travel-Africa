@@ -195,9 +195,11 @@ class PostDeleteView(
         return super(PostDeleteView, self).delete(request, *args, **kwargs)
 
 
-class PostSearchResultsView(ListView):
+class PostSearchResultsView(PageTitleViewMixin, ListView):
     model = Post
+    title = "Your Search"
     template_name = "search_results.html"
+    context_object_name = "results"
 
     def get_queryset(self):
         search = self.request.GET.get("q")
