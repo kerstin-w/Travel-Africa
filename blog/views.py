@@ -55,11 +55,6 @@ class PostListView(ListView):
     def get_queryset(self):
         return Post.objects.filter(status=1)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["posts"] = Post.objects.all()
-        return context
-
 
 class PostFeaturedList(PageTitleViewMixin, generic.ListView):
     model = Post
