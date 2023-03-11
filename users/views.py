@@ -13,6 +13,9 @@ from blog.views import PageTitleViewMixin
 
 
 class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
+    """
+    Display profile information 
+    """
     model = Profile
     title = "Profile"
     template_name = "profile.html"
@@ -20,7 +23,7 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(ProfileHomeView, self).get_context_data(**kwargs)
-        username = self.kwargs.get('username')
+        username = self.kwargs.get("username")
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         context["profile"] = profile
@@ -30,6 +33,9 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
 class ProfileUpdateView(
     PageTitleViewMixin, LoginRequiredMixin, UserPassesTestMixin, UpdateView
 ):
+    """
+    Display profile update to allow users to update their profile information
+    """
     model = Profile
     title = "Update Profile"
     form_class = ProfileForm
@@ -54,6 +60,9 @@ class ProfileUpdateView(
 class ProfileDeleteView(
     PageTitleViewMixin, LoginRequiredMixin, UserPassesTestMixin, DeleteView
 ):
+    """
+    Display profile delete to allow users to delete their profile information
+    """
     model = Profile
     title = "Profile"
     success_url = reverse_lazy("home")
