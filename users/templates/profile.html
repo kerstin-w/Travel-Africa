@@ -2,50 +2,84 @@
 {% load static %}
 {% block content %}
 <main>
-    <div class="container">
-        <div class="row align-items-center vertical-center box-shadow">
-            <div class="col-md-6 d-flex justify-content-center">
-                {% if "placeholder" in profile.image.url %}
-                <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
-                    class="profile-img" alt="Profile Image Placeholder">
-                {% else %}
-                <img src="{{ profile.image.url }}" class="profile-img" alt="Profile Image">
-                {% endif %}
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <div class="col-md-7">
-                        <h2 class="heading-profile heading-underline">User Profile</h2>
-                    </div>
-                    {% if request.user == profile.user or user.is_superuser %}
-                    <div class="col-md-5">
-                        <a href="{% url 'users:profile_update' pk=profile.pk %}"><i
-                                class="fa-solid fa-pen icon"></i></a>
-                        <a data-bs-toggle="modal" href="#deleteProfileModal"><i class="fa-solid fa-trash icon"></i></a>
-                    </div>
-                    {% endif %}
-                </div>
-                <p>Name: {{ profile.user }}</p>
-                <p>Email: {{ profile.user.email }}</p>
-                {% if profile.description == None %}
-                <p>About you: <span><i>Write something about you</i></span></p>
-                {% else %}
-                <p>About you: {{ profile.description }}</p>
-                {% endif %}
+    <section id="profile">
 
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card box-shadow card-signup">
+                        <div class="row g-0">
+                            <div class="col-md-4 pb-4 text-center">
+                                {% if "placeholder" in profile.image.url %}
+                                <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
+                                    class="profile-img my-5" alt="Profile Image Placeholder">
+                                {% else %}
+                                <img src="{{ profile.image.url }}" class="profile-img my-5" alt="Profile Image">
+                                {% endif %}
+                                <h5>{{ profile.user }}</h5>
+                                {% if request.user == profile.user or user.is_superuser %}
+                                <a href="{% url 'users:profile_update' pk=profile.pk %}"><i
+                                        class="fa-solid fa-pen icon"></i></a>
+                                <a data-bs-toggle="modal" href="#deleteProfileModal"><i
+                                        class="fa-solid fa-trash icon"></i></a>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body p-4 mt-3">
+                                    <h6>Information</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        <div class="col-6 mb-3">
+                                            <h6>About</h6>
+                                            {% if profile.description == None %}
+                                            <p class="text-muted">About you: <span><i>{{ profile.user }} has not shared
+                                                        a
+                                                        description with us, yet.</i></span></p>
+                                            {% else %}
+                                            <p class="text-muted">{{ profile.description }}</p>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <h6>Member since</h6>
+                                            <p class="text-muted">{{ profile.created_on }}</p>
+                                        </div>
+                                    </div>
+                                    <h6>Posts</h6>
+                                    <hr class="mt-0 mb-4">
+                                    <div class="row pt-1">
+                                        {% if posts %}
+                                        {% for post in posts %}
+                                        <div class="col-md-6 d-flex justify-content-around">
+                                            <div class="card post-card" style="width: 18rem;">
+                                                {% if "placeholder" in post.featured_image.url %}
+                                                <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
+                                                    class="card-img-top" alt="{ post.title }}" />
+                                                {% else %}
+                                                <img src="{{ post.featured_image.url }}" class="card-img-top"
+                                                    alt="{{ post.title }}" />
+                                                {% endif %}
+                                                <div class="card-body">
+                                                    <h5 class="card-title">{{ post.title|title}}</h5>
+                                                    <p class="card-title">{{ post.content|striptags|truncatechars:200 }}
+                                                    </p>
+                                                    <a href="{{ post.get_absolute_url }}" class="btn btn-read">Read
+                                                        More</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        {% else %}
+                                        <p>No posts yet.</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    {% if posts %}
-    <h2>Posts</h2>
-    <ul>
-        {% for post in posts %}
-        <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No posts yet.</p>
-    {% endif %}
+    </section>
 </main>
 <!-- Delete Profile Modal -->
 {% if user.is_authenticated %}
