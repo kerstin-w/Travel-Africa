@@ -446,6 +446,11 @@ hr {
     background-color: var(--white-color);
 }
 
+.comment {
+    border-color: var(--orange-color);
+    background-color: #fbe4a187;
+}
+
 /*=============== Media Queries ===============*/
 @media only screen and (max-width: 1000px) {
     .search-box {

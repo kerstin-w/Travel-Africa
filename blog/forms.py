@@ -55,16 +55,17 @@ class PostForm(ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(CommentForm, self).__init__(*args, **kwargs)
+        self.fields["body"].label = False
+        self.fields["body"].widget.attrs.update(
+            {
+                "class": "input-comment, form-control",
+                "placeholder": "Add your comment (maximum of 255 characters)",
+                "rows": 3,
+            }
+        )
+
     class Meta:
         model = Comment
-        fields = ("body",)
-        widgets = {
-            "body": forms.Textarea(
-                attrs={
-                    "class": "form-control register",
-                    "label": "Comment",
-                    "rows": 3,
-                    "placeholder": "Add your comment(maximum of 255 characters).",
-                }
-            ),
-        }
+        fields = ["body"]
