@@ -1,7 +1,7 @@
 from django.forms import ModelForm, CheckboxInput
 from django import forms
 from django_summernote.widgets import SummernoteWidget
-from .models import Post
+from .models import Post, Comment
 from django.core.exceptions import ValidationError
 
 
@@ -52,3 +52,18 @@ class PostForm(ModelForm):
             title = cleaned_data.get("title")
             if Post.objects.filter(title=title).exists():
                 raise ValidationError("A post with this title already exists.")
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ("body",)
+        widgets = {
+            "body": forms.Textarea(
+                attrs={
+                    "class": "form-control register",
+                    "rows": 3,
+                    "placeholder": "Add your comment(maximum of 255 characters).",
+                }
+            ),
+        }
