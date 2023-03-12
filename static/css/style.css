@@ -378,21 +378,6 @@ hr {
     transform: rotate(45deg);
 }
 
-.btn-save {
-    padding: 5px 10px;
-    border-radius: 50px;
-    background-color: var(--orange-color);
-    text-transform: uppercase;
-    letter-spacing: 1.6px;
-    border: 1px solid var(--blue-color);
-    color: var(--white-color);
-}
-
-.btn-save:hover {
-    background-color: var(--white-color);
-    color: var(--blue-color);
-}
-
 .icon-save {
     padding-right: 5px;
 }
@@ -433,12 +418,14 @@ hr {
         0px 56px 80px rgba(0, 0, 0, 0.07);
 }
 
-.btn-read {
+.btn-read,
+.btn-save {
     background-color: var(--orange-color);
     color: var(--white-color);
 }
 
-.btn-read:hover {
+.btn-read,
+.btn-save:hover {
     background-color: #dd7342;
     color: var(--white-color);
 }
@@ -460,6 +447,12 @@ hr {
 }
 
 /*=============== Media Queries ===============*/
+@media only screen and (max-width: 1000px) {
+    .search-box {
+        width: 40% !important
+    }
+}
+
 @media only screen and (max-width: 930px) {
     .search-box {
         width: 30% !important
