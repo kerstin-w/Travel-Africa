@@ -491,4 +491,9 @@ hr {
     .img-fluid {
         max-width: 60%;
     }
+
+    .search-box {
+        width: auto !important;
+        padding-top: .2em;
+    }
 }
