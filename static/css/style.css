@@ -215,6 +215,9 @@ hr {
 }
 
 /*=============== Homepage ===============*/
+.no-search-results {
+    height: 80vh;
+}
 
 /*--------------- Hero section ---------------*/
 

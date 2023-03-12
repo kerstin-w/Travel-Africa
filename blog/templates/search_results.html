@@ -34,10 +34,21 @@
         </div>
         {% endfor %}
         {% else %}
-        <h2>We Are Sorry</h2>
-        <p>There is no search result on the website.</p>
-        <p>Please try searching again</p>
-        {% endif %}
+        <div class="container no-search-results">
+            <div class="row d-flex justify-content-center">
+                <div class="col col-xl-10">
+                    <div class="card box-shadow card-signup">
+                        <div class="row g-0">
+                            <div class="col-md-12 p-4 text-center">
+                                <h2 class="heading-underline">We Are Sorry!</h2>
+                                <p>There is no search result on the website.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 </main>
 
