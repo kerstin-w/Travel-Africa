@@ -447,6 +447,13 @@ hr {
 }
 
 /*=============== Media Queries ===============*/
+@media only screen and (max-width: 930px) {
+    .search-box {
+        width: 30% !important
+    }
+}
+
+
 @media only screen and (max-width: 767px) {
 
     .logo {
