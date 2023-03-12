@@ -11,6 +11,7 @@ from django.urls import reverse_lazy
 from django.utils.text import slugify
 from .models import Post
 from .forms import PostForm, CommentForm
+from users.models import Profile
 
 
 class PageTitleViewMixin:
@@ -100,6 +101,7 @@ class PostDetailView(DetailView):
         context["title"] = self.object.title.title()
         context["comment_form"] = CommentForm()
         context["comments"] = self.object.comments.filter(approved=True)
+        context["profile"] = Profile.objects.get(user=self.request.user)
         return context
 
     def post(self, request, *args, **kwargs):
@@ -107,7 +109,7 @@ class PostDetailView(DetailView):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = self.get_object()
-            comment.name = self.request.user
+            comment.profile = Profile.objects.get(user=self.request.user)
             comment.save()
             messages.success(
                 request,
