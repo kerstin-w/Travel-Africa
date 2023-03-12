@@ -109,6 +109,7 @@ class PostDetailView(DetailView):
         if form.is_valid():
             comment = form.save(commit=False)
             comment.post = self.get_object()
+            comment.name = self.request.user
             comment.profile = Profile.objects.get(user=self.request.user)
             comment.save()
             messages.success(
