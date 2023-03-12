@@ -424,7 +424,7 @@ hr {
     color: var(--white-color);
 }
 
-.btn-read,
+.btn-read:hover,
 .btn-save:hover {
     background-color: #dd7342;
     color: var(--white-color);
