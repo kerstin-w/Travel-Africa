@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 from django.urls import reverse
 from .fields import CaseInsensitiveCharField
+from users.models import Profile
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
@@ -69,6 +70,7 @@ class Comment(models.Model):
     body = models.TextField(max_length=255)
     created_on = models.DateTimeField(auto_now_add=True)
     approved = models.BooleanField(default=False)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True, blank=True, related_name='comments')
 
     class Meta:
         ordering = ["created_on"]
