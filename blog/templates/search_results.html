@@ -6,26 +6,25 @@
         {% if results %}
 
         {% for post in results %}
-        <div class="container py-4">
-            <div class="p-5 mb-4 rounded-3">
-                <div class="container-fluid py-3">
-                    <div class="p-5 mb-4 bg-light rounded-3">
-                        <div class="container-fluid py-3">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <h1 class="display-5 heading-underline">{{ post.title|title }}</h1>
-                                    <p class="col-md-8 fs-5">{{ post.content|striptags|truncatechars:200 }}</p>
-                                    <a href="{{ post.get_absolute_url }}" class="btn btn-read btn-lg">Read More</a>
-                                </div>
-                                <div class="col-md-5">
-                                    {% if "placeholder" in post.featured_image.url %}
-                                    <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
-                                        class="card-img-top" alt="{ post.title }}" />
-                                    {% else %}
-                                    <img src="{{ post.featured_image.url }}" class="card-img-top"
-                                        alt="{{ post.title }}" />
-                                    {% endif %}
-                                </div>
+        <div class="container search-results-container pt-5">
+            <div class="container-fluid py-5">
+                <div class="p-lg-4 p-md-2 bg-light rounded-3 search-result">
+
+                    <div class="container-fluid py-3">
+                        <div class="row">
+                            <div class="col-md-7 pb-2">
+                                <h1 class="display-5 heading-underline">{{ post.title|title }}</h1>
+                                <p class="col-md-8 fs-5">{{ post.content|striptags|truncatechars:200 }}</p>
+                                <a href="{{ post.get_absolute_url }}" class="btn btn-read btn-lg">Read More</a>
+                            </div>
+                            <div class="col-md-5">
+                                {% if "placeholder" in post.featured_image.url %}
+                                <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
+                                    class="card-img-top" alt="{ post.title }}" />
+                                {% else %}
+                                <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}" />
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -34,7 +33,7 @@
         </div>
         {% endfor %}
         {% else %}
-        <div class="container no-search-results">
+        <div class="container search-results-container">
             <div class="row d-flex justify-content-center">
                 <div class="col col-xl-10">
                     <div class="card box-shadow card-signup">
