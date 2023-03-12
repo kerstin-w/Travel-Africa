@@ -62,6 +62,7 @@ class CommentForm(forms.ModelForm):
             "body": forms.Textarea(
                 attrs={
                     "class": "form-control register",
+                    "label": "Comment",
                     "rows": 3,
                     "placeholder": "Add your comment(maximum of 255 characters).",
                 }
