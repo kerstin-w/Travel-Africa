@@ -101,7 +101,8 @@ class PostDetailView(DetailView):
         context["title"] = self.object.title.title()
         context["comment_form"] = CommentForm()
         context["comments"] = self.object.comments.filter(approved=True)
-        context["profile"] = Profile.objects.get(user=self.request.user)
+        if self.request.user.is_authenticated:
+            context["profile"] = Profile.objects.get(user=self.request.user)
         return context
 
     def post(self, request, *args, **kwargs):
