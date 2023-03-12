@@ -28,7 +28,7 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         context["profile"] = profile
-        posts = Post.objects.filter(author=user).order_by('-created_on')
+        posts = Post.objects.filter(author=user, status=1).order_by('-created_on')
         context['posts'] = posts
         return context
 
