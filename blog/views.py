@@ -42,6 +42,15 @@ class SuperuserFieldsMixin:
         return form
 
 
+class PostFormInvalidMessageMixin:
+    def form_invalid(self, form):
+        messages.error(
+            self.request,
+            "Your post could not be submitted. Please review your inputs!",
+        )
+        return self.render_to_response(self.get_context_data(form=form))
+
+
 class AboutView(PageTitleViewMixin, TemplateView):
     """
     Render About Page
@@ -98,6 +107,7 @@ class PostCreateView(
     SuperuserFieldsMixin,
     UserPassesTestMixin,
     SuccessMessageMixin,
+    PostFormInvalidMessageMixin,
     CreateView,
 ):
     """
@@ -127,16 +137,13 @@ class PostCreateView(
         form.instance.slug = slugify(form.instance.title)
         return super().form_valid(form)
 
-    def form_invalid(self, form):
-        messages.error(self.request, "Form submission is not valid!")
-        return self.render_to_response(self.get_context_data(form=form))
-
 
 class PostUpdateView(
     PageTitleViewMixin,
     SuperuserFieldsMixin,
     UserPassesTestMixin,
     SuccessMessageMixin,
+    PostFormInvalidMessageMixin,
     UpdateView,
 ):
     """

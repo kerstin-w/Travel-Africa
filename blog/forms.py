@@ -2,6 +2,7 @@ from django.forms import ModelForm, CheckboxInput
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 from .models import Post
+from django.core.exceptions import ValidationError
 
 
 class PostForm(ModelForm):
@@ -45,3 +46,9 @@ class PostForm(ModelForm):
                 }
             ),
         }
+
+        def clean(self):
+            cleaned_data = super().clean()
+            title = cleaned_data.get("title")
+            if Post.objects.filter(title=title).exists():
+                raise ValidationError("A post with this title already exists.")
