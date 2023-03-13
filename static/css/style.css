@@ -173,6 +173,26 @@ hr {
     text-decoration-color: var(--orange-color);
 }
 
+.nav-item hr {
+    max-width: 100%;
+    border-width: 0 0 4px;
+    margin: .2rem
+}
+
+.dropdown-item {
+    color: var(--blue-color);
+}
+
+.dropdown-item:hover,
+.dropdown-item:active {
+    background-color: var(--white-color);
+    color: var(--dark-blue-color);
+}
+
+.dropdown-menu {
+    background-color: var(--white-color);
+}
+
 .profile-img-small {
     max-width: 40px !important;
 }
@@ -197,7 +217,7 @@ hr {
     padding: 15px 40px;
 }
 
-.footer-text. {
+.footer-text {
     font-size: large;
 }
 
