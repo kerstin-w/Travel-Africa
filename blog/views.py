@@ -65,11 +65,6 @@ class HomeListView(PageTitleViewMixin, generic.ListView):
     )
     template_name = "index.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["categories"] = Category.objects.all()
-        return context
-
 
 class AboutView(PageTitleViewMixin, TemplateView):
     """
@@ -120,11 +115,6 @@ class PostCategoryListView(PageTitleViewMixin, ListView):
             )
         )
         return queryset
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["category"] = self.category
-        return context
 
 
 class PostDetailView(DetailView):
