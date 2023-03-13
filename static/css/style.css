@@ -27,14 +27,14 @@
 }
 
 html {
-    height: 100%;
+    height: fit-content;
     scroll-behavior: smooth;
 }
 
 body {
     overflow-x: hidden;
-    background-color: var(--yellow-color);
     color: var(--blue-color);
+    background-image: linear-gradient(to top, #fbe4a1, #fed79b, #ffcb97, #febf95, #fcb395);
 }
 
 main {
