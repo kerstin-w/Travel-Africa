@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count,Q
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.text import slugify
