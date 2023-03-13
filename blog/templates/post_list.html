@@ -18,7 +18,7 @@
                             <p class="card-title">{{ post.content|striptags|truncatechars:200 }}</p>
                             <a href="{{ post.get_absolute_url }}" class="btn btn-read">Read More</a>
                             <span class="pt-3"><i class="fa-solid fa-clock"></i> {{ post.created_on | timesince }} | <i
-                                    class="fa-solid fa-comments"> </i></span>
+                                    class="fa-solid fa-comments"> {{ post.num_comments }}</i></span>
                         </div>
                     </div>
                 </div>

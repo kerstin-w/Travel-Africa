@@ -1,22 +1,23 @@
-from django.shortcuts import render, reverse, get_object_or_404, redirect
-from django.views import generic
-from django.contrib.auth.models import User
-from django.urls import reverse, reverse_lazy
 from django.contrib import messages
-from django.views.generic import TemplateView
-from django.views.generic.edit import UpdateView, DeleteView
+from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db import models
+from django.db.models import Count
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, TemplateView, UpdateView
 
-from .models import Profile
-from .forms import ProfileForm
-from blog.views import PageTitleViewMixin
 from blog.models import Post
+from blog.views import PageTitleViewMixin
+from users.forms import ProfileForm
+from users.models import Profile
 
 
 class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
     """
-    Display profile information 
+    Display profile information
     """
+
     model = Profile
     title = "Profile"
     template_name = "profile.html"
@@ -28,8 +29,16 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
         context["profile"] = profile
-        posts = Post.objects.filter(author=user, status=1).order_by('-created_on')
-        context['posts'] = posts
+        posts = (
+            Post.objects.filter(author=user, status=1)
+            .annotate(
+                num_comments=Count(
+                    "comments", filter=models.Q(comments__approved=True)
+                )
+            )
+            .order_by("-created_on")
+        )
+        context["posts"] = posts
         return context
 
 
@@ -39,6 +48,7 @@ class ProfileUpdateView(
     """
     Display profile update to allow users to update their profile information
     """
+
     model = Profile
     title = "Update Profile"
     form_class = ProfileForm
@@ -66,6 +76,7 @@ class ProfileDeleteView(
     """
     Display profile delete to allow users to delete their profile information
     """
+
     model = Profile
     title = "Profile"
     success_url = reverse_lazy("home")

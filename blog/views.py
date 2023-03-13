@@ -1,16 +1,18 @@
 from django.contrib import messages
-from django.views import generic
-from django.shortcuts import redirect
-from django.views.generic import TemplateView, DetailView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.views.generic.list import ListView
-from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Q
+from django.db import models
+from django.db.models import Count
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.text import slugify
+from django.views import generic
+from django.views.generic import DetailView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.list import ListView
+
+from .forms import CommentForm, PostForm
 from .models import Post
-from .forms import PostForm, CommentForm
 from users.models import Profile
 
 
@@ -68,7 +70,11 @@ class PostListView(ListView):
 
     model = Post
     title = "Posts"
-    queryset = Post.objects.filter(status=1)
+    queryset = Post.objects.filter(status=1).annotate(
+        num_comments=Count(
+            "comments", filter=models.Q(comments__approved=True)
+        )
+    )
     template_name = "post_list.html"
     context_object_name = "posts"
     paginate_by = 6
