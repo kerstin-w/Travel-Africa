@@ -450,6 +450,7 @@ hr {
     -webkit-box-shadow: 0px 0px 10px 1px rgba(93, 93, 93, 0.64);
     box-shadow: 0px 0px 10px 1px rgba(93, 93, 93, 0.64);
     border-color: var(--blue-color);
+    background-image: linear-gradient(to bottom, #fbe4a1, #fde5af, #fde7bc, #fce9ca, #faebd7);
 }
 
 .post-detail-list {
@@ -460,6 +461,23 @@ hr {
 .comment {
     border-color: var(--orange-color);
     background-color: #fbe4a187;
+}
+
+.post-detail-card .img-fluid {
+    border-top-left-radius: .375rem;
+    border-top-right-radius: .375rem;
+}
+
+.table-post-card td {
+    padding: .5rem .8rem;
+}
+
+.post-detail-card .icon {
+    margin: .8rem;
+}
+
+tr td:first-child {
+    width: 30%;
 }
 
 /*=============== Media Queries ===============*/
