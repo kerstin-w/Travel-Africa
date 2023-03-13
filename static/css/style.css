@@ -403,6 +403,12 @@ hr {
     background-color: var(--white-color);
 }
 
+.post-card .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .btn-read,
 .btn-save {
     background-color: var(--orange-color);

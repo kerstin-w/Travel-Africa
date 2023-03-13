@@ -64,6 +64,9 @@
                                                     </p>
                                                     <a href="{{ post.get_absolute_url }}" class="btn btn-read">Read
                                                         More</a>
+                                                    <span class="pt-3"><i class="fa-solid fa-clock"></i>
+                                                        {{ post.created_on | timesince }} | <i
+                                                            class="fa-solid fa-comments"></i></span>
                                                 </div>
                                             </div>
                                         </div>
