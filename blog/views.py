@@ -91,6 +91,7 @@ class PostListView(PageTitleViewMixin, ListView):
     template_name = "post_list.html"
     context_object_name = "posts"
     paginate_by = 8
+    ordering = ['-created_on']
 
 
 class PostCategoryListView(PageTitleViewMixin, ListView):
@@ -104,6 +105,7 @@ class PostCategoryListView(PageTitleViewMixin, ListView):
     template_name = "post_list.html"
     context_object_name = "posts"
     paginate_by = 8
+    ordering = ['-created_on']
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs["slug"])
