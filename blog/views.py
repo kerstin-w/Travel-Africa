@@ -50,7 +50,25 @@ class PostFormInvalidMessageMixin:
             self.request,
             "Your post could not be submitted. Please review your inputs!",
         )
-        return self.render_to_response(self.get_context_data(form=form))
+        return super().form_invalid(form)
+
+
+class HomeListView(PageTitleViewMixin, generic.ListView):
+    """
+    Render featured posts on home page
+    """
+
+    model = Post
+    title = "Home"
+    queryset = Post.objects.filter(featured=True, status=1).order_by(
+        "-created_on"
+    )
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+        return context
 
 
 class AboutView(PageTitleViewMixin, TemplateView):
@@ -62,7 +80,7 @@ class AboutView(PageTitleViewMixin, TemplateView):
     template_name = "about.html"
 
 
-class PostListView(ListView):
+class PostListView(PageTitleViewMixin, ListView):
     """
     Render Post List Page and only displays
     approved posts
@@ -80,7 +98,7 @@ class PostListView(ListView):
     paginate_by = 8
 
 
-class PostCategoryListView(ListView):
+class PostCategoryListView(PageTitleViewMixin, ListView):
     """
     Render Post List Page and only displays
     approved posts filtered by category
@@ -93,8 +111,10 @@ class PostCategoryListView(ListView):
     paginate_by = 8
 
     def get_queryset(self):
-        self.category = get_object_or_404(Category, slug=self.kwargs['slug'])
-        queryset = Post.objects.filter(status=1, regions=self.category).annotate(
+        self.category = get_object_or_404(Category, slug=self.kwargs["slug"])
+        queryset = Post.objects.filter(
+            status=1, regions=self.category
+        ).annotate(
             num_comments=Count(
                 "comments", filter=models.Q(comments__approved=True)
             )
@@ -103,22 +123,8 @@ class PostCategoryListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['category'] = self.category
+        context["category"] = self.category
         return context
-
-
-class PostFeaturedList(PageTitleViewMixin, generic.ListView):
-    """
-    Render featured posts on home page
-    """
-
-    model = Post
-    title = "Home"
-    queryset = Post.objects.filter(featured=True, status=1).order_by(
-        "-created_on"
-    )
-    template_name = "index.html"
-
 
 
 class PostDetailView(DetailView):
