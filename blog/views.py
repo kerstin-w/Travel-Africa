@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import models
-from django.db.models import Count,Q
-from django.shortcuts import redirect
+from django.db.models import Count, Q
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
@@ -12,7 +12,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from .forms import CommentForm, PostForm
-from .models import Post
+from .models import Post, Category
 from users.models import Profile
 
 
@@ -80,6 +80,33 @@ class PostListView(ListView):
     paginate_by = 8
 
 
+class PostCategoryListView(ListView):
+    """
+    Render Post List Page and only displays
+    approved posts filtered by category
+    """
+
+    model = Post
+    title = "Posts"
+    template_name = "post_list.html"
+    context_object_name = "posts"
+    paginate_by = 8
+
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, slug=self.kwargs['slug'])
+        queryset = Post.objects.filter(status=1, regions=self.category).annotate(
+            num_comments=Count(
+                "comments", filter=models.Q(comments__approved=True)
+            )
+        )
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['category'] = self.category
+        return context
+
+
 class PostFeaturedList(PageTitleViewMixin, generic.ListView):
     """
     Render featured posts on home page
@@ -91,6 +118,7 @@ class PostFeaturedList(PageTitleViewMixin, generic.ListView):
         "-created_on"
     )
     template_name = "index.html"
+
 
 
 class PostDetailView(DetailView):
