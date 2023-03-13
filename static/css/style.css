@@ -226,7 +226,7 @@ hr {
 
 /*=============== Homepage ===============*/
 .search-results-container {
-    height: 80vh;
+    min-height: 80vh;
 }
 
 /*--------------- Hero section ---------------*/
