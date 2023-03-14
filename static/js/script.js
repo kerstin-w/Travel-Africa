@@ -17,3 +17,29 @@ setTimeout(function () {
     let alert = new bootstrap.Alert(messages);
     alert.close();
 }, 2000);
+
+//Toogle Heart Icon for Likes
+$(document).ready(function () {
+
+    $('.like-button').click(function (event) {
+        event.preventDefault();
+        let button = $(this);
+        let postSlug = button.data('post-slug');
+        $.ajax({
+            url: '/post/' + postSlug + '/like/',
+            type: 'POST',
+            data: {
+                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.liked) {
+                    button.text('Unlike');
+                } else {
+                    button.text('Like');
+                }
+                $('#likes-count').text(data.count + ' likes');
+            }
+        });
+    });
+});

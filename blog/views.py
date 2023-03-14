@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import models
 from django.db.models import Count, Q
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
@@ -275,10 +276,17 @@ class PostLikeView(View):
     Allow all users to like a post
     """
     def post(self, request, *args, **kwargs):
-        post = get_object_or_404(Post, id=self.kwargs['pk'])
+        post = get_object_or_404(Post, slug=self.kwargs['slug'])
         user = self.request.user
+        liked = False
+        count = post.likes.count()
         if user in post.likes.all():
             post.likes.remove(user)
         else:
             post.likes.add(user)
-        return redirect(post.get_absolute_url())
+            liked = True
+        response = {
+            'liked': liked,
+            'count': count
+        }
+        return JsonResponse(response)
