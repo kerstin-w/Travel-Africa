@@ -1,5 +1,5 @@
+// Navbar on scroll
 const $navbar = $("#navbar");
-
 $(window).on("scroll", function () {
     if ($(window).scrollTop() > 0) {
         $navbar.addClass("navbar-after-scroll");
@@ -16,24 +16,28 @@ setTimeout(function () {
     $('#msg').alert('close');
 }, 4000);
 
-//Toogle Heart Icon for Likes
+//Toggle Heart Icon for Likes
 $(document).ready(function () {
+    const likeButton = $('.like-button');
+    const likesCount = $('#likes-count');
+    let count = parseInt(likesCount.text());
     let liked = localStorage.getItem('liked');
+
     if (liked) {
-        $('.like-button').find('.fa-regular').removeClass('fa-regular').addClass('fa-solid');
+        likeButton.find('.fa-regular').removeClass('fa-regular').addClass('fa-solid');
     }
 
-    let count = parseInt($('#likes-count').text());
-
-    $('.like-button').click(function (event) {
+    likeButton.click(function (event) {
         event.preventDefault();
-        let button = $(this);
-        let postSlug = button.data('post-slug');
+        const button = $(this);
+        const postSlug = button.data('post-slug');
+        const token = $('input[name="csrfmiddlewaretoken"]').val();
+
         $.ajax({
-            url: '/post/' + postSlug + '/like/',
+            url: `/post/${postSlug}/like/`,
             type: 'POST',
             data: {
-                csrfmiddlewaretoken: $('input[name="csrfmiddlewaretoken"]').val()
+                csrfmiddlewaretoken: token
             },
             dataType: 'json',
             success: function (data) {
@@ -46,7 +50,7 @@ $(document).ready(function () {
                     count--;
                     localStorage.removeItem('liked');
                 }
-                $('#likes-count').text(count);
+                likesCount.text(count);
             }
         });
     });
