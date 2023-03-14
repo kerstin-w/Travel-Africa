@@ -7,7 +7,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView, TemplateView, View
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
@@ -269,3 +269,16 @@ class PostSearchResultsView(PageTitleViewMixin, ListView):
             Q(title__icontains=search) | Q(country__icontains=search)
         )
         return results
+
+class PostLikeView(View):
+    """
+    Allow all users to like a post
+    """
+    def post(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, id=self.kwargs['pk'])
+        user = self.request.user
+        if user in post.likes.all():
+            post.likes.remove(user)
+        else:
+            post.likes.add(user)
+        return redirect(post.get_absolute_url())
