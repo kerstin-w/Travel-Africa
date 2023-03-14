@@ -18,6 +18,12 @@ setTimeout(function () {
 
 //Toogle Heart Icon for Likes
 $(document).ready(function () {
+    let liked = localStorage.getItem('liked');
+    if (liked) {
+        $('.like-button').find('.fa-regular').removeClass('fa-regular').addClass('fa-solid');
+    }
+
+    let count = parseInt($('#likes-count').text());
 
     $('.like-button').click(function (event) {
         event.preventDefault();
@@ -32,11 +38,15 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (data) {
                 if (data.liked) {
-                    button.text('Unlike');
+                    button.find('.fa-regular').removeClass('fa-regular').addClass('fa-solid');
+                    count++;
+                    localStorage.setItem('liked', true);
                 } else {
-                    button.text('Like');
+                    button.find('.fa-solid').removeClass('fa-solid').addClass('fa-regular');
+                    count--;
+                    localStorage.removeItem('liked');
                 }
-                $('#likes-count').text(data.count + ' likes');
+                $('#likes-count').text(count);
             }
         });
     });

@@ -59,17 +59,27 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            {% if user.is_authenticated %} {% csrf_token %}
-                                            <button class="like-button" data-post-slug="{{ post.slug }}">
-                                                {% if request.user in post.likes.all %}Unlike{% else %}Like{% endif %}
+                                            {% if user.is_authenticated %} {% if user not in post.likes.all %}
+                                            {% csrf_token %}
+                                            <button class="btn btn-read like-button d-flex flex-row align-items-center"
+                                                data-post-slug="{{ post.slug }}">
+                                                <i class="fa-regular fa-heart"></i>
+                                                <p id="likes-count">{{ post.number_of_likes }}</p>
                                             </button>
-                                            <p id="likes-count">{{ post.number_of_likes }} likes</p>
                                             {% else %}
+                                            <button class="btn btn-read like-button d-flex flex-row align-items-center"
+                                                data-post-slug="{{ post.slug }}">
+                                                <i class="fa-solid fa-heart"></i>
+                                                <p id="likes-count">{{ post.number_of_likes }}</p>
+                                            </button>
+                                            {% endif %} {% else %}
+                                            <button class="btn btn-read like-button d-flex flex-row align-items-center"
+                                                disabled>
+                                                <i class="fa-solid fa-heart"></i>
+                                                <p id="likes-count">{{ post.number_of_likes }}</p>
+                                            </button>
+                                            {% endif %}
                                         </td>
-                                        <td>
-                                            <p id="likes-count">{{ post.number_of_likes }} likes</p>
-                                        </td>
-                                        {% endif %}
                                     </tr>
                                 </tbody>
                             </table>
