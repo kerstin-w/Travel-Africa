@@ -2,6 +2,10 @@ from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
 from blog.models import Post, Category, Comment
 from users.models import Profile
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
+from django.conf import settings
 
 
 @admin.register(Post)
@@ -58,3 +62,16 @@ class CommentAdmin(admin.ModelAdmin):
 
     def approve_comments(self, request, queryset):
         queryset.update(approved=True)
+        for comment in queryset:
+            if comment.approved:
+                print(comment.post.author.username)
+                post_author_email = comment.post.author.email
+                subject = 'A new comment on your Post!'
+                message = render_to_string('comment_notification_email.html')
+                send_mail(
+                    subject,
+                    message,
+                    settings.EMAIL_HOST_USER,
+                    [post_author_email],
+                    fail_silently=False,
+                )
