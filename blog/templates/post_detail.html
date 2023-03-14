@@ -16,17 +16,16 @@
                             {% else %}
                             <img src="{{ post.featured_image.url }}" class="img-fluid" alt="{{ post.title }}" />
                             {% endif %}
-
                             <table class="table-post-card">
                                 <tbody>
                                     <tr>
-                                        <td><span class="heading-underline">Country:
-                                            </span></td>
+                                        <td><span class="heading-underline">Country: </span></td>
                                         <td>{{ post.country|capfirst }}</td>
                                     </tr>
                                     <tr>
                                         <td><span class="heading-underline">Author:</span></td>
-                                        <td>{{ post.author|capfirst }} {% if user.is_authenticated %}
+                                        <td>
+                                            {{ post.author|capfirst }} {% if user.is_authenticated %}
                                             <a href="{% url 'users:profile_home' username=post.author.username %}">
                                                 {% if "placeholder" in post.author.profile.image.url %}
                                                 <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
@@ -43,21 +42,24 @@
                                             {% else %}
                                             <img src="{{ post.author.profile.image.url }}"
                                                 class="profile-img profile-img-small" alt="{{ post.author }}" />
-                                            {% endif %} {% endif %}</td>
+                                            {% endif %} {% endif %}
+                                        </td>
                                     </tr>
-                                    <tr>{% for region in post.regions.all %}
+                                    <tr>
+                                        {% for region in post.regions.all %}
                                         <td>
-                                            <span class="heading-underline">Region:</span></td>
+                                            <span class="heading-underline">Region:</span>
+                                        </td>
                                         <td>{{ region }}</td>
                                         {% endfor %}
                                     </tr>
                                     <tr>
                                         <td><i>Create on:</i></td>
-                                        <td><i>{{ post.created_on|date:"M d, Y"  }}</i></td>
+                                        <td><i>{{ post.created_on|date:"M d, Y" }}</i></td>
                                     </tr>
                                     <tr>
-                                        <td>{% if user.is_authenticated %}
-                                            {% csrf_token %}
+                                        <td>
+                                            {% if user.is_authenticated %} {% csrf_token %}
                                             <button class="like-button" data-post-slug="{{ post.slug }}">
                                                 {% if request.user in post.likes.all %}Unlike{% else %}Like{% endif %}
                                             </button>
@@ -93,8 +95,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-12 ps-sm-4 mt-3">
                             <h3 class="heading-underline mb-4">Comments:</h3>
-                            {% if comments %}
-                            {% for comment in comments %}
+                            {% if comments %} {% for comment in comments %}
                             <div class="card p-3 mb-4 comment light-shadow">
                                 <div class="user-comment d-flex flex-row align-items-center">
                                     {% if user.is_authenticated %}
@@ -108,15 +109,13 @@
                                             class="profile-img profile-img-small me-2" />
                                         {% endif %}
                                     </a>
-                                    {% else %}
-                                    {% if "placeholder" in comment.profile.user.profile.image.url %}
+                                    {% else %} {% if "placeholder" in comment.profile.user.profile.image.url %}
                                     <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
                                         class="profile-img profile-img-small me-2" alt="Profile Image Placeholder" />
                                     {% else %}
                                     <img src="{{ comment.profile.user.profile.image.url }}" alt="{{ comment.name }}"
                                         class="profile-img profile-img-small me-2" />
-                                    {% endif %}
-                                    {% endif %}
+                                    {% endif %} {% endif %}
 
                                     <p class="text-muted">{{ comment.name|title }} wrote:</p>
                                 </div>
@@ -126,8 +125,7 @@
                             </div>
                             {% empty %}
                             <p>No comments yet.</p>
-                            {% endfor %}
-                            {% else %}
+                            {% endfor %} {% else %}
                             <p>No comments yet.</p>
                             {% endif %}
                         </div>
