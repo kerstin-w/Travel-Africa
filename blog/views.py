@@ -33,9 +33,9 @@ class PageTitleViewMixin:
         return context
 
 
-class SuperuserFieldsMixin:
+class SuperuserFormFieldsMixin:
     """
-    Allowes only the Admin to set the Post to featured
+    Allowes only the Admin to access certain form elements eg: Featured post
     """
 
     def get_form(self, form_class=None):
@@ -168,7 +168,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(
     PageTitleViewMixin,
-    SuperuserFieldsMixin,
+    SuperuserFormFieldsMixin,
     UserPassesTestMixin,
     SuccessMessageMixin,
     PostFormInvalidMessageMixin,
@@ -204,7 +204,7 @@ class PostCreateView(
 
 class PostUpdateView(
     PageTitleViewMixin,
-    SuperuserFieldsMixin,
+    SuperuserFormFieldsMixin,
     UserPassesTestMixin,
     SuccessMessageMixin,
     PostFormInvalidMessageMixin,
@@ -238,7 +238,7 @@ class PostUpdateView(
 
 class PostDeleteView(
     PageTitleViewMixin,
-    SuperuserFieldsMixin,
+    SuperuserFormFieldsMixin,
     LoginRequiredMixin,
     UserPassesTestMixin,
     SuccessMessageMixin,
