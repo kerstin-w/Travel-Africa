@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ post.title }}</h1>
-<p>{{ post.content }}</p>
-<form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}">
-    {% csrf_token %}
-    <button type="submit">Add to bucket list</button>
-</form>
+<h1>My Bucket List</h1>
+<ul>
+    {% for post in bucketlist.post.all %}
+    <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+    {% empty %}
+    <li>No posts in your bucket list yet.</li>
+    {% endfor %}
+</ul>
 {% endblock %}

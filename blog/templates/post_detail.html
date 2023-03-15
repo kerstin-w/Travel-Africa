@@ -78,11 +78,26 @@
                                                 <p id="likes-count">{{ post.number_of_likes }}</p>
                                             </button>
                                             {% endif %}
+                                        </td>
+                                        <td>
                                             {% if user.is_authenticated %}
-                                            <form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}">
+                                            {% if user.is_authenticated %}
+                                            {% if in_bucket_list %}
+                                            <form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}"
+                                                id="add-to-bucketlist-form">
                                                 {% csrf_token %}
-                                                <button type="submit">Add to bucket list</button>
+                                                <button type="submit" id="add-to-bucketlist-button"><i
+                                                        class="fa-solid fa-bookmark"></i></button>
                                             </form>
+                                            {% else %}
+                                            <form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}"
+                                                id="add-to-bucketlist-form">
+                                                {% csrf_token %}
+                                                <button type="submit" id="add-to-bucketlist-button"><i
+                                                        class="fa-regular fa-bookmark"></i></button>
+                                            </form>
+                                            {% endif %}
+                                            {% endif %}
                                             {% endif %}
                                         </td>
                                     </tr>

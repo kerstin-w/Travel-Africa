@@ -140,6 +140,8 @@ class PostDetailView(DetailView):
         context["comments"] = self.object.comments.filter(approved=True)
         if self.request.user.is_authenticated:
             context["profile"] = Profile.objects.get(user=self.request.user)
+            if self.request.user.bucketlist.post.filter(id=self.object.id).exists():
+                context["in_bucket_list"] = True
             context["liked"] = self.object.likes.filter(
                 id=self.request.user.id
             ).exists()
@@ -314,9 +316,7 @@ class AddToBucketListView(LoginRequiredMixin, RedirectView):
         post = get_object_or_404(Post, slug=self.kwargs['slug'])
         bucketlist, created = BucketList.objects.get_or_create(user=request.user)
         bucketlist.post.add(post)
-        messages.success(request, f"{post.title} has been added to your bucket list.")
-        context = {'post': post}
-        return render(request, 'post_detail.html', context)
+        return JsonResponse({'success': True})
 
 
 class BucketListView(LoginRequiredMixin, TemplateView):
@@ -325,10 +325,13 @@ class BucketListView(LoginRequiredMixin, TemplateView):
     """
     model = BucketList
     template_name = 'bucket_list.html'
+    context_object_name = 'bucketlist'
+
+    def get_queryset(self):
+        return BucketList.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        bucketlist, created = BucketList.objects.get_or_create(user=self.request.user)
-        context['bucketlist'] = bucketlist
+        context['bucketlist'] = self.get_queryset().first()
         return context
 
