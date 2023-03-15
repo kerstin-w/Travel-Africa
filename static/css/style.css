@@ -450,6 +450,10 @@ hr {
     margin-right: 1em;
 }
 
+.card-img-top {
+    max-height: 15rem;
+}
+
 /*=============== Post Detail ===============*/
 .post-detail-card {
     -webkit-box-shadow: 0px 0px 10px 1px rgba(93, 93, 93, 0.64);
@@ -518,14 +522,6 @@ tr td:first-child {
 
     .navbar-toggler {
         margin: 5px 0 5px 0;
-    }
-
-    .content .img-fluid {
-        max-width: 100%;
-    }
-
-    .img-fluid {
-        max-width: 60%;
     }
 
     .search-box {
