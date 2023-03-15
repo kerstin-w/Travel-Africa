@@ -78,10 +78,6 @@
                                                 <p id="likes-count">{{ post.number_of_likes }}</p>
                                             </button>
                                             {% endif %}
-                                            {% if user.is_authenticated %}
-                                            <a href="{% url 'add_to_bucket_list' post_id=post.id %}">Add to bucket
-                                                list</a>
-                                            {% endif %}
                                         </td>
                                     </tr>
                                 </tbody>

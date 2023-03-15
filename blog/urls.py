@@ -13,4 +13,5 @@ urlpatterns = [
     path('post/<slug:slug>/like/', views.PostLikeView.as_view(), name='post_like'),
     path('<slug:slug>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
     path('post/<slug:slug>/', views.PostDetailView.as_view(), name="post_detail"),
+    path('post/<slug:slug>/add-to-bucketlist/', views.AddToBucketListView.as_view(), name='add_to_bucketlist'),
 ]

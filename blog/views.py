@@ -4,16 +4,16 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db import models
 from django.db.models import Count, Q
 from django.http import JsonResponse
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
-from django.views.generic import DetailView, TemplateView, View
+from django.views.generic import DetailView, TemplateView, View, RedirectView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from .forms import CommentForm, PostForm
-from .models import Post, Category
+from .models import Post, Category, BucketList
 from users.models import Profile
 
 
@@ -305,3 +305,16 @@ class PostLikeView(View):
             "count": count,
         }
         return JsonResponse(response)
+
+class AddToBucketListView(LoginRequiredMixin, RedirectView):
+    """
+    Allow registered users to add items to bucket list
+    """
+    def post(self, request, *args, **kwargs):
+        post = get_object_or_404(Post, slug=self.kwargs['slug'])
+        bucketlist, created = BucketList.objects.get_or_create(user=request.user)
+        bucketlist.post.add(post)
+        messages.success(request, f"{post.title} has been added to your bucket list.")
+        context = {'post': post}
+        return render(request, 'post_detail.html', context)
+
