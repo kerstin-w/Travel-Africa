@@ -77,3 +77,16 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment {self.body} by {self.name}"
+
+class BucketList(models.Model):
+    """
+    Model saved in bucket list
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    post = models.ManyToManyField(
+        Post, related_name='bucketlist_post', blank=True)
+    slug = models.SlugField(max_length=100, unique=True, null=False)
+    added_on = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.post.title
