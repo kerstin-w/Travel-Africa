@@ -140,8 +140,11 @@ class PostDetailView(DetailView):
         context["comments"] = self.object.comments.filter(approved=True)
         if self.request.user.is_authenticated:
             context["profile"] = Profile.objects.get(user=self.request.user)
-            if self.request.user.bucketlist.post.filter(id=self.object.id).exists():
-                context["in_bucket_list"] = True
+            try:
+                if self.request.user.bucketlist.post.filter(id=self.object.id).exists():
+                    context["in_bucket_list"] = True
+            except BucketList.DoesNotExist:
+                pass
             context["liked"] = self.object.likes.filter(
                 id=self.request.user.id
             ).exists()
