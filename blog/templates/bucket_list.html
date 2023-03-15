@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ post.title }}</h1>
+<p>{{ post.content }}</p>
+<form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}">
+    {% csrf_token %}
+    <button type="submit">Add to bucket list</button>
+</form>
+{% endblock %}

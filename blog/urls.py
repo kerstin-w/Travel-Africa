@@ -6,6 +6,7 @@ urlpatterns = [
     path("", views.HomeListView.as_view(), name='home'),
     path('about/', views.AboutView.as_view(), name='about'),
     path('search/', views.PostSearchResultsView.as_view(), name="search_results"),
+    path('bucketlist/',views.BucketListView.as_view(), name='bucketlist'),
     path('posts/', views.PostListView.as_view(), name='post_list'),
     path('category/<slug:slug>/', views.PostCategoryListView.as_view(), name='post_category'),
     path('create/', views.PostCreateView.as_view(), name='post_create'),

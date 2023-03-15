@@ -78,6 +78,12 @@
                                                 <p id="likes-count">{{ post.number_of_likes }}</p>
                                             </button>
                                             {% endif %}
+                                            {% if user.is_authenticated %}
+                                            <form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}">
+                                                {% csrf_token %}
+                                                <button type="submit">Add to bucket list</button>
+                                            </form>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 </tbody>

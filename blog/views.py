@@ -308,7 +308,7 @@ class PostLikeView(View):
 
 class AddToBucketListView(LoginRequiredMixin, RedirectView):
     """
-    Allow registered users to add items to bucket list
+    Allow registered users to add a blog post to their bucket list
     """
     def post(self, request, *args, **kwargs):
         post = get_object_or_404(Post, slug=self.kwargs['slug'])
@@ -317,4 +317,18 @@ class AddToBucketListView(LoginRequiredMixin, RedirectView):
         messages.success(request, f"{post.title} has been added to your bucket list.")
         context = {'post': post}
         return render(request, 'post_detail.html', context)
+
+
+class BucketListView(LoginRequiredMixin, TemplateView):
+    """
+    Display Bucket List
+    """
+    model = BucketList
+    template_name = 'bucket_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        bucketlist, created = BucketList.objects.get_or_create(user=self.request.user)
+        context['bucketlist'] = bucketlist
+        return context
 
