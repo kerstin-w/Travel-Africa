@@ -16,7 +16,7 @@
                                 {% else %}
                                 <img src="{{ profile.image.url }}" class="profile-img my-5" alt="Profile Image" />
                                 {% endif %}
-                                <h5>{{ profile.user }}</h5>
+                                <h5><span class="highlight-heading">{{ profile.user }}</span></h5>
                                 {% if request.user == profile.user or user.is_superuser %}
                                 <a href="{% url 'users:profile_update' pk=profile.pk %}"><i
                                         class="fa-solid fa-pen icon"></i></a>

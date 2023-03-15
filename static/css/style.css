@@ -406,6 +406,13 @@ hr {
     margin-bottom: 0;
 }
 
+.highlight-heading {
+    background: linear-gradient(120deg, #f5d1b7 0%, #f5d1b7 100%);
+    background-repeat: no-repeat;
+    background-size: 100% 40%;
+    background-position: 0 90%;
+}
+
 /*=============== About ===============*/
 .about-picture {
     height: 100%;
