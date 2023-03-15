@@ -502,6 +502,12 @@ tr td:first-child {
     margin: 0 0 0 .3rem;
 }
 
+.input-comment {
+    width: 90%;
+    max-width: 90%;
+    max-height: 30%;
+}
+
 /*=============== Media Queries ===============*/
 @media only screen and (max-width: 1000px) {
     .search-box {

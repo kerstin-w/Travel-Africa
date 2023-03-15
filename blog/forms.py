@@ -60,7 +60,7 @@ class CommentForm(forms.ModelForm):
         self.fields["body"].label = False
         self.fields["body"].widget.attrs.update(
             {
-                "class": "input-comment, form-control, light-shadow",
+                "class": "input-comment form-control light-shadow",
                 "placeholder": "Add your comment (maximum of 255 characters)",
                 "rows": 3,
             }
