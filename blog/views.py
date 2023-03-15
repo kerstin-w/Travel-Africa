@@ -46,6 +46,10 @@ class SuperuserFieldsMixin:
 
 
 class PostFormInvalidMessageMixin:
+    """
+    Display error message when form is invalid
+    """
+
     def form_invalid(self, form):
         messages.error(
             self.request,
@@ -92,7 +96,7 @@ class PostListView(PageTitleViewMixin, ListView):
     template_name = "post_list.html"
     context_object_name = "posts"
     paginate_by = 8
-    ordering = ['-created_on']
+    ordering = ["-created_on"]
 
 
 class PostCategoryListView(PageTitleViewMixin, ListView):
@@ -106,7 +110,7 @@ class PostCategoryListView(PageTitleViewMixin, ListView):
     template_name = "post_list.html"
     context_object_name = "posts"
     paginate_by = 8
-    ordering = ['-created_on']
+    ordering = ["-created_on"]
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs["slug"])
@@ -136,7 +140,9 @@ class PostDetailView(DetailView):
         context["comments"] = self.object.comments.filter(approved=True)
         if self.request.user.is_authenticated:
             context["profile"] = Profile.objects.get(user=self.request.user)
-            context["liked"] = self.object.likes.filter(id=self.request.user.id).exists()
+            context["liked"] = self.object.likes.filter(
+                id=self.request.user.id
+            ).exists()
         else:
             context["liked"] = False
         return context
@@ -262,6 +268,10 @@ class PostDeleteView(
 
 
 class PostSearchResultsView(PageTitleViewMixin, ListView):
+    """
+    Display Search Results and search in title and country field
+    """
+
     model = Post
     title = "Your Search"
     template_name = "search_results.html"
@@ -273,6 +283,7 @@ class PostSearchResultsView(PageTitleViewMixin, ListView):
             Q(title__icontains=search) | Q(country__icontains=search)
         )
         return results
+
 
 class PostLikeView(View):
     """
@@ -290,7 +301,7 @@ class PostLikeView(View):
             post.likes.add(user)
             liked = True
         response = {
-            'liked': liked,
-            'count': count,
+            "liked": liked,
+            "count": count,
         }
         return JsonResponse(response)
