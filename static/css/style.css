@@ -459,7 +459,7 @@ hr {
 }
 
 .card-img-top {
-    max-height: 15rem;
+    height: 10rem;
 }
 
 /*=============== Post Detail ===============*/
