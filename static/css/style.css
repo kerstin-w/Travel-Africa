@@ -199,6 +199,7 @@ hr {
 
 .profile-img-small {
     max-width: 40px !important;
+    max-height: 40px !important;
 }
 
 .alert-box {

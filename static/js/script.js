@@ -21,7 +21,7 @@ $(document).ready(function () {
     const likeButton = $('.like-button');
     const likesCount = $('#likes-count');
     let count = parseInt(likesCount.text());
-    let liked = localStorage.getItem('liked');
+    let liked = likeButton.attr('data-liked') === 'true';
 
     if (liked) {
         likeButton.find('.fa-regular').removeClass('fa-regular').addClass('fa-solid');

@@ -136,6 +136,9 @@ class PostDetailView(DetailView):
         context["comments"] = self.object.comments.filter(approved=True)
         if self.request.user.is_authenticated:
             context["profile"] = Profile.objects.get(user=self.request.user)
+            context["liked"] = self.object.likes.filter(id=self.request.user.id).exists()
+        else:
+            context["liked"] = False
         return context
 
     def post(self, request, *args, **kwargs):
@@ -275,8 +278,9 @@ class PostLikeView(View):
     """
     Allow all users to like a post
     """
-    def post(self, request, *args, **kwargs):
-        post = get_object_or_404(Post, slug=self.kwargs['slug'])
+
+    def post(self, request, slug, *args, **kwargs):
+        post = get_object_or_404(Post, slug=slug)
         user = self.request.user
         liked = False
         count = post.likes.count()
@@ -287,6 +291,6 @@ class PostLikeView(View):
             liked = True
         response = {
             'liked': liked,
-            'count': count
+            'count': count,
         }
         return JsonResponse(response)
