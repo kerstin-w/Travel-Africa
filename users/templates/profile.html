@@ -16,7 +16,7 @@
                                 {% else %}
                                 <img src="{{ profile.image.url }}" class="profile-img my-5" alt="Profile Image" />
                                 {% endif %}
-                                <h5><span class="highlight-heading">{{ profile.user }}</span></h5>
+                                <h3><span class="highlight-heading">{{ profile.user }}</span></h3>
                                 {% if request.user == profile.user or user.is_superuser %}
                                 <a href="{% url 'users:profile_update' pk=profile.pk %}"><i
                                         class="fa-solid fa-pen icon"></i></a>
@@ -65,9 +65,11 @@
                                                     <a href="{{ post.get_absolute_url }}" class="btn btn-read">Read
                                                         More</a>
                                                     <span class="pt-3"><i class="fa-solid fa-clock"></i>
-                                                        {{ post.created_on | timesince }} | <i
-                                                            class="fa-solid fa-comments">
-                                                            {{ post.num_comments }}</i></span>
+                                                        {{ post.created_on | timesince }}
+                                                        | <i class="fa-solid fa-comments">
+                                                            {{ post.num_comments }}&nbsp;|&nbsp;</i><i
+                                                            class="fa-solid fa-heart"></i>
+                                                        {{ post.number_of_likes }}</span>
                                                 </div>
                                             </div>
                                         </div>
