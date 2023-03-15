@@ -281,6 +281,13 @@ hr {
     backdrop-filter: blur(.7px);
 }
 
+.hero-text {
+    background: url(//s2.svgbox.net/pen-brushes.svg?ic=brush-1&color=e48152);
+    margin: -2px -6px;
+    padding: 6px 6px;
+    width: fit-content;
+}
+
 .overlay {
     background-color: var(--white-color);
     position: absolute;
@@ -288,7 +295,11 @@ hr {
     width: 100%;
     bottom: 0;
     left: 0;
-    opacity: 0.4;
+    opacity: 0.2;
+}
+
+.carousel-caption {
+    text-align: start;
 }
 
 .carousel-bg-1 {
@@ -549,7 +560,6 @@ tr td:first-child {
 
 
 @media only screen and (max-width: 767px) {
-
     .logo {
         position: relative;
         transform: none;
@@ -568,5 +578,11 @@ tr td:first-child {
     .search-box {
         width: auto !important;
         padding-top: .2em;
+    }
+}
+
+@media only screen and (max-width: 454px) {
+    .carousel-caption {
+        text-align: center;
     }
 }
