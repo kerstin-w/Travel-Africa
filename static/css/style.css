@@ -433,6 +433,7 @@ hr {
 .post-card {
     margin-bottom: 1em;
     background-color: var(--white-color);
+    border: none;
 }
 
 .post-card .card-body {
