@@ -319,16 +319,43 @@ hr {
 }
 
 /*--------------- Featured section ---------------*/
+.img-featured {
+    max-width: 100%;
+    height: 100%;
+    margin-bottom: 15px;
+}
+
+.content .content-img {
+    overflow: hidden;
+    border-radius: 10px;
+    -webkit-transition: all 0.9s ease;
+    -moz-transition: all 0.9s ease;
+    -ms-transition: all 0.9s ease;
+    -o-transition: all 0.9s ease;
+    transition: all 0.9s ease;
+}
+
+.content .content-img:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+}
+
 .content .content-img img {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     cursor: pointer;
-    border-radius: 10px;
+    -webkit-transition: all .9s ease;
+    -moz-transition: all .9s ease;
+    -o-transition: all .9s ease;
+    -ms-transition: all .9s ease;
 }
 
-.content .content-img:hover .overlay {
-    opacity: 0.2;
+.content .content-img img:hover {
+    -webkit-transform: scale(1.15);
+    -moz-transform: scale(1.15);
+    -ms-transform: scale(1.15);
+    -o-transform: scale(1.15);
+    transform: scale(1.15);
 }
 
 .content .content-img:hover .content-post-title h4 {
@@ -336,7 +363,7 @@ hr {
 }
 
 .content .col-md-8,
-.content .col-md-4 img {
+.content .col-md-4 .content-img {
     margin-bottom: 15px;
 }
 
@@ -360,12 +387,6 @@ hr {
     background-color: #686e9f94;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-}
-
-.img-featured {
-    max-width: 100%;
-    height: 100%;
-    margin-bottom: 15px;
 }
 
 /*=============== Login ===============*/
