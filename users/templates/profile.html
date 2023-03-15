@@ -2,8 +2,8 @@
 {% load static %}
 {% block content %}
 <main>
+    <!-- User Profiel -->
     <section id="profile">
-
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-xl-10">
@@ -12,9 +12,9 @@
                             <div class="col-md-4 pb-4 text-center">
                                 {% if "placeholder" in profile.image.url %}
                                 <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
-                                    class="profile-img my-5" alt="Profile Image Placeholder">
+                                    class="profile-img my-5" alt="Profile Image Placeholder" />
                                 {% else %}
-                                <img src="{{ profile.image.url }}" class="profile-img my-5" alt="Profile Image">
+                                <img src="{{ profile.image.url }}" class="profile-img my-5" alt="Profile Image" />
                                 {% endif %}
                                 <h5>{{ profile.user }}</h5>
                                 {% if request.user == profile.user or user.is_superuser %}
@@ -27,14 +27,15 @@
                             <div class="col-md-8">
                                 <div class="card-body p-4 mt-3">
                                     <h6>Information</h6>
-                                    <hr class="mt-0 mb-4">
+                                    <hr class="mt-0 mb-4" />
                                     <div class="row pt-1">
                                         <div class="col-6 mb-3">
                                             <h6>About</h6>
                                             {% if profile.description == None %}
-                                            <p class="text-muted">About you: <span><i>{{ profile.user }} has not shared
-                                                        a
-                                                        description with us, yet.</i></span></p>
+                                            <p class="text-muted">
+                                                About you: <span><i>{{ profile.user }} has not shared a description with
+                                                        us, yet.</i></span>
+                                            </p>
                                             {% else %}
                                             <p class="text-muted">{{ profile.description }}</p>
                                             {% endif %}
@@ -45,10 +46,9 @@
                                         </div>
                                     </div>
                                     <h6>Posts</h6>
-                                    <hr class="mt-0 mb-4">
+                                    <hr class="mt-0 mb-4" />
                                     <div class="row pt-1">
-                                        {% if posts %}
-                                        {% for post in posts %}
+                                        {% if posts %} {% for post in posts %}
                                         <div class="col-md-6 d-flex justify-content-around">
                                             <div class="card post-card light-shadow" style="width: 18rem;">
                                                 {% if "placeholder" in post.featured_image.url %}
@@ -71,8 +71,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {% endfor %}
-                                        {% else %}
+                                        {% endfor %} {% else %}
                                         <p>No posts yet.</p>
                                         {% endif %}
                                     </div>
@@ -100,8 +99,7 @@
             <div class="modal-footer">
                 <form method="post"
                     action="{% url 'users:profile_delete' username=request.user.username pk=profile.pk %}">
-                    {% csrf_token %}
-                    {% if redirect_field_value %}
+                    {% csrf_token %} {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                     {% endif %}
                     <button type="submit" class="btn btn-danger">Delete</button>

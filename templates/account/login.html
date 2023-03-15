@@ -3,6 +3,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <main>
+  <!--Log In-->
   <section>
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -15,8 +16,7 @@
               </div>
               <div class="col-md-6 col-lg-7 d-flex align-items-center">
                 <div class="card-body p-4 p-lg-5">
-                  <h2 class="fw-normal mb-3 pb-3 heading-underline">{% trans "Sign In" %}
-                  </h2>
+                  <h2 class="fw-normal mb-3 pb-3 heading-underline">{% trans "Sign In" %}</h2>
                   <form class="login" method="POST" action="{% url 'account_login' %}">
                     {% csrf_token %}
                     {{ form.as_p }}
