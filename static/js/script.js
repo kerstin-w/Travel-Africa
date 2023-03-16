@@ -68,7 +68,7 @@ addToBucketListForm.submit(function (event) {
         method: 'POST',
         data: $(this).serialize(),
         success: function () {
-            bucketListButtonIcon.removeClass('fa-regular').addClass('fa-solid');
+            bucketListButtonIcon.removeClass('fa-solid fa-square-plus').addClass('fa-solid fa-square-check');
         },
         error: function () {
             alert('Failed to add post to bucket list');

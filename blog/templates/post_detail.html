@@ -82,18 +82,21 @@
                                         <td>
                                             {% if user.is_authenticated %}
                                             {% if in_bucket_list %}
-                                            <form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}"
-                                                id="add-to-bucketlist-form">
-                                                {% csrf_token %}
-                                                <button type="submit" id="add-to-bucketlist-button"><i
-                                                        class="fa-solid fa-bookmark"></i></button>
-                                            </form>
+                                            <button type="submit" id="add-to-bucketlist-button" class="btn btn-save">
+                                                <p class="mb-0"><i class="fa-solid fa-square-check"></i>&nbsp;In Bucket
+                                                    List
+                                                </p>
+                                            </button>
                                             {% else %}
                                             <form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}"
                                                 id="add-to-bucketlist-form">
                                                 {% csrf_token %}
-                                                <button type="submit" id="add-to-bucketlist-button"><i
-                                                        class="fa-regular fa-bookmark"></i></button>
+                                                <button type="submit" id="add-to-bucketlist-button"
+                                                    class="btn btn-save">
+                                                    <p class="mb-0"><i class="fa-solid fa-square-plus"></i>&nbsp;to
+                                                        Bucket
+                                                        List</p>
+                                                </button>
                                             </form>
                                             {% endif %}
                                             {% endif %}
