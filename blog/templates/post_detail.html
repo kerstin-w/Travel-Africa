@@ -1,4 +1,5 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% block content %}
 <main>
     <!--Blog Post -->
     <section>
@@ -25,7 +26,8 @@
                                     <tr>
                                         <td><span class="heading-underline">Author:</span></td>
                                         <td>
-                                            {{ post.author|capfirst }} {% if user.is_authenticated %}
+                                            {{ post.author|capfirst }}
+                                            {% if user.is_authenticated %}
                                             <a href="{% url 'users:profile_home' username=post.author.username %}">
                                                 {% if "placeholder" in post.author.profile.image.url %}
                                                 <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
@@ -36,7 +38,8 @@
                                                     class="profile-img profile-img-small" alt="{{ post.author }}" />
                                                 {% endif %}
                                             </a>
-                                            {% else %} {% if "placeholder" in post.author.profile.image.url %}
+                                            {% else %}
+                                            {% if "placeholder" in post.author.profile.image.url %}
                                             <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
                                                 class="profile-img profile-img-small" alt="Profile Image Placeholder" />
                                             {% else %}
@@ -58,50 +61,56 @@
                                         <td><i>{{ post.created_on|date:"M d, Y" }}</i></td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            {% if user.is_authenticated %}
-                                            {% csrf_token %}
-                                            <button class="btn btn-read like-button d-flex flex-row align-items-center"
-                                                data-post-slug="{{ post.slug }}"
-                                                data-liked="{{ liked|yesno:'true,false' }}">
-                                                {% if not liked %}
-                                                <i class="fa-regular fa-heart"></i>
-                                                {% else %}
-                                                <i class="fa-solid fa-heart"></i>
-                                                {% endif %}
-                                                <p id="likes-count">{{ post.number_of_likes }}</p>
-                                            </button>
-                                            {% else %}
-                                            <button class="btn btn-read like-button d-flex flex-row align-items-center"
-                                                disabled>
-                                                <i class="fa-solid fa-heart"></i>
-                                                <p id="likes-count">{{ post.number_of_likes }}</p>
-                                            </button>
-                                            {% endif %}
-                                        </td>
-                                        <td>
-                                            {% if user.is_authenticated %}
-                                            {% if in_bucket_list %}
-                                            <button type="submit" id="add-to-bucketlist-button" class="btn btn-save">
-                                                <p class="mb-0"><span id="bucket-list-text"><i
-                                                            class="fa-solid fa-square-check"></i>&nbsp;Bucket
-                                                        List</span>
-                                                </p>
-                                            </button>
-                                            {% else %}
-                                            <form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}"
-                                                id="add-to-bucketlist-form">
+                                        <td colspan="2">
+                                            <div class="d-flex flex-row">
+                                                {% if user.is_authenticated %}
                                                 {% csrf_token %}
+                                                <button
+                                                    class="btn btn-read like-button d-flex flex-row align-items-center me-2"
+                                                    data-post-slug="{{ post.slug }}"
+                                                    data-liked="{{ liked|yesno:'true,false' }}">
+                                                    {% if not liked %}
+                                                    <i class="fa-regular fa-heart"></i>
+                                                    {% else %}
+                                                    <i class="fa-solid fa-heart"></i>
+                                                    {% endif %}
+                                                    <p id="likes-count">{{ post.number_of_likes }}</p>
+                                                </button>
+                                                {% else %}
+                                                <button
+                                                    class="btn btn-read like-button d-flex flex-row align-items-center"
+                                                    disabled>
+                                                    <i class="fa-solid fa-heart"></i>
+                                                    <p id="likes-count">{{ post.number_of_likes }}</p>
+                                                </button>
+                                                {% endif %}
+                                                {% if user.is_authenticated %}
+                                                {% if in_bucket_list %}
                                                 <button type="submit" id="add-to-bucketlist-button"
                                                     class="btn btn-save">
-                                                    <p class="mb-0"><span id="bucket-list-text"><i
-                                                                class="fa-solid fa-square-plus"></i>&nbsp;Bucket
+                                                    <p class="mb-0">
+                                                        <span id="bucket-list-text"><i
+                                                                class="fa-solid fa-square-check"></i>&nbsp;Bucket
                                                             List</span>
                                                     </p>
                                                 </button>
-                                            </form>
-                                            {% endif %}
-                                            {% endif %}
+                                                {% else %}
+                                                <form method="post"
+                                                    action="{% url 'add_to_bucketlist' slug=post.slug %}"
+                                                    id="add-to-bucketlist-form">
+                                                    {% csrf_token %}
+                                                    <button type="submit" id="add-to-bucketlist-button"
+                                                        class="btn btn-save">
+                                                        <p class="mb-0">
+                                                            <span id="bucket-list-text"><i
+                                                                    class="fa-solid fa-square-plus"></i>&nbsp;Bucket
+                                                                List</span>
+                                                        </p>
+                                                    </button>
+                                                </form>
+                                                {% endif %}
+                                                {% endif %}
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -109,6 +118,7 @@
                             {% if user.is_authenticated and user == post.author or user.is_superuser %}
                             <div class="d-flex flex-row justify-content-center">
                                 <a href="{% url 'post_update' post.slug %}"><i class="fa-solid fa-pen icon"></i></a>
+
                                 <a data-bs-toggle="modal" href="#deletePostModal"><i
                                         class="fa-solid fa-trash icon"></i></a>
                             </div>
@@ -127,7 +137,8 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-12 ps-sm-4 mt-3">
                             <h3 class="heading-underline mb-4">Comments:</h3>
-                            {% if comments %} {% for comment in comments %}
+                            {% if comments %}
+                            {% for comment in comments %}
                             <div class="card p-3 mb-4 comment light-shadow">
                                 <div class="user-comment d-flex flex-row align-items-center">
                                     {% if user.is_authenticated %}
@@ -141,13 +152,15 @@
                                             class="profile-img profile-img-small me-2" />
                                         {% endif %}
                                     </a>
-                                    {% else %} {% if "placeholder" in comment.profile.user.profile.image.url %}
+                                    {% else %}
+                                    {% if "placeholder" in comment.profile.user.profile.image.url %}
                                     <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
                                         class="profile-img profile-img-small me-2" alt="Profile Image Placeholder" />
                                     {% else %}
                                     <img src="{{ comment.profile.user.profile.image.url }}" alt="{{ comment.name }}"
                                         class="profile-img profile-img-small me-2" />
-                                    {% endif %} {% endif %}
+                                    {% endif %}
+                                    {% endif %}
 
                                     <p class="text-muted">{{ comment.name|title }} wrote:</p>
                                 </div>
@@ -166,7 +179,8 @@
                             <div class="add-comment">
                                 <h3 class="heading-underline mb-4">Add a comment:</h3>
                                 <form method="post">
-                                    {% csrf_token %} {{ comment_form.as_p }}
+                                    {% csrf_token %}
+                                    {{ comment_form.as_p }}
                                     <button type="submit" class="btn btn-save">Submit</button>
                                 </form>
                             </div>
@@ -192,7 +206,8 @@
             </div>
             <div class="modal-footer">
                 <form method="post" action="{% url 'post_delete' post.slug %}">
-                    {% csrf_token %} {% if redirect_field_value %}
+                    {% csrf_token %}
+                    {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                     {% endif %}
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -201,4 +216,5 @@
         </div>
     </div>
 </div>
-{% endif %} {% endblock %}
+{% endif %}
+{% endblock %}
