@@ -48,30 +48,10 @@
                                     <h6>Posts</h6>
                                     <hr class="mt-0 mb-4" />
                                     <div class="row pt-1">
-                                        {% if posts %} {% for post in posts %}
+                                        {% if posts %}
+                                        {% for post in posts %}
                                         <div class="col-md-6 d-flex justify-content-around">
-                                            <div class="card post-card light-shadow" style="width: 18rem;">
-                                                {% if "placeholder" in post.featured_image.url %}
-                                                <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
-                                                    class="card-img-top" alt="{ post.title }}" />
-                                                {% else %}
-                                                <img src="{{ post.featured_image.url }}" class="card-img-top"
-                                                    alt="{{ post.title }}" />
-                                                {% endif %}
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ post.title|title}}</h5>
-                                                    <p class="card-title">{{ post.content|striptags|truncatechars:200 }}
-                                                    </p>
-                                                    <a href="{{ post.get_absolute_url }}" class="btn btn-read">Read
-                                                        More</a>
-                                                    <span class="pt-3"><i class="fa-solid fa-clock"></i>
-                                                        {{ post.created_on | timesince }}
-                                                        | <i class="fa-solid fa-comments">
-                                                            {{ post.num_comments }}&nbsp;|&nbsp;</i><i
-                                                            class="fa-solid fa-heart"></i>
-                                                        {{ post.number_of_likes }}</span>
-                                                </div>
-                                            </div>
+                                            {% include 'components/list_of_posts.html' %}
                                         </div>
                                         {% endfor %} {% else %}
                                         <p>No posts yet.</p>
