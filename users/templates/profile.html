@@ -12,9 +12,9 @@
                             <div class="col-md-4 pb-4 text-center">
                                 {% if "placeholder" in profile.image.url %}
                                 <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
-                                    class="profile-img my-5" alt="Profile Image Placeholder" />
+                                    class="profile-img my-5 mx-2" alt="Profile Image Placeholder" />
                                 {% else %}
-                                <img src="{{ profile.image.url }}" class="profile-img my-5" alt="Profile Image" />
+                                <img src="{{ profile.image.url }}" class="profile-img my-5 mx-2" alt="Profile Image" />
                                 {% endif %}
                                 <h3><span class="highlight-heading">{{ profile.user }}</span></h3>
                                 {% if request.user == profile.user or user.is_superuser %}

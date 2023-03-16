@@ -30,7 +30,8 @@
                                     </form>
                                 </li>
                                 {% empty %}
-                                <li>No posts in your bucket list yet.</li>
+                                <p class="text-muted">No posts in your bucket list yet.</p>
+                                <a href="{% url 'post_list' %}" class="btn btn-save">Explore</a>
                                 {% endfor %}
                             </ul>
                         </div>
