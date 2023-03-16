@@ -81,7 +81,6 @@
                                         </td>
                                         <td>
                                             {% if user.is_authenticated %}
-                                            {% if user.is_authenticated %}
                                             {% if in_bucket_list %}
                                             <form method="post" action="{% url 'add_to_bucketlist' slug=post.slug %}"
                                                 id="add-to-bucketlist-form">
@@ -96,7 +95,6 @@
                                                 <button type="submit" id="add-to-bucketlist-button"><i
                                                         class="fa-regular fa-bookmark"></i></button>
                                             </form>
-                                            {% endif %}
                                             {% endif %}
                                             {% endif %}
                                         </td>

@@ -56,19 +56,22 @@ $(document).ready(function () {
     });
 });
 
-$(document).ready(function () {
-    $('#add-to-bucketlist-form').submit(function (event) {
-        event.preventDefault();
-        $.ajax({
-            url: $(this).attr('action'),
-            method: 'POST',
-            data: $(this).serialize(),
-            success: function () {
-                $('#add-to-bucketlist-button i').removeClass('fa-regular').addClass('fa-solid');
-            },
-            error: function () {
-                alert('Failed to add post to bucket list');
-            }
-        });
+// Change Icon for Bucket List
+const addToBucketListForm = $('#add-to-bucketlist-form');
+
+addToBucketListForm.submit(function (event) {
+    event.preventDefault();
+    const bucketListButtonIcon = $('#add-to-bucketlist-button i');
+
+    $.ajax({
+        url: $(this).attr('action'),
+        method: 'POST',
+        data: $(this).serialize(),
+        success: function () {
+            bucketListButtonIcon.removeClass('fa-regular').addClass('fa-solid');
+        },
+        error: function () {
+            alert('Failed to add post to bucket list');
+        }
     });
 });
