@@ -7,18 +7,27 @@
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-xl-10">
-                    <div class="card box-shadow bucket-list">
+                    <div class="card box-shadow bucket-list ps-5 pe-5">
                         <h2 class="heading-underline mt-4 mb-5 text-center">My Bucket List</h2>
+                        <p> Keep track of all the must-visit destinations and experiences you've been dreaming of.
+                            Easily add or remove post from your bucket list. Start planning your dream adventure today
+                            with our bucket list.</p>
                         <div class="row g-0">
-
-                            <ul class="list-group ps-5 pe-5">
+                            <ul class="list-group mb-4">
                                 {% for post in bucketlist.post.all %}
                                 <li class="list-group-item">
-                                    <i class="fa-solid fa-trash-can icon"></i>
-                                    <label class="form-check-label" for="firstCheckbox"><a
-                                            href="{{ post.get_absolute_url }}">
-                                            <p>{{ post.title|title }}&nbsp;|&nbsp;{{ post.country|title }}</p>
-                                        </a></label>
+                                    <form method="post" action="{% url 'bucketlist' %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="post_id" value="{{ post.id }}">
+                                        <button type="submit" class="btn btn-link"><i class="fa-solid fa-trash-can icon"
+                                                data-bs-toggle="tooltip"
+                                                data-bs-title="Remove from Bucket List"></i></button>
+                                        <label class="form-check-label" for="firstCheckbox">
+                                            <a href="{{ post.get_absolute_url }}">
+                                                <p>{{ post.title|title }}&nbsp;|&nbsp;{{ post.country|title }}</p>
+                                            </a>
+                                        </label>
+                                    </form>
                                 </li>
                                 {% empty %}
                                 <li>No posts in your bucket list yet.</li>

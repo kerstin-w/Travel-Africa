@@ -141,7 +141,9 @@ class PostDetailView(DetailView):
         if self.request.user.is_authenticated:
             context["profile"] = Profile.objects.get(user=self.request.user)
             try:
-                if self.request.user.bucketlist.post.filter(id=self.object.id).exists():
+                if self.request.user.bucketlist.post.filter(
+                    id=self.object.id
+                ).exists():
                     context["in_bucket_list"] = True
             except BucketList.DoesNotExist:
                 pass
@@ -311,32 +313,44 @@ class PostLikeView(View):
         }
         return JsonResponse(response)
 
+
 class AddToBucketListView(LoginRequiredMixin, RedirectView):
     """
     Allow registered users to add a blog post to their bucket list
     """
+
     def post(self, request, *args, **kwargs):
-        post = get_object_or_404(Post, slug=self.kwargs['slug'])
-        bucketlist, created = BucketList.objects.get_or_create(user=request.user)
+        post = get_object_or_404(Post, slug=self.kwargs["slug"])
+        bucketlist, created = BucketList.objects.get_or_create(
+            user=request.user
+        )
         bucketlist.post.add(post)
-        return JsonResponse({'success': True})
+        return JsonResponse({"success": True})
 
 
-class BucketListView(LoginRequiredMixin, TemplateView):
+class BucketListView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
     """
-    Display Bucket List
+    Display Bucket List and allow user to remove post from bucket list
     """
+
     model = BucketList
-    template_name = 'bucket_list.html'
-    context_object_name = 'bucketlist'
+    template_name = "bucket_list.html"
+    context_object_name = "bucketlist"
+    success_url = reverse_lazy("bucketlist")
+    success_message = "Post successfully removed from your bucket list."
 
     def get_queryset(self):
         return BucketList.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['bucketlist'] = self.get_queryset().first()
+        context["bucketlist"] = self.get_queryset().first()
         return context
-    
-    
 
+    def post(self, request, *args, **kwargs):
+        post_id = request.POST.get("post_id")
+        post = Post.objects.get(id=post_id)
+        bucketlist = self.get_queryset().first()
+        bucketlist.post.remove(post)
+        messages.success(self.request, self.success_message)
+        return redirect(self.success_url)
