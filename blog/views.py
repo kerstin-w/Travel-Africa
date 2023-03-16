@@ -337,4 +337,6 @@ class BucketListView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         context['bucketlist'] = self.get_queryset().first()
         return context
+    
+    
 

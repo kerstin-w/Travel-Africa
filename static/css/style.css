@@ -545,6 +545,38 @@ tr td:first-child {
     max-height: 30%;
 }
 
+/*=============== Bucket List ===============*/
+
+.bucket-list {
+    border-radius: 1rem;
+    border: 0;
+}
+
+.bucket-list .form-check-label {
+    padding: 0.2rem 0 .2rem .6rem;
+}
+
+.bucket-list .form-check-label a {
+    text-decoration: none;
+}
+
+.bucket-list .form-check-label p {
+    color: var(--blue-color);
+}
+
+.bucket-list .list-group-item {
+    background-color: #fdd99b;
+    margin-bottom: 1rem;
+    box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
+    border: none;
+    border-radius: inherit;
+    transition: all .4s ease;
+}
+
+.bucket-list .list-group-item:hover {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
 /*=============== Media Queries ===============*/
 @media only screen and (max-width: 1000px) {
     .search-box {

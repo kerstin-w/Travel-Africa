@@ -1,12 +1,37 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>My Bucket List</h1>
-<ul>
-    {% for post in bucketlist.post.all %}
-    <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
-    {% empty %}
-    <li>No posts in your bucket list yet.</li>
-    {% endfor %}
-</ul>
+
+<main>
+    <section>
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card box-shadow bucket-list">
+                        <h2 class="heading-underline mt-4 mb-5 text-center">My Bucket List</h2>
+                        <div class="row g-0">
+
+                            <ul class="list-group ps-5 pe-5">
+                                {% for post in bucketlist.post.all %}
+                                <li class="list-group-item">
+                                    <i class="fa-solid fa-trash-can icon"></i>
+                                    <label class="form-check-label" for="firstCheckbox"><a
+                                            href="{{ post.get_absolute_url }}">
+                                            <p>{{ post.title|title }}&nbsp;|&nbsp;{{ post.country|title }}</p>
+                                        </a></label>
+                                </li>
+                                {% empty %}
+                                <li>No posts in your bucket list yet.</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</main>
+
+
 {% endblock %}
