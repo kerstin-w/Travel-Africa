@@ -83,8 +83,9 @@
                                             {% if user.is_authenticated %}
                                             {% if in_bucket_list %}
                                             <button type="submit" id="add-to-bucketlist-button" class="btn btn-save">
-                                                <p class="mb-0"><i class="fa-solid fa-square-check"></i>&nbsp;In Bucket
-                                                    List
+                                                <p class="mb-0"><span id="bucket-list-text"><i
+                                                            class="fa-solid fa-square-check"></i>&nbsp;Bucket
+                                                        List</span>
                                                 </p>
                                             </button>
                                             {% else %}
@@ -93,9 +94,10 @@
                                                 {% csrf_token %}
                                                 <button type="submit" id="add-to-bucketlist-button"
                                                     class="btn btn-save">
-                                                    <p class="mb-0"><i class="fa-solid fa-square-plus"></i>&nbsp;to
-                                                        Bucket
-                                                        List</p>
+                                                    <p class="mb-0"><span id="bucket-list-text"><i
+                                                                class="fa-solid fa-square-plus"></i>&nbsp;Bucket
+                                                            List</span>
+                                                    </p>
                                                 </button>
                                             </form>
                                             {% endif %}
@@ -107,7 +109,6 @@
                             {% if user.is_authenticated and user == post.author or user.is_superuser %}
                             <div class="d-flex flex-row justify-content-center">
                                 <a href="{% url 'post_update' post.slug %}"><i class="fa-solid fa-pen icon"></i></a>
-
                                 <a data-bs-toggle="modal" href="#deletePostModal"><i
                                         class="fa-solid fa-trash icon"></i></a>
                             </div>

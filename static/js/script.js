@@ -65,14 +65,16 @@ const addToBucketListForm = $('#add-to-bucketlist-form');
 
 addToBucketListForm.submit(function (event) {
     event.preventDefault();
-    const bucketListButtonIcon = $('#add-to-bucketlist-button i');
+    const bucketListButton = $('#add-to-bucketlist-button');
+    const bucketListButtonText = $('#bucket-list-text');
 
     $.ajax({
         url: $(this).attr('action'),
         method: 'POST',
         data: $(this).serialize(),
         success: function () {
-            bucketListButtonIcon.removeClass('fa-solid fa-square-plus').addClass('fa-solid fa-square-check');
+            bucketListButton.removeClass('btn-save').addClass('btn-success');
+            bucketListButtonText.html('<i class="fa-solid fa-check"></i>&nbsp;Added');
         },
         error: function () {
             alert('Failed to add post to bucket list');
