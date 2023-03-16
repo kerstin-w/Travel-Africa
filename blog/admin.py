@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django_summernote.admin import SummernoteModelAdmin
-from blog.models import Post, Category, Comment
+from blog.models import Post, Category, Comment, BucketList
 from users.models import Profile
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -75,3 +75,13 @@ class CommentAdmin(admin.ModelAdmin):
                     [post_author_email],
                     fail_silently=False,
                 )
+
+@admin.register(BucketList)
+class BucketListAdmin(admin.ModelAdmin):
+    """
+    Add fields for Bucket List in admin panel
+    """
+    list_display = ('user', 'added_on',)
+    list_filter = ('user', 'added_on',)
+    search_fields = ('user__username',)
+    filter_horizontal = ('post',)
