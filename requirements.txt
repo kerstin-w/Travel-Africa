@@ -8,6 +8,7 @@ Django==3.2.18
 django-allauth==0.52.0
 django-case-insensitive-field==1.0.7
 django-crispy-forms==2.0
+django-session-timeout==0.1.0
 django-summernote==0.8.20.0
 gunicorn==20.1.0
 oauthlib==3.2.2
