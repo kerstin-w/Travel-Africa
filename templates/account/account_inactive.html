@@ -1,11 +1,31 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
 {% load i18n %}
-
-{% block head_title %}{% trans "Account Inactive" %}{% endblock %}
-
 {% block content %}
-<h1>{% trans "Account Inactive" %}</h1>
-
-<p>{% trans "This account is inactive." %}</p>
+<main>
+    <!--Account Inactive-->
+    <section>
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card box-shadow card-signup">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-5 d-none d-md-block">
+                                <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678455433/signin_c311o5.webp"
+                                    alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+                            </div>
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5">
+                                    <h2 class="fw-normal mb-3 pb-3 heading-underline">Account Inactive
+                                    </h2>
+                                    <p>Due to violations of equitable behavior in our community, your account has been
+                                        deactivated.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock %}
