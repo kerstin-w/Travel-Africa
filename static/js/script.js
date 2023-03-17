@@ -81,3 +81,22 @@ addToBucketListForm.submit(function (event) {
         }
     });
 });
+
+// Toogle between Posts and Comments on Profile
+$(document).ready(function () {
+    $("#collapsePosts").removeClass("show");
+    $("#collapseComments").removeClass("show");
+
+    $("#collapsePostsButton").click(function () {
+        if (!$("#collapsePosts").hasClass("show")) {
+            $("#collapsePosts").removeClass("show");
+            $("#collapseComments").removeClass("show");
+        }
+    });
+    $("#collapseCommentsButton").click(function () {
+        if (!$("#collapseComments").hasClass("show")) {
+            $("#collapseComments").removeClass("show");
+            $("#collapsePosts").removeClass("show");
+        }
+    });
+});
