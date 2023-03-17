@@ -29,7 +29,7 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['travel-africa.herokuapp.com', 'localhost', '127.0.0.1']
 
@@ -79,6 +79,7 @@ MESSAGE_TAGS = {
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django_session_timeout.middleware.SessionTimeoutMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -197,3 +198,8 @@ SUMMERNOTE_CONFIG = {
 
 }
 }
+
+# Settings for Session Time Out 
+SESSION_EXPIRE_SECONDS = 1800
+SESSION_TIMEOUT_REDIRECT = '/'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
