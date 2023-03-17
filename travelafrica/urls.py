@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from users import urls as user_urls
+from django.conf.urls import handler404, handler500
+from blog.views import Error403View, Error404View
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,3 +26,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include(user_urls, namespace='users')),
 ]
+
+handler403 = Error403View.as_view()
+handler404 = Error404View.as_view()

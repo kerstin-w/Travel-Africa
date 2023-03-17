@@ -367,3 +367,12 @@ class CommentDeleteView(DeleteView):
     def get_success_url(self):
         comment = self.object
         return reverse_lazy('post_detail', kwargs={'slug': comment.post.slug})
+
+
+class Error403View(TemplateView):
+    template_name = "errors/403.html"
+
+
+class Error404View(TemplateView):
+    template_name = "errors/404.html"
+
