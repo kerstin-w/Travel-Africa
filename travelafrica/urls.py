@@ -27,5 +27,6 @@ urlpatterns = [
     path('', include(user_urls, namespace='users')),
 ]
 
+# Custom Error Page Handlers
 handler403 = Error403View.as_view()
 handler404 = Error404View.as_view()
