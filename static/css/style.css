@@ -546,6 +546,10 @@ tr td:first-child {
     max-height: 30%;
 }
 
+.delete-comment button:active {
+    border: hidden;
+}
+
 /*=============== Bucket List ===============*/
 
 .bucket-list {
