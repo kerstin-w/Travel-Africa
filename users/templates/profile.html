@@ -45,6 +45,69 @@
                                             <p class="text-muted">{{ profile.created_on }}</p>
                                         </div>
                                     </div>
+                                    <!-- User Posts and Comments -->
+                                    {% if request.user == profile.user or user.is_superuser %}
+                                    <h6>Activity</h6>
+                                    <hr class="mt-0 mb-4" />
+                                    <p>
+                                        <button class="btn btn-save me-2" id="collapsePostsButton" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapsePosts"
+                                            aria-expanded="false" aria-controls="collapsePosts">
+                                            Posts
+                                        </button>
+                                        <button class="btn btn-save" id="collapseCommentsButton" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseComments"
+                                            aria-expanded="false" aria-controls="collapseComments">
+                                            Comments
+                                        </button>
+                                    </p>
+                                    <div id="collapseParent">
+                                        <div class="collapse" id="collapsePosts" data-bs-parent="#collapseParent">
+                                            <div class="row pt-1">
+                                                {% if posts %}
+                                                {% for post in posts %}
+                                                <div class="col-md-6 d-flex justify-content-around">
+                                                    {% include 'components/list_of_posts.html' %}
+                                                </div>
+                                                {% endfor %} {% else %}
+                                                <p>No posts yet.</p>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="collapse" id="collapseComments" data-bs-parent="#collapseParent">
+                                            {% if posts %}
+                                            {% for comment in comments %}
+                                            <div class="card p-3 mb-4 comment light-shadow">
+                                                <div class="user-comment d-flex flex-row">
+                                                    <div class="row">
+                                                        <a
+                                                            href="{% url 'users:profile_home' username=comment.profile.user.username %}">
+                                                            {% if "placeholder" in comment.profile.user.profile.image.url %}
+                                                            <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
+                                                                class="profile-img profile-img-small me-2"
+                                                                alt="Profile Image Placeholder" />
+                                                            {% else %}
+                                                            <img src="{{ comment.profile.user.profile.image.url }}"
+                                                                alt="{{ comment.name }}"
+                                                                class="profile-img profile-img-small me-2" />
+                                                            {% endif %}
+                                                        </a>
+                                                        <p>On post: <a
+                                                                href="{{ comment.post.get_absolute_url }}">{{ comment.post.title|title }}</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                                <p class="mt-3 ms-sm-4">{{ comment.body }}</p>
+                                                <small>{{ comment.created_on }}</small>
+                                            </div>
+                                            {% endfor %}
+                                            {% else %}
+                                            <p>No posts yet.</p>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    {% else %}
+                                    <!--User Posts-->
                                     <h6>Posts</h6>
                                     <hr class="mt-0 mb-4" />
                                     <div class="row pt-1">
@@ -57,6 +120,7 @@
                                         <p>No posts yet.</p>
                                         {% endif %}
                                     </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

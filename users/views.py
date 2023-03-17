@@ -2,12 +2,12 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db import models
-from django.db.models import Count
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, TemplateView, UpdateView
 
-from blog.models import Post
+from blog.models import Post, Comment
 from blog.views import PageTitleViewMixin
 from users.forms import ProfileForm
 from users.models import Profile
@@ -38,7 +38,11 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
             )
             .order_by("-created_on")
         )
+        comments = Comment.objects.filter(
+            Q(post__in=posts) & Q(approved=True)
+        ).order_by("-created_on")
         context["posts"] = posts
+        context["comments"] = comments
         return context
 
 
