@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 
 from .forms import CommentForm, PostForm
-from .models import Post, Category, BucketList
+from .models import Post, Category, BucketList, Comment
 from users.models import Profile
 
 
@@ -354,3 +354,16 @@ class BucketListView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
         bucketlist.post.remove(post)
         messages.success(self.request, self.success_message)
         return redirect(self.success_url)
+
+
+class CommentDeleteView(DeleteView):
+    """
+    Display Bucket List and allow user to remove post from bucket list
+    """
+    model = Comment
+    template_name = "post_detail.html"
+    success_message = "Comment successfully removed."
+
+    def get_success_url(self):
+        comment = self.object
+        return reverse_lazy('post_detail', kwargs={'slug': comment.post.slug})
