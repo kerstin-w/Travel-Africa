@@ -21,9 +21,10 @@
                         {% csrf_token %}
                         {{ profile_form | crispy }}
                         {{ form.as_p }}
-                        <button class="btn btn-save"><i type="submit"
+                        <button class="btn btn-save mb-3"><i type="submit"
                                 class="fa-solid fa-floppy-disk icon-save"></i>Save</button>
                     </form>
+                    <a class="reset-link" href="{% url 'account_change_password' %}">Change Password</a>
                 </div>
             </div>
         </div>

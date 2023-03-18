@@ -446,6 +446,16 @@ hr {
     background-position: 0 90%;
 }
 
+.reset-link {
+    color: var(--blue-color);
+    text-underline-offset: 3px;
+}
+
+.reset-link:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--orange-color);
+}
+
 /*=============== About ===============*/
 .about-picture {
     height: 100%;
