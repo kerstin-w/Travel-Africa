@@ -79,7 +79,7 @@
                                             {% for comment in comments %}
                                             <div class="card p-3 mb-4 comment light-shadow">
                                                 <div class="user-comment d-flex flex-row">
-                                                    <div class="row">
+                                                    <div class="d-flex flex-row align-items-center">
                                                         <a
                                                             href="{% url 'users:profile_home' username=comment.profile.user.username %}">
                                                             {% if "placeholder" in comment.profile.user.profile.image.url %}
@@ -92,8 +92,9 @@
                                                                 class="profile-img profile-img-small me-2" />
                                                             {% endif %}
                                                         </a>
-                                                        <p>On post: <a
-                                                                href="{{ comment.post.get_absolute_url }}">{{ comment.post.title|title }}</a>
+                                                        <p class="text-muted">{{ comment.name|title }} wrote on post: <a
+                                                                href="{{ comment.post.get_absolute_url }}"
+                                                                class="comment-post-title">{{ comment.post.title|title }}</a>
                                                         </p>
                                                     </div>
                                                 </div>
