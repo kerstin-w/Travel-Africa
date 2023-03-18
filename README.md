@@ -33,3 +33,7 @@ Goals of the Travel Africa blog are:
 - To create a community of like-minded travelers
 - To provide valuable information and resources
 
+### <a name="target-audience">Target Audience</a>
+
+- People who love to travel and are interested in exploring the natural beauty of Africa.
+- Individuals from different age groups, backgrounds, and nationalities.
