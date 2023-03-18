@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db import models
 from django.db.models import Count, Q
-from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, TemplateView, UpdateView
 
@@ -24,7 +24,7 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
     user_check_failure_path = reverse_lazy("account_signup")
 
     def get_context_data(self, **kwargs):
-        context = super(ProfileHomeView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         username = self.kwargs.get("username")
         user = get_object_or_404(User, username=username)
         profile = get_object_or_404(Profile, user=user)
@@ -59,7 +59,7 @@ class ProfileUpdateView(
     template_name = "profile_update.html"
 
     def get_form_kwargs(self):
-        kwargs = super(ProfileUpdateView, self).get_form_kwargs()
+        kwargs = super().get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
 
@@ -72,7 +72,9 @@ class ProfileUpdateView(
         self.object = form.save()
         messages.success(self.request, "Profile updated successfully")
         username = self.object.user.username
-        return redirect(reverse_lazy("users:profile_home", kwargs={"username": username}))
+        return redirect(
+            reverse_lazy("users:profile_home", kwargs={"username": username})
+        )
 
 
 class ProfileDeleteView(
