@@ -20,3 +20,16 @@ Travel Africa is a website that celebrates the natural beauty and rich culture o
   - [Fonts](#fonts)
   - [Images](#images)
 - [Wireframes](#wireframes)
+
+---
+
+## <a name="ux">User Experience</a>
+
+### <a name="website-goal">Website Goal</a>
+
+Goals of the Travel Africa blog are: 
+- To provide a platform where people can easily share information about Africa
+- To inspire people to travel to Africa and explore the continent
+- To create a community of like-minded travelers
+- To provide valuable information and resources
+
