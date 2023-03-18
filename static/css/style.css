@@ -508,6 +508,15 @@ hr {
     height: 10rem;
 }
 
+.page-link {
+    color: var(--blue-color)
+}
+
+.active>.page-link {
+    background-color: var(--orange-color);
+    border: none;
+}
+
 /*=============== Post Detail ===============*/
 select {
     height: 100px;
