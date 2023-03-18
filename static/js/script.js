@@ -20,8 +20,32 @@ setTimeout(function () {
     $('#msg').alert('close');
 }, 4000);
 
-//Toggle Heart Icon for Likes
+
+// Change Icon for Bucket List
+const addToBucketListForm = $('#add-to-bucketlist-form');
+
+addToBucketListForm.submit(function (event) {
+    event.preventDefault();
+    const bucketListButton = $('#add-to-bucketlist-button');
+    const bucketListButtonText = $('#bucket-list-text');
+
+    $.ajax({
+        url: $(this).attr('action'),
+        method: 'POST',
+        data: $(this).serialize(),
+        success: function () {
+            bucketListButton.removeClass('btn-save').addClass('btn-success');
+            bucketListButtonText.html('<i class="fa-solid fa-check"></i>&nbsp;Added');
+        },
+        error: function () {
+            alert('Failed to add post to bucket list');
+        }
+    });
+});
+
+
 $(document).ready(function () {
+    //Toggle Heart Icon for Likes
     const likeButton = $('.like-button');
     const likesCount = $('#likes-count');
     let count = parseInt(likesCount.text());
@@ -58,41 +82,15 @@ $(document).ready(function () {
             }
         });
     });
-});
 
-// Change Icon for Bucket List
-const addToBucketListForm = $('#add-to-bucketlist-form');
-
-addToBucketListForm.submit(function (event) {
-    event.preventDefault();
-    const bucketListButton = $('#add-to-bucketlist-button');
-    const bucketListButtonText = $('#bucket-list-text');
-
-    $.ajax({
-        url: $(this).attr('action'),
-        method: 'POST',
-        data: $(this).serialize(),
-        success: function () {
-            bucketListButton.removeClass('btn-save').addClass('btn-success');
-            bucketListButtonText.html('<i class="fa-solid fa-check"></i>&nbsp;Added');
-        },
-        error: function () {
-            alert('Failed to add post to bucket list');
-        }
-    });
-});
-
-// Toogle between Posts and Comments on Profile
-$(document).ready(function () {
-    $("#collapsePosts").removeClass("show");
-    $("#collapseComments").removeClass("show");
-
+    // Toogle between Posts and Comments on Profile
     $("#collapsePostsButton").click(function () {
         if (!$("#collapsePosts").hasClass("show")) {
             $("#collapsePosts").removeClass("show");
             $("#collapseComments").removeClass("show");
         }
     });
+
     $("#collapseCommentsButton").click(function () {
         if (!$("#collapseComments").hasClass("show")) {
             $("#collapseComments").removeClass("show");
