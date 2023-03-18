@@ -8,3 +8,15 @@ Travel Africa is a website that celebrates the natural beauty and rich culture o
 [View live project here](https://travel-africa.herokuapp.com/)
 
 ## Contents
+
+---
+
+- [User Experience (UX)](#user-experience-ux)
+    - [Website Goal](#website-goal)
+    - [Target Audience](#target-audience)
+    - [User Stories](#user-stories)
+- [Design](#design)
+  - [Colour Palette](#colour-palette)
+  - [Fonts](#fonts)
+  - [Images](#images)
+- [Wireframes](#wireframes)
