@@ -71,7 +71,8 @@ class ProfileUpdateView(
         form.instance.status = 0
         self.object = form.save()
         messages.success(self.request, "Profile updated successfully")
-        return redirect(reverse("home"))
+        username = self.object.user.username
+        return redirect(reverse_lazy("users:profile_home", kwargs={"username": username}))
 
 
 class ProfileDeleteView(
