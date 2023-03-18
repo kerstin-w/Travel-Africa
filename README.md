@@ -1,7 +1,7 @@
 # Travel Africa
 Travel Africa is a website that celebrates the natural beauty and rich culture of Africa. It is a space where travel enthusiasts and adventurers from all over the world can share their recommendations, and tips for exploring the continent.
 
-![Mockup]()
+![Mockup](documentation/mockup.png)
 
 # Live Project
 
