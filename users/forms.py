@@ -33,7 +33,7 @@ class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop("request", None)
-        super(ProfileForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["email"].initial = self.instance.user.email
         self.fields["username"].initial = self.instance.user.username
 
@@ -71,7 +71,7 @@ class ProfileForm(forms.ModelForm):
         return email.lower()
 
     def save(self, commit=True):
-        profile = super(ProfileForm, self).save(commit=False)
+        profile = super().save(commit=False)
         user = profile.user
         user.username = self.cleaned_data["username"]
         user.email = self.cleaned_data["email"]
