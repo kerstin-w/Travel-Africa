@@ -609,6 +609,10 @@ tr td:first-child {
     .search-box {
         width: 40% !important
     }
+
+    #profile .profile-img {
+        max-width: 200px;
+    }
 }
 
 @media only screen and (max-width: 930px) {
@@ -633,6 +637,11 @@ tr td:first-child {
         width: auto !important;
         padding-top: .2em;
     }
+
+    #profile .profile-img {
+        max-width: 250px;
+    }
+}
 }
 
 @media only screen and (max-width: 454px) {
