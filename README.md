@@ -88,14 +88,13 @@ To create a colour palette, I used [_Mycolor.space_](https://mycolor.space/). Th
 ![Colour Palette](documentation/colours.png)
 
 ### <a name="fonts">Fonts</a>
+[_Sourced via Google Fonts._](https://fonts.google.com/)
 
 **Heading:** 
 - For Headings, "Waiting for the Sunrise" font was selected, which has a handwritten and adventurous feel and complements the theme of travel and exploration.
 
 **Body:** 
 - “Roboto”, is a clean and modern font which is easy to read, making it a good choice for body text and enhancing readability for the readers. 
-
-[_Sourced via Google Fonts._](https://fonts.google.com/)
 
 ### <a name="images">Images</a> 
 
@@ -108,3 +107,55 @@ Images are an important aspect of the Travel Blog, as they help to enhance the u
 * Users can upload a picture of the destination in their blog post, which will be featured on the blog post page, as well as on the post list page. 
 
 * Users can upload a picture of themselves in their profile to make it a more personalized experience.
+
+### <a name="wireframes">Wireframes</a> 
+
+<details>
+    <summary>Homepage</summary>
+    <img src="documentation/wireframes/homepage.png">
+</details>
+
+<details>
+    <summary>About Page</summary>
+    <img src="documentation/wireframes/about.png">
+</details>
+
+<details>
+    <summary>Regions</summary>
+    <img src="documentation/wireframes/regions.png">
+</details>
+
+<details>
+    <summary>Search Results</summary>
+    <img src="documentation/wireframes/search.png">
+</details>
+
+<details>
+    <summary>Register & Login</summary>
+    <img src="documentation/wireframes/register-login.png">
+</details>
+
+<details>
+    <summary>Profile (View of other registered users)</summary>
+    <img src="documentation/wireframes/profile.png">
+</details>
+
+<details>
+    <summary>Profile (Own View)</summary>
+    <img src="documentation/wireframes/profile-own.png">
+</details>
+
+<details>
+    <summary>Edit Profile</summary>
+    <img src="documentation/wireframes/edit-profile.png">
+</details>
+
+<details>
+    <summary>Create Blog Post</summary>
+    <img src="documentation/wireframes/create-post.png">
+</details>
+
+<details>
+    <summary>Blog Post</summary>
+    <img src="documentation/wireframes/blog-post.png">
+</details>
