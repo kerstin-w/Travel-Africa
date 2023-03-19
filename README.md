@@ -96,3 +96,15 @@ To create a colour palette, I used [_Mycolor.space_](https://mycolor.space/). Th
 - “Roboto”, is a clean and modern font which is easy to read, making it a good choice for body text and enhancing readability for the readers. 
 
 [_Sourced via Google Fonts._](https://fonts.google.com/)
+
+### <a name="images">Images</a> 
+
+[*Sourced via Pexels.*](https://www.pexels.com/)
+
+Images are an important aspect of the Travel Blog, as they help to enhance the users's experience and provide a visual representation of the destinations and experiences being discussed. They make the content more engaging and visually appealing. All images I used as blog creater, where compressed them with [TinyPNG](https://tinypng.com/). The downside is, that I cannot control the size of pictures uploaded by the user and its effect on the loading time. 
+
+* The home page includes a carousel in the Hero banner, which shows three images of Africa to draw the user's immediate attention to Africa.
+
+* Users can upload a picture of the destination in their blog post, which will be featured on the blog post page, as well as on the post list page. 
+
+* Users can upload a picture of themselves in their profile to make it a more personalized experience.
