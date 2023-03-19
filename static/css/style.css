@@ -625,11 +625,6 @@ tr td:first-child {
         left: auto;
     }
 
-    .login {
-        align-items: flex-start !important;
-        border-top: 1px solid var(--blue-color);
-    }
-
     .navbar-toggler {
         margin: 5px 0 5px 0;
     }
