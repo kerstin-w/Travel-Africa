@@ -7,7 +7,7 @@
             {% for post in results %}
             <div class="container-fluid py-5">
                 <div class="p-lg-4 p-md-2 bg-light rounded-3 search-result light-shadow">
-                    <div class="container-fluid py-3">
+                    <div class="container-fluid py-3 px-3">
                         <div class="row">
                             <div class="col-md-7 pb-2">
                                 <h1 class="display-5 heading-underline">{{ post.title|title }}</h1>
@@ -19,7 +19,7 @@
                                 <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
                                     class="card-img-top" alt="{ post.title }}" />
                                 {% else %}
-                                <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}" />
+                                <img src="{{ post.featured_image.url }}" class="img-fluid" alt="{{ post.title }}" />
                                 {% endif %}
                             </div>
                         </div>
