@@ -19,7 +19,11 @@ Travel Africa is a website that celebrates the natural beauty and rich culture o
   - [Colour Palette](#colour-palette)
   - [Fonts](#fonts)
   - [Images](#images)
-- [Wireframes](#wireframes)
+  - [Wireframes](#wireframes)
+- [Agile methodology](#agile-methodology)
+  - [MoSCoW method and story points](#moscow-method-and-story-points)
+  - [Iterations](#iterations)
+
 
 ---
 
@@ -78,6 +82,8 @@ Goals of the Travel Africa blog are:
   - [#28](https://github.com/kerstin-w/Travel-Africa/issues/28) I want to create a category when needed so that I can manage the site effectively.
   - [#29](https://github.com/kerstin-w/Travel-Africa/issues/29) I want to delete content when inappropriate so that I can maintain the site and ensure that only useful or relevant content remains
   - [#30](https://github.com/kerstin-w/Travel-Africa/issues/30) I want to block user accounts so that I can ensure only trusted users can access the site.
+
+<br>
 
 ## <a name="desgin">Design</a>
 
@@ -159,3 +165,15 @@ Images are an important aspect of the Travel Blog, as they help to enhance the u
     <summary>Blog Post</summary>
     <img src="documentation/wireframes/blog-post.png">
 </details>
+
+<br>
+
+## <a name="agile-methodology">Agile methodology</a>
+
+All functionality and development of this project were managed using GitHub which Projects can be found
+[here](https://github.com/users/kerstin-w/projects/6)
+
+### <a name="moscow-method-and-story-points">MoSCoW method and story points</a>
+
+To implement agile methodology, the Kanban board and Issues feature on GitHub Projects were utilized. User stories were first created and then prioritized using the MoSCoW method. The points were assigned to each story based on their complexity, amount of work, and repetition using a modified Fibonacci sequence (1, 2, 3, 5, and so on).
+The details are as following:
