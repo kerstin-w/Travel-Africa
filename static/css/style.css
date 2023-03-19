@@ -234,6 +234,11 @@ hr {
     padding: 15px 40px;
 }
 
+.footer-text h3,
+.social-text h3 {
+    padding-bottom: .3rem;
+}
+
 .footer-text {
     font-size: large;
 }
@@ -242,16 +247,17 @@ hr {
     font-size: small;
 }
 
-.social-text {
-    padding: 15px 10px;
-}
-
 .social {
     list-style: none;
 }
 
 .social li {
     margin-bottom: .5em;
+}
+
+.social a {
+    color: var(--blue-color);
+    text-decoration: none;
 }
 
 .social-icon {
@@ -647,7 +653,11 @@ tr td:first-child {
     #profile .profile-img {
         max-width: 250px;
     }
-}
+
+    .footer .row:first-child {
+        display: none
+    }
+
 }
 
 @media only screen and (max-width: 454px) {
