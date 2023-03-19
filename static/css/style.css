@@ -343,7 +343,7 @@ hr {
 
 /*--------------- Featured section ---------------*/
 .img-featured {
-    max-width: 100%;
+    width: 100%;
     height: 100%;
     margin-bottom: 15px;
 }
@@ -643,5 +643,9 @@ tr td:first-child {
 @media only screen and (max-width: 454px) {
     .carousel-caption {
         text-align: center;
+    }
+
+    .hero-content {
+        top: 50%;
     }
 }
