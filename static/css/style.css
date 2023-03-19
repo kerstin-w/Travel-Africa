@@ -523,6 +523,11 @@ hr {
     border: none;
 }
 
+#post-list .bg-secondary {
+    background-color: var(--blue-color) !important;
+    opacity: .9;
+}
+
 /*=============== Post Detail ===============*/
 select {
     height: 100px;
