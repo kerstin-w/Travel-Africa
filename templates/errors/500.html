@@ -1,11 +1,29 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-
-<h1>Something went wrong...</h1>
-<br>
-<a href="{% url 'home' %}"><button class="btn">Go Back Home</button></a>
-<img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1679045300/elephant-car-scratch-4-2014-08-08_z3e2km.webp"
-    alt="Car crashes into elephant">
-
+<main>
+    <section>
+        <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col col-xl-10">
+                    <div class="card box-shadow">
+                        <div class="row g-0">
+                            <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                                <div class="card-body p-4 p-lg-5">
+                                    <h1>Something went wrong...</h1>
+                                    <br>
+                                    <a href="{% url 'home' %}"><button class="btn btn-save">Go Back Home</button></a>
+                                </div>
+                            </div>
+                            <div class="col-12 d-md-block">
+                                <img src=https://res.cloudinary.com/db0ufjm4a/image/upload/v1679045300/elephant-car-scratch-4-2014-08-08_z3e2km.webp
+                                    alt="Car crashed into Elefant" class="img-fluid error-picture light-shadow">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
 {% endblock content %}

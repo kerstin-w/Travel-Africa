@@ -471,6 +471,12 @@ hr {
     border-radius: 1rem 0 0 1rem;
 }
 
+/*=============== Error Page ===============*/
+.error-picture {
+    height: 100%;
+    border-radius: 0rem 0 1rem 1rem;
+}
+
 /*=============== Post List ===============*/
 .post-form {
     padding: 2em 1.4em;
