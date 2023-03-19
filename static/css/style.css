@@ -523,7 +523,8 @@ hr {
     border: none;
 }
 
-#post-list .bg-secondary {
+#post-list .bg-secondary,
+#profile .bg-secondary {
     background-color: var(--blue-color) !important;
     opacity: .9;
 }

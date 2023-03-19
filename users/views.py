@@ -41,6 +41,10 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
         comments = Comment.objects.filter(
             Q(post__in=posts) & Q(approved=True)
         ).order_by("-created_on")
+        sum_posts = Post.objects.filter(author=user, status=1).count()
+        sum_comments = Comment.objects.filter(post__in=posts, approved=True).count()
+        context["sum_posts"] = sum_posts
+        context["sum_comments"] = sum_comments
         context["posts"] = posts
         context["comments"] = comments
         return context
