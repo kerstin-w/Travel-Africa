@@ -37,3 +37,5 @@ Goals of the Travel Africa blog are:
 
 - People who love to travel and are interested in exploring the natural beauty of Africa.
 - Individuals from different age groups, backgrounds, and nationalities.
+
+### <a name="user-stories">User Stories</a>

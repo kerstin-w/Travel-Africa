@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <main>
     <!-- Hero Section -->
     <section id="hero">
@@ -19,12 +17,9 @@
                     <div class="carousel-caption hero-content">
                         <h1 class="heading-underline">Travel Africa</h1>
                         <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot
-                            fail to
-                            win your
-                            heart.</p>
+                            fail to win your heart.</p>
                         <p class="hero-text">Discover the best places on the continent.</p>
                         <a href="{% url 'post_list' %}" class="btn btn-save btn-highlights mt-4">Explore</a>
-
                     </div>
                 </div>
                 <div class="carousel-item bg-setup carousel-bg-2" data-bs-interval="2000">
@@ -32,12 +27,9 @@
                     <div class="carousel-caption d-md-block hero-content">
                         <h1 class="heading-underline">Travel Africa</h1>
                         <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot
-                            fail to
-                            win your
-                            heart.</p>
+                            fail to win your heart.</p>
                         <p class="hero-text">Discover the best places on the continent.</p>
                         <a href="{% url 'post_list' %}" class="btn btn-save btn-highlights mt-4">Explore</a>
-
                     </div>
                 </div>
                 <div class="carousel-item bg-setup carousel-bg-3" data-bs-interval="2000">
@@ -45,12 +37,9 @@
                     <div class="carousel-caption d-md-block hero-content">
                         <h1 class="heading-underline">Travel Africa</h1>
                         <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot
-                            fail to
-                            win your
-                            heart.</p>
+                            fail to win your heart.</p>
                         <p class="hero-text">Discover the best places on the continent.</p>
                         <a href="{% url 'post_list' %}" class="btn btn-save btn-highlights mt-4">Explore</a>
-
                     </div>
                 </div>
             </div>
@@ -67,16 +56,16 @@
     <!-- Content Feature Section -->
     <section id="content" class="content">
         <div class="container mb-4">
-            <h2 class="heading-underline text-center my-5">Highlight Recipes</h2>
+            <h2 class="heading-underline text-center my-5">Highlight</h2>
             <div class="row row-reverse">
-                {% for post in post_list %}
-                {% if forloop.counter == 1 %}
+                {% for post in post_list %} {% if forloop.counter == 1 %}
                 <div class="col-md-8 cl-sm-12">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <img class="img-featured" src="{{ post.featured_image.url }}"
+                                alt="{{ post.title }} Image" />
                             <div class="content-post-title">
-                                <h4></i> {{ post.title|title }}</h4>
+                                <h4>{{ post.title|title }}</h4>
                             </div>
                         </div>
                     </a>
@@ -85,18 +74,18 @@
                 <div class="col-md-4 cl-sm-6">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" />
                             <div class="content-post-title">
-                                <h4></i> {{ post.title|title }}</h4>
+                                <h4>{{ post.title|title }}</h4>
                             </div>
                         </div>
                     </a>
                     {% elif forloop.counter == 3 %}
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" />
                             <div class="content-post-title">
-                                <h4></i> {{ post.title|title }}</h4>
+                                <h4>{{ post.title|title }}</h4>
                             </div>
                         </div>
                     </a>
@@ -105,18 +94,18 @@
                 <div class="col-md-4 cl-sm-6">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" />
                             <div class="content-post-title">
-                                <h4></i> {{ post.title|title }}</h4>
+                                <h4>{{ post.title|title }}</h4>
                             </div>
                         </div>
                     </a>
                     {% elif forloop.counter == 5 %}
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" />
                             <div class="content-post-title">
-                                <h4></i> {{ post.title|title }}</h4>
+                                <h4>{{ post.title|title }}</h4>
                             </div>
                         </div>
                     </a>
@@ -125,15 +114,15 @@
                 <div class="col-md-8 cl-sm-12">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image">
+                            <img class="img-featured" src="{{ post.featured_image.url }}"
+                                alt="{{ post.title }} Image" />
                             <div class="content-post-title">
-                                <h4></i> {{ post.title|title }}</h4>
+                                <h4>{{ post.title|title }}</h4>
                             </div>
                         </div>
                     </a>
                 </div>
-                {% endif %}
-                {% endfor %}
+                {% endif %} {% endfor %}
             </div>
         </div>
     </section>
