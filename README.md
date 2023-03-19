@@ -86,3 +86,13 @@ Goals of the Travel Africa blog are:
 To create a colour palette, I used [_Mycolor.space_](https://mycolor.space/). The color palette consists of deep blues meant to evoke the sea and sky, warm yellows and oranges meant to evoke the sun, and a skin tone-like color that can be associated with the various cultures of Africa. The palette also includes a mellow white that reflects the natural and unspoiled beauty of African landscapes and wildlife, 
 
 ![Colour Palette](documentation/colours.png)
+
+### <a name="fonts">Fonts</a>
+
+**Heading:** 
+- For Headings, "Waiting for the Sunrise" font was selected, which has a handwritten and adventurous feel and complements the theme of travel and exploration.
+
+**Body:** 
+- “Roboto”, is a clean and modern font which is easy to read, making it a good choice for body text and enhancing readability for the readers. 
+
+[_Sourced via Google Fonts._](https://fonts.google.com/)
