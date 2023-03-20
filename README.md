@@ -23,6 +23,10 @@ Travel Africa is a website that celebrates the natural beauty and rich culture o
 - [Agile methodology](#agile-methodology)
   - [MoSCoW method and story points](#moscow-method-and-story-points)
   - [Iterations](#iterations)
+- [Database Model](#database-model)
+    - [Database](#database)
+    - [Entity Relationship Diagram](#entity-relationship-diagram)
+    - [Models](#models)
 
 
 ---
@@ -269,3 +273,21 @@ The project was carried out over 4 iterations and each iteration lasted 3-4 days
 - Iteration 4 (Closed points 10 / Planned points 10)
 
     ![Iteration 4](documentation/agile/iteration4.png)
+
+<br>
+
+## <a name="database-model">Database Model</a>
+
+### <a name="database">Database</a>
+
+[PostgreSQL](https://www.postgresql.org/) was used for the main database from the earliest stage of development.
+
+The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
+
+<br>
+
+### <a name="entity-relationship-diagram">Entity Relationship Diagram</a>
+
+<br>
+
+### <a name="models">Models</a>
