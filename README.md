@@ -253,3 +253,11 @@ The details are as following:
 ### <a name="iterations">Iterations</a>
 
 The project was carried out over 4 iterations and each iteration lasted 3-4 days.
+
+- Iteration 1 (Closed points 10 / Planned points 10)
+
+    ![Iteration 1](documentation/agile/iteration1.png)
+
+- Iteration 2 (Closed points 10 / Planned points 10)
+
+    ![Iteration 2](documentation/agile/iteration2.png)
