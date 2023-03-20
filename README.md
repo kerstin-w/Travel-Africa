@@ -34,6 +34,7 @@ Travel Africa is a website that celebrates the natural beauty and rich culture o
     - [Languages](#languages)
     - [Framework](#framework)
     - [Programs](#programs)
+- [Testing](#testing)
 
 
 ---
@@ -468,3 +469,9 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 - [Heroku](https://heroku.com/) - was initially used to deploy the project.
 - [Tiny PNG](https://tinypng.com/) - was used to compress pictures.
 - [Visual Studio Code](https://code.visualstudio.com/) - was used to edit my code and create SVG paths from SVG image files.
+
+<br>
+
+## <a name="testing">Testing</a>
+
+See [TESTING.md](TESTING.md) for an overview of website testing and debugging.
