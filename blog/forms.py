@@ -6,6 +6,9 @@ from django.core.exceptions import ValidationError
 
 
 class PostForm(ModelForm):
+    """
+    Form to create a Blog Post
+    """
     class Meta:
         model = Post
         fields = [
@@ -55,6 +58,9 @@ class PostForm(ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    """
+    Form to create a comment
+    """
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         self.fields["body"].label = False
