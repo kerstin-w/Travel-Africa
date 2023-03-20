@@ -176,7 +176,7 @@ All functionality and development of this project were managed using GitHub whic
 ### <a name="moscow-method-and-story-points">MoSCoW method and story points</a>
 
 To implement agile methodology, the Kanban board and Issues feature on GitHub Projects were utilized. 
-6 Epics were created which were then further developed into User Stories. User stories were first created and then prioritized using the MoSCoW method. The points were assigned to each story based on their complexity, amount of work, and repetition using a modified Fibonacci sequence (1, 2, 3, 5, and so on).Each User Story was assigned a classification of `Must Have`, `Should Have`, `Could Have` or `Won't Have`.  In practice some of the User Stories were completed quicker than anticipated and other User Stories took a longer.
+6 Epics were created which were then further developed into User Stories. User stories were first created and then prioritized using the MoSCoW method. The points were assigned to each story based on their complexity, amount of work, and repetition using a modified Fibonacci sequence (1, 2, 3, 5, and so on). Each User Story was assigned a classification of `Must Have`, `Should Have`, `Could Have` or `Won't Have`.  In practice some of the User Stories were completed quicker than anticipated and other User Stories took a longer.
 The details are as following:
 
 - Epic: Landing Page
@@ -248,4 +248,8 @@ The details are as following:
     | [#9](https://github.com/kerstin-w/Travel-Africa/issues/9) | As a Registered User I can delete my account so that I can remove my footprint from the website if I am no longer active. | Should Have | 1 |
     | [#30](https://github.com/kerstin-w/Travel-Africa/issues/30) | As a superuser I want to block user accounts so that I can ensure only trusted users can access the site. | Should Have | 2 |
     
+<br>
 
+### <a name="iterations">Iterations</a>
+
+The project was carried out over 4 iterations and each iteration lasted 3-4 days.
