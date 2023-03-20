@@ -288,6 +288,8 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 
 ### <a name="entity-relationship-diagram">Entity Relationship Diagram</a>
 
+![Entity Relationship Diagram](documentation/edr.jpg)
+
 <br>
 
 ### <a name="models">Models</a>
