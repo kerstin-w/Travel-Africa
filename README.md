@@ -177,3 +177,74 @@ All functionality and development of this project were managed using GitHub whic
 
 To implement agile methodology, the Kanban board and Issues feature on GitHub Projects were utilized. User stories were first created and then prioritized using the MoSCoW method. The points were assigned to each story based on their complexity, amount of work, and repetition using a modified Fibonacci sequence (1, 2, 3, 5, and so on).
 The details are as following:
+
+- Epic: Landing Page
+
+    | Issue # | User Story | Prioritisation | Points |
+    | :-----------: | :---------: | :-----------: | :-----------: |
+    | [#1](https://github.com/kerstin-w/Travel-Africa/issues/1) | As a first-time visitor, I want to know what this site is about immediately so that I can decide whether I will explore further. | Must Have | 3 |
+    | [#3](https://github.com/kerstin-w/Travel-Africa/issues/3) | As a Unregistered User I can view a list of posts so that I can select one to read. | Must Have | 2 |
+    | [#4](https://github.com/kerstin-w/Travel-Africa/issues/4) | As a Unregistered User I can select a category so that I can only view relevant posts. | Must Have | 2 |
+    | [#5](https://github.com/kerstin-w/Travel-Africa/issues/5) | As a Unregistered User I can view a list of highlights posts so that I can select one to read. | Should Have | 1 |
+    | [#6](https://github.com/kerstin-w/Travel-Africa/issues/6) | As a Unregistered User I can Create an account so that I can sign in and use of the sites full functionality. | Must Have | 2 |
+    | [#28](https://github.com/kerstin-w/Travel-Africa/issues/28) | As a supersuer I want to create a category when needed so that I can manage the site effectively. | Could Have | 1 |
+
+<br>
+
+- Epic: Search for posts
+
+    | Issue # | User Story | Prioritisation | Points |
+    | :-----------: | :---------: | :-----------: | :-----------: |
+    | [#13](https://github.com/kerstin-w/Travel-Africa/issues/13) | As a Unregistered User I can search a post by a keyword so that I can try to find posts relative to the keyword. | Could Have | 1 |
+
+<br>
+
+- Epic: Sign in/out & site authorisation
+
+    | Issue # | User Story | Prioritisation | Points |
+    | :-----------: | :---------: | :-----------: | :-----------: |
+    | [#6](https://github.com/kerstin-w/Travel-Africa/issues/6) | As a Unregistered User I can Create an account so that I can sign in and use of the sites full functionality. | Must Have | 2 |
+    | [#10](https://github.com/kerstin-w/Travel-Africa/issues/10) | As a Registered User I can create a post so that I can share my experiences with other users. | Must Have | 3 |
+    | [#14](https://github.com/kerstin-w/Travel-Africa/issues/14) | As a Registered User I can leave a comment on a post so that I can exchange with the author an be involved in a conversation. | Must Have | 3 |
+    | [#16](https://github.com/kerstin-w/Travel-Africa/issues/16) | As a Registered User I can like a post so that highlight useful content for other users. | Should Have | 1 |
+    | [#18](https://github.com/kerstin-w/Travel-Africa/issues/18) | As a Registered User I can can add a Post to my bucket list so that I can save destinations I want to travel to. | Could Have | 2 |
+    | [#26](https://github.com/kerstin-w/Travel-Africa/issues/26) | As a registered user I can rely on the app to log me out automatically so that strangers cannot access my profile in case I am on a public computer. | Could Have | 1 |
+    | [#31](https://github.com/kerstin-w/Travel-Africa/issues/31) | As a registered user I want to reset my password so that I can regain access to my account if I forget my password. | Could Have | 1 |
+    
+<br>
+
+- Epic: Post Interaction
+
+    | Issue # | User Story | Prioritisation | Points |
+    | :-----------: | :---------: | :-----------: | :-----------: |
+    | [#14](https://github.com/kerstin-w/Travel-Africa/issues/14) | As a Registered User I can leave a comment on a post so that I can exchange with the author an be involved in a conversation. | Must Have | 3 |
+    | [#15](https://github.com/kerstin-w/Travel-Africa/issues/15) | As a Unregistered User I can view comments so that I can read other users feedback. | Must Have | 1 |
+    | [#16](https://github.com/kerstin-w/Travel-Africa/issues/16) | As a Registered User I can like a post so that highlight useful content for other users. | Should Have | 1 |
+    | [#17](https://github.com/kerstin-w/Travel-Africa/issues/17) | As a Registered User I can receive an email notification if another user commented on my post so that I can engage in a conversation with other users. | Could Have | 1 |
+    | [#22](https://github.com/kerstin-w/Travel-Africa/issues/22) | As a Registered User I can delete my comments so that I can control the information that I share. | Must Have | 1 |
+
+<br>
+
+- Epic: Blog Posts
+
+    | Issue # | User Story | Prioritisation | Points |
+    | :-----------: | :---------: | :-----------: | :-----------: |
+    | [#3](https://github.com/kerstin-w/Travel-Africa/issues/3) | As a Unregistered User I can view a list of posts so that I can select one to read. | Must Have | 2 |
+    | [#10](https://github.com/kerstin-w/Travel-Africa/issues/10) | As a Registered User I can create a post so that I can share my experiences with other users. | Must Have | 3 |
+    | [#11](https://github.com/kerstin-w/Travel-Africa/issues/11) | As a Registered User I can edit my posts so that I can keep them current and amend mistakes. | Must Have | 2 |
+    | [#12](https://github.com/kerstin-w/Travel-Africa/issues/12) | As a Registered User I can delete my posts so that I can control the information that I share. | Must Have | 1 |
+    | [#29](https://github.com/kerstin-w/Travel-Africa/issues/29) | As a supersuer I want to delete content when inappropriate so that I can maintain the site and ensure that only useful or relevant content remains. | Must Have | 2 |
+
+<br>
+
+- Epic: User Profile 
+
+    | Issue # | User Story | Prioritisation | Points |
+    | :-----------: | :---------: | :-----------: | :-----------: |
+    | [#6](https://github.com/kerstin-w/Travel-Africa/issues/6) | As a Unregistered User I can Create an account so that I can sign in and use of the sites full functionality. | Must Have | 2 |
+    | [#7](https://github.com/kerstin-w/Travel-Africa/issues/7) | As a Registered User I can view my own account so that I can manage my account easily. | Must Have | 1 |
+    | [#8](https://github.com/kerstin-w/Travel-Africa/issues/8) | As a Registered User I can Edit/Update my account so that my profile is up to date. | Should Have | 2 |
+    | [#9](https://github.com/kerstin-w/Travel-Africa/issues/9) | As a Registered User I can delete my account so that I can remove my footprint from the website if I am no longer active. | Should Have | 1 |
+    | [#30](https://github.com/kerstin-w/Travel-Africa/issues/30) | As a superuser I want to block user accounts so that I can ensure only trusted users can access the site. | Should Have | 2 |
+    
+
