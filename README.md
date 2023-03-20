@@ -420,3 +420,51 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
     def __str__(self):
         return f"{self.user.username}'s Bucket List"
     ```
+<br>
+
+## <a name="features">Features</a>
+
+<br>
+
+## <a name="technologies-used">Technologies Used</a>
+
+### <a name="languages">Languages</a>
+
+- [Python](https://www.python.org/)
+- [HTML](https://en.wikipedia.org/wiki/HTML) with [Jinja](https://jinja.palletsprojects.com/en/3.1.x/)
+- [CSS](https://en.wikipedia.org/wiki/CSS) 
+- [JavaScript](https://en.wikipedia.org/wiki/JavaScript) & ( [jQuery](https://jquery.com/) )
+
+
+### <a name="framework">Framework</a>
+
+- [Django](https://www.djangoproject.com/)
+- [Bootstrap](https://getbootstrap.com/)
+
+#### Django Packages
+
+* [Gunicorn](https://gunicorn.org/)- was used as the server for Heroku
+* [Cloudinary](https://cloudinary.com/) - was used to host the static files and media
+* [Dj_database_url](https://pypi.org/project/dj-database-url/) - was used to parse the database URL from the environment variables in Heroku
+* [Psycopg2](https://pypi.org/project/psycopg2/) - was used as an adaptor for Python and PostgreSQL databases
+* [Summernote](https://summernote.org/) - was used as a text editor
+* [Allauth](https://django-allauth.readthedocs.io/en/latest/installation.html) - was used for authentication, registration, account management
+* [Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/) - was used to style the forms
+* [Case Insensitive Model Field](https://pypi.org/project/django-case-insensitive-field/) - was used to make the Post Title Field case insensitive for validation purposes
+* [Session Time Out](https://pypi.org/project/django-session-timeout/) - was used to expire a User Session
+
+### <a name="programs">Programs</a>
+
+- [Balsamiq](https://balsamiq.com/) - was used to create the wireframes.
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/) - was used to view the site's styling, debug during development and check runtime performance.
+- [Cloudinary](https://cloudinary.com/) - was used to store static files.
+- [Color Space](https://mycolor.space/) - was used to generate the colour plaette.
+- [Diagrams.net](https://app.diagrams.net/) - was used to create the ERD.
+- [Favicon.io](https://favicon.io/) - was used to create the favicon.
+- [Font Awesome](https://fontawesome.com/) - was used for the icons.
+- [GitHub](https://github.com/) - was used to store and deploy the project's code.
+- [Gitpod](https://www.gitpod.io/) - was used to develop and test my code.
+- [Google Fonts](https://fonts.google.com/) - was used to import Fonts to the style.css file.
+- [Heroku](https://heroku.com/) - was initially used to deploy the project.
+- [Tiny PNG](https://tinypng.com/) - was used to compress pictures.
+- [Visual Studio Code](https://code.visualstudio.com/) - was used to edit my code and create SVG paths from SVG image files.
