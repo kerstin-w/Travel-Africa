@@ -1,5 +1,4 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <main>
     <!--Blog Post -->
     <section>
@@ -26,8 +25,7 @@
                                     <tr>
                                         <td><span class="heading-underline">Author:</span></td>
                                         <td>
-                                            {{ post.author|capfirst }}
-                                            {% if user.is_authenticated %}
+                                            {{ post.author|capfirst }} {% if user.is_authenticated %}
                                             <a href="{% url 'users:profile_home' username=post.author.username %}">
                                                 {% if "placeholder" in post.author.profile.image.url %}
                                                 <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
@@ -38,8 +36,7 @@
                                                     class="profile-img profile-img-small" alt="{{ post.author }}" />
                                                 {% endif %}
                                             </a>
-                                            {% else %}
-                                            {% if "placeholder" in post.author.profile.image.url %}
+                                            {% else %} {% if "placeholder" in post.author.profile.image.url %}
                                             <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
                                                 class="profile-img profile-img-small" alt="Profile Image Placeholder" />
                                             {% else %}
@@ -63,8 +60,7 @@
                                     <tr>
                                         <td colspan="2">
                                             <div class="d-flex flex-row">
-                                                {% if user.is_authenticated %}
-                                                {% csrf_token %}
+                                                {% if user.is_authenticated %} {% csrf_token %}
                                                 <button
                                                     class="btn btn-read like-button d-flex flex-row align-items-center me-2"
                                                     data-post-slug="{{ post.slug }}"
@@ -83,9 +79,7 @@
                                                     <i class="fa-solid fa-heart"></i>
                                                     <p id="likes-count">{{ post.number_of_likes }}</p>
                                                 </button>
-                                                {% endif %}
-                                                {% if user.is_authenticated %}
-                                                {% if in_bucket_list %}
+                                                {% endif %} {% if user.is_authenticated %} {% if in_bucket_list %}
                                                 <button type="button" id="add-to-bucketlist-button" class="btn btn-save"
                                                     disabled>
                                                     <p class="mb-0">
@@ -108,8 +102,7 @@
                                                         </p>
                                                     </button>
                                                 </form>
-                                                {% endif %}
-                                                {% endif %}
+                                                {% endif %} {% endif %}
                                             </div>
                                         </td>
                                     </tr>
@@ -137,8 +130,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-12 ps-sm-4 mt-3">
                             <h3 class="heading-underline mb-4">Comments:</h3>
-                            {% if comments %}
-                            {% for comment in comments %}
+                            {% if comments %} {% for comment in comments %}
                             <div class="card p-3 mb-4 comment light-shadow">
                                 <div class="user-comment d-flex flex-row align-items-center">
                                     {% if user.is_authenticated %}
@@ -152,15 +144,13 @@
                                             class="profile-img profile-img-small me-2" />
                                         {% endif %}
                                     </a>
-                                    {% else %}
-                                    {% if "placeholder" in comment.profile.user.profile.image.url %}
+                                    {% else %} {% if "placeholder" in comment.profile.user.profile.image.url %}
                                     <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
                                         class="profile-img profile-img-small me-2" alt="Profile Image Placeholder" />
                                     {% else %}
                                     <img src="{{ comment.profile.user.profile.image.url }}" alt="{{ comment.name }}"
                                         class="profile-img profile-img-small me-2" />
-                                    {% endif %}
-                                    {% endif %}
+                                    {% endif %} {% endif %}
 
                                     <p class="text-muted">{{ comment.name|title }} wrote:</p>
                                 </div>
@@ -175,7 +165,6 @@
                                     </button>
                                     {% endif %}
                                 </div>
-
                             </div>
                             {% empty %}
                             <p>No comments yet.</p>
@@ -188,8 +177,7 @@
                             <div class="add-comment">
                                 <h3 class="heading-underline mb-4">Add a comment:</h3>
                                 <form method="post">
-                                    {% csrf_token %}
-                                    {{ comment_form.as_p }}
+                                    {% csrf_token %} {{ comment_form.as_p }}
                                     <button type="submit" class="btn btn-save">Submit</button>
                                 </form>
                             </div>
@@ -215,8 +203,7 @@
             </div>
             <div class="modal-footer">
                 <form method="post" action="{% url 'post_delete' post.slug %}">
-                    {% csrf_token %}
-                    {% if redirect_field_value %}
+                    {% csrf_token %} {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                     {% endif %}
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -225,8 +212,7 @@
         </div>
     </div>
 </div>
-{% endif %}
-{% for comment in post.comments.all %}
+{% endif %} {% for comment in post.comments.all %}
 {% if user.is_authenticated and user == post.author or user.is_superuser %}
 <div class="modal fade" id="deleteCommentModal{{comment.pk}}" tabindex="-1" aria-labelledby="Delete" aria-hidden="true">
     <div class="modal-dialog">
@@ -236,12 +222,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p> Are you sure you want to delete this comment by {{ comment.name }}?</p>
+                <p>Are you sure you want to delete this comment by {{ comment.name }}?</p>
             </div>
             <div class="modal-footer">
                 <form method="post" action="{% url 'comment_delete'  pk=comment.pk %}">
-                    {% csrf_token %}
-                    {% if redirect_field_value %}
+                    {% csrf_token %} {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                     {% endif %}
                     <button type="submit" class="btn btn-danger">Delete</button>
@@ -250,6 +235,4 @@
         </div>
     </div>
 </div>
-{% endif %}
-{% endfor %}
-{% endblock %}
+{% endif %} {% endfor %} {% endblock %}
