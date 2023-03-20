@@ -84,6 +84,7 @@ class BucketList(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     post = models.ManyToManyField(Post, related_name='bucketlist_post', blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user.username}'s Bucket List"

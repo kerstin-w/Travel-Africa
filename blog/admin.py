@@ -80,7 +80,7 @@ class BucketListAdmin(admin.ModelAdmin):
     """
     Add fields for Bucket List in admin panel
     """
-    list_display = ('user', 'added_on',)
-    list_filter = ('user', 'added_on',)
+    list_display = ('user', 'created_on',)
+    list_filter = ('user', 'created_on',)
     search_fields = ('user__username',)
     filter_horizontal = ('post',)
