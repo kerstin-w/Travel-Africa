@@ -13,20 +13,15 @@ class PostAdmin(SummernoteModelAdmin):
     """
     Add fields for Post in admin panel
     """
-    list_display = (
-                   'title',
-                   'status',
-                   'created_on',
-                   'author',
-                   'featured'
-                   )
+
+    list_display = ("title", "status", "created_on", "author", "featured")
     prepopulated_fields = {
-        'slug': ('title',),
-        }
-    list_filter = ('status', 'created_on', 'regions')
-    search_fields = ['title', 'content']
-    summernote_fields = ('content',)
-    actions = ['approve_posts']
+        "slug": ("title",),
+    }
+    list_filter = ("status", "created_on", "regions")
+    search_fields = ["title", "content"]
+    summernote_fields = ("content",)
+    actions = ["approve_posts"]
 
     def approve_posts(self, request, queryset):
         queryset.update(status=True)
@@ -37,17 +32,20 @@ class CategoryAdmin(admin.ModelAdmin):
     """
     Add fields for Category in admin panel
     """
-    list_display = ['title']
-    search_fields = ['title']
-    prepopulated_fields = {'slug': ('title',)}
+
+    list_display = ["title"]
+    search_fields = ["title"]
+    prepopulated_fields = {"slug": ("title",)}
+
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     """
     Add fields for the profile in the admin panel
     """
-    list_display = ('user', 'created_on')
-    search_fields = ['user']
+
+    list_display = ("user", "created_on")
+    search_fields = ["user"]
 
 
 @admin.register(Comment)
@@ -55,18 +53,21 @@ class CommentAdmin(admin.ModelAdmin):
     """
     Add fields for comments in admin panel
     """
-    list_display = ('name', 'body', 'post', 'created_on', 'approved')
-    list_filter = ('approved', 'created_on')
-    search_fields = ('name', 'email', 'body')
-    actions = ['approve_comments']
+
+    list_display = ("name", "body", "post", "created_on", "approved")
+    list_filter = ("approved", "created_on")
+    search_fields = ("name", "email", "body")
+    actions = ["approve_comments"]
 
     def approve_comments(self, request, queryset):
         queryset.update(approved=True)
         for comment in queryset:
             if comment.approved:
                 post_author_email = comment.post.author.email
-                subject = 'A new comment on your Post!'
-                message = render_to_string('comment_notification_email.txt', {'comment': comment})
+                subject = "A new comment on your Post!"
+                message = render_to_string(
+                    "comment_notification_email.txt", {"comment": comment}
+                )
                 send_mail(
                     subject,
                     message,
@@ -75,12 +76,20 @@ class CommentAdmin(admin.ModelAdmin):
                     fail_silently=False,
                 )
 
+
 @admin.register(BucketList)
 class BucketListAdmin(admin.ModelAdmin):
     """
     Add fields for Bucket List in admin panel
     """
-    list_display = ('user', 'created_on',)
-    list_filter = ('user', 'created_on',)
-    search_fields = ('user__username',)
-    filter_horizontal = ('post',)
+
+    list_display = (
+        "user",
+        "created_on",
+    )
+    list_filter = (
+        "user",
+        "created_on",
+    )
+    search_fields = ("user__username",)
+    filter_horizontal = ("post",)
