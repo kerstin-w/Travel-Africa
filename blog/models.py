@@ -12,9 +12,8 @@ class Category(models.Model):
     """
     Model for categories
     """
-    title = models.CharField(max_length=30)
-    slug = models.SlugField(max_length=100, unique=True, null=False)
-    category_image = CloudinaryField('image', default='placeholder')
+    title = models.CharField(max_length=30, unique=True)
+    slug = models.SlugField(max_length=30, unique=True, null=False)
 
     class Meta:
         ordering = ('title',)
