@@ -314,7 +314,7 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
         ```
 - Category
 
-    The Catgory contain a title and a slug to create a more informative URL.
+    The Catgory model contains a title and a slug to create a more informative URL.
 
     | Field Name | Type | Arguments |
     | :--------: | :--: | :-------: |
@@ -335,3 +335,81 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
         def __str__(self):
             return self.title
         ```
+
+- Post
+
+    The Post model contains all valuable fields for the blogpost. For the title the CaseInsensitiveFieldMixin was used for validation purposed. 
+
+    | Field Name | Type | Arguments |
+    | :--------: | :--: | :-------: |
+    | id | BigAutoField | primary_key=True |
+    | title | CaseInsensitiveCharField | max_length=100, unique=True |
+    | slug | SlugField | max_length=100, unique=True, null=False |
+    | author | ForeignKey| User, on_delete=models.CASCADE, related_name="blog_posts" |
+    | created_on | DateTimeField | auto_now_add=True |
+    | content | TextField | verbose_name='Text' |
+    | country | CharField | max_length=100 |
+    | featured_image | CloudinaryField | 'image', default='placeholder' |
+    | regions | ManyToManyField | Category |
+    | status | IntegerField | choices=STATUS, default=0 |
+    | likes | ManyToManyField | User, related_name='blogpost_like', blank=True |
+    | featured | BooleanField | default=False |
+
+    - Metadata
+
+    ```
+    class Meta:
+        ordering = ['-created_on']
+    ```
+
+    - Methods
+
+    ```
+    def __str__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return reverse('post_detail', kwargs={'slug': self.slug})
+    ```
+
+- Comment
+
+    | Field Name | Type | Arguments |
+    | :--------: | :--: | :-------: |
+    | id | BigAutoField | primary_key=True |
+    | post | ForeignKey | Post, on_delete=models.CASCADE, related_name="comments" |
+    | name | ForeignKey | User, on_delete=models.CASCADE, related_name='comments' |
+    | body | TextField | max_length=255 |
+    | created_on | DateTimeField | auto_now_add=True |
+    | approved | BooleanField | default=False |
+    | profile | ForeignKey | Profile, on_delete=models.CASCADE, null=True, blank=True, related_name='comments' |
+
+    - Metadata
+
+    ```
+    class Meta:
+        ordering = ['created_on']
+    ```
+
+    - Methods
+
+    ```
+    def __str__(self):
+        return f"Comment {self.body} by {self.name}"
+    ```
+
+- BucketList
+
+    | Field Name | Type | Arguments |
+    | :--------: | :--: | :-------: |
+    | user | OneToOneField | User, on_delete=models.CASCADE |
+    | post | ManyToManyField | Post, related_name='bucketlist_post', blank=True |
+    | added_on | DateTimeField | auto_now_add=True |
+
+
+    - Methods
+
+    ```
+    def __str__(self):
+        return f"{self.user.username}'s Bucket List"
+    ```
