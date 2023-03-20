@@ -64,10 +64,9 @@ class CommentAdmin(admin.ModelAdmin):
         queryset.update(approved=True)
         for comment in queryset:
             if comment.approved:
-                print(comment.post.author.username)
                 post_author_email = comment.post.author.email
                 subject = 'A new comment on your Post!'
-                message = render_to_string('comment_notification_email.html')
+                message = render_to_string('comment_notification_email.txt', {'comment': comment})
                 send_mail(
                     subject,
                     message,

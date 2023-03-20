@@ -1,0 +1,12 @@
+Hello {{ comment.post.author.username }},
+
+A new comment has been posted on your post "{{ comment.post.title }}".
+Here are the details of the comment:
+
+Name: {{ comment.name }}
+Comment: {{ comment.body }}
+
+You can login on Travel Africa Blog to see all recent comments on your posts.
+
+Thank you for using our website!
+https://travel-africa.herokuapp.com/
