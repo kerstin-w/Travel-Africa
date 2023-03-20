@@ -27,6 +27,13 @@ Travel Africa is a website that celebrates the natural beauty and rich culture o
     - [Database](#database)
     - [Entity Relationship Diagram](#entity-relationship-diagram)
     - [Models](#models)
+- [Features](#features)
+    - [Implemented Features](#implemented-features)
+    - [Future Features](#future-features)
+- [Technologies Used](#technologies-used)
+    - [Languages](#languages)
+    - [Framework](#framework)
+    - [Programs](#programs)
 
 
 ---
