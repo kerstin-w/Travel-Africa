@@ -1,6 +1,4 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
+{% extends 'base.html' %} {% load static %} {% block content %}
 <main>
     <!-- User Profiel -->
     <section id="profile">
@@ -64,8 +62,7 @@
                                     <div id="collapseParent">
                                         <div class="collapse" id="collapsePosts" data-bs-parent="#collapseParent">
                                             <div class="row pt-1">
-                                                {% if posts %}
-                                                {% for post in posts %}
+                                                {% if posts %} {% for post in posts %}
                                                 <div class="col-md-6 d-flex justify-content-around">
                                                     {% include 'components/list_of_posts.html' %}
                                                 </div>
@@ -75,8 +72,7 @@
                                             </div>
                                         </div>
                                         <div class="collapse" id="collapseComments" data-bs-parent="#collapseParent">
-                                            {% if comments %}
-                                            {% for comment in comments %}
+                                            {% if comments %} {% for comment in comments %}
                                             <div class="card p-3 mb-4 comment light-shadow">
                                                 <div class="user-comment d-flex flex-row">
                                                     <div class="d-flex flex-row align-items-center">
@@ -101,8 +97,7 @@
                                                 <p class="mt-3 ms-sm-4">{{ comment.body }}</p>
                                                 <small>{{ comment.created_on }}</small>
                                             </div>
-                                            {% endfor %}
-                                            {% else %}
+                                            {% endfor %} {% else %}
                                             <p>No comments yet.</p>
                                             {% endif %}
                                         </div>
@@ -112,8 +107,7 @@
                                     <h6>Posts</h6>
                                     <hr class="mt-0 mb-4" />
                                     <div class="row pt-1">
-                                        {% if posts %}
-                                        {% for post in posts %}
+                                        {% if posts %} {% for post in posts %}
                                         <div class="col-md-6 d-flex justify-content-around">
                                             {% include 'components/list_of_posts.html' %}
                                         </div>
@@ -131,5 +125,4 @@
         </div>
     </section>
 </main>
-{% include "components/delete_profile_modal.html" %}
-{% endblock content %}
+{% include "components/delete_profile_modal.html" %} {% endblock content %}
