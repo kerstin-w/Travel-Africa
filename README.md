@@ -261,3 +261,11 @@ The project was carried out over 4 iterations and each iteration lasted 3-4 days
 - Iteration 2 (Closed points 10 / Planned points 10)
 
     ![Iteration 2](documentation/agile/iteration2.png)
+
+- Iteration 3 (Closed points 9 / Planned points 10)
+
+    ![Iteration 3](documentation/agile/iteration3.png)
+
+- Iteration 4 (Closed points 10 / Planned points 10)
+
+    ![Iteration 4](documentation/agile/iteration4.png)
