@@ -29,7 +29,7 @@
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="nav-item dropdown-item" href="{% url 'post_list' %}"
                                         aria-label="Go to all posts">See all</a></li>
-                                <hr class="break-nav">
+                                <hr class="break-nav" />
                                 {% for category in categories %}
                                 <li><a class="dropdown-item" href="{% url 'post_category' slug=category.slug %}"
                                         aria-label="Go to the each category page">{{ category.title }}</a></li>
@@ -37,19 +37,22 @@
                             </ul>
                         </li>
                     </ul>
-
                     <ul class="navbar-nav mb-2 d-flex justify-content-end align-items-center login">
                         <li class="nav-item search-box">
                             <form action="{% url 'search_results' %}" method="get" class="d-flex input-group w-auto">
                                 <input type="search" name="q" class="form-control form-control-dark"
-                                    placeholder="Search..." aria-label="Search">
+                                    placeholder="Search..." aria-label="Search" />
                             </form>
                         </li>
                         {% if user.is_authenticated %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'bucketlist' %}"><i
-                                    class="fa-solid fa-list nav-icon"></i></a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'post_create' %}"><i
-                                    class="fa-solid fa-pen-to-square nav-icon"></i></a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'bucketlist' %}"><i
+                                    class="fa-solid fa-list nav-icon"></i></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'post_create' %}"><i
+                                    class="fa-solid fa-pen-to-square nav-icon"></i></a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" data-bs-toggle="modal" href="#signOutModal"><i
                                     class="fa-solid fa-arrow-right-from-bracket nav-icon"></i></a>

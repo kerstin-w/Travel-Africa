@@ -4,20 +4,16 @@
     <section id="hero">
         <div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item bg-setup carousel-bg-1 active" data-bs-interval="8000">
                     <div class="overlay"></div>
                     <div class="carousel-caption hero-content">
                         <h1 class="heading-underline">Travel Africa</h1>
-                        <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot
-                            fail to win your heart.</p>
+                        <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot fail to win your heart.</p>
                         <p class="hero-text">Discover the best places on the continent.</p>
                         <a href="{% url 'post_list' %}" class="btn btn-save btn-highlights mt-4">Explore</a>
                     </div>
@@ -26,8 +22,7 @@
                     <div class="overlay"></div>
                     <div class="carousel-caption d-md-block hero-content">
                         <h1 class="heading-underline">Travel Africa</h1>
-                        <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot
-                            fail to win your heart.</p>
+                        <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot fail to win your heart.</p>
                         <p class="hero-text">Discover the best places on the continent.</p>
                         <a href="{% url 'post_list' %}" class="btn btn-save btn-highlights mt-4">Explore</a>
                     </div>
@@ -36,8 +31,7 @@
                     <div class="overlay"></div>
                     <div class="carousel-caption d-md-block hero-content">
                         <h1 class="heading-underline">Travel Africa</h1>
-                        <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot
-                            fail to win your heart.</p>
+                        <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot fail to win your heart.</p>
                         <p class="hero-text">Discover the best places on the continent.</p>
                         <a href="{% url 'post_list' %}" class="btn btn-save btn-highlights mt-4">Explore</a>
                     </div>
@@ -62,8 +56,7 @@
                 <div class="col-md-8 cl-sm-12">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-featured" src="{{ post.featured_image.url }}"
-                                alt="{{ post.title }} Image" />
+                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" />
                             <div class="content-post-title">
                                 <h4>{{ post.title|title }}</h4>
                             </div>
@@ -114,8 +107,7 @@
                 <div class="col-md-8 cl-sm-12">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-featured" src="{{ post.featured_image.url }}"
-                                alt="{{ post.title }} Image" />
+                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" />
                             <div class="content-post-title">
                                 <h4>{{ post.title|title }}</h4>
                             </div>
