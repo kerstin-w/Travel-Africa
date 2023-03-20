@@ -293,3 +293,45 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 <br>
 
 ### <a name="models">Models</a>
+
+- Profile
+
+    Profile model inherits the Django-allauth's. I expanded it with the image and description which are optional and the date of creation. The Django signals were used to create a profile for the newly registered user.
+
+    | Field Name | Type | Arguments |
+    | :--------: | :--: | :-------: |
+    | id | BigAutoField | primary_key=True |
+    | user | OneToOneField(User) | null=True, on_delete=models.CASCADE |
+    | image | CloudinaryField | "image", default="placeholder" |
+    | description | TextField | max_length=200, blank=True, null=True |
+    | created_on | DateTimeField | auto_now_add=True |
+
+    - Methods
+
+        ```
+        def __str__(self):
+            return self.user.username
+        ```
+- Category
+
+    The Catgory contain a title and a slug to create a more informative URL.
+
+    | Field Name | Type | Arguments |
+    | :--------: | :--: | :-------: |
+    | title | CharField | max_length=30, unique=True |
+    | slug | SlugField | max_length=30, unique=True, null=False |
+
+    - Metadata
+
+        ```
+        class Meta:
+            ordering = ('title',)
+            verbose_name_plural = 'Categories'
+        ```
+
+    - Methods
+
+        ```
+        def __str__(self):
+            return self.title
+        ```
