@@ -175,7 +175,8 @@ All functionality and development of this project were managed using GitHub whic
 
 ### <a name="moscow-method-and-story-points">MoSCoW method and story points</a>
 
-To implement agile methodology, the Kanban board and Issues feature on GitHub Projects were utilized. User stories were first created and then prioritized using the MoSCoW method. The points were assigned to each story based on their complexity, amount of work, and repetition using a modified Fibonacci sequence (1, 2, 3, 5, and so on).
+To implement agile methodology, the Kanban board and Issues feature on GitHub Projects were utilized. 
+6 Epics were created which were then further developed into User Stories. User stories were first created and then prioritized using the MoSCoW method. The points were assigned to each story based on their complexity, amount of work, and repetition using a modified Fibonacci sequence (1, 2, 3, 5, and so on).Each User Story was assigned a classification of `Must Have`, `Should Have`, `Could Have` or `Won't Have`.  In practice some of the User Stories were completed quicker than anticipated and other User Stories took a longer.
 The details are as following:
 
 - Epic: Landing Page
