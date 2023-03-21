@@ -92,6 +92,7 @@ class ProfileDeleteView(
     title = "Profile"
     success_url = reverse_lazy("home")
     user_check_failure_path = reverse_lazy("account_signup")
+    template_name = "profile.html"
 
     def test_func(self):
         profile = self.get_object()
