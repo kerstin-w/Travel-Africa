@@ -38,3 +38,12 @@ class ProfileHomeViewTestCase(TestCase):
         self.assertEqual(response.context["sum_comments"], 0)
         self.assertEqual(list(response.context["posts"]), [])
         self.assertEqual(list(response.context["comments"]), [])
+
+    def test_profile_home_view_with_unauthenticated_user(self):
+        """
+        Test Access of unauthenticated user
+        """
+        url = reverse("users:profile_home", args=[self.user.username])
+        response = self.client.get(url)
+        login_url = reverse("account_login")
+        self.assertRedirects(response, f"{login_url}?next={url}")
