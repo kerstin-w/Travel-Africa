@@ -135,42 +135,48 @@ class PostDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        self.get_comments(context)
+        self.get_liked_status(context)
+        self.get_user_profile(context)
         context["title"] = self.object.title.title()
         context["comment_form"] = CommentForm()
+        return context
+
+    def get_comments(self, context):
         context["comments"] = self.object.comments.filter(approved=True)
+
+    def get_liked_status(self, context):
         if self.request.user.is_authenticated:
-            context["profile"] = Profile.objects.get(user=self.request.user)
-            try:
-                if self.request.user.bucketlist.post.filter(
-                    id=self.object.id
-                ).exists():
-                    context["in_bucket_list"] = True
-            except BucketList.DoesNotExist:
-                pass
             context["liked"] = self.object.likes.filter(
                 id=self.request.user.id
             ).exists()
         else:
             context["liked"] = False
-        return context
+
+    def get_user_profile(self, context):
+        if self.request.user.is_authenticated:
+            context["profile"] = Profile.objects.get(user=self.request.user)
 
     def post(self, request, *args, **kwargs):
         form = CommentForm(request.POST)
         if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = self.get_object()
-            comment.name = self.request.user
-            comment.profile = Profile.objects.get(user=self.request.user)
-            comment.save()
-            messages.success(
-                request,
-                "Your comment has been successfully created and is waiting for approval..",
-            )
-            return redirect("post_detail", slug=self.get_object().slug)
+            return self.comment_submission(form)
         else:
             context = self.get_context_data(**kwargs)
             context["comment_form"] = form
             return self.render_to_response(context)
+
+    def comment_submission(self, form):
+        comment = form.save(commit=False)
+        comment.post = self.get_object()
+        comment.name = self.request.user
+        comment.profile = Profile.objects.get(user=self.request.user)
+        comment.save()
+        messages.success(
+            self.request,
+            "Your comment has been successfully created and is waiting for approval..",
+        )
+        return redirect("post_detail", slug=self.get_object().slug)
 
 
 class PostCreateView(
