@@ -61,3 +61,18 @@ class ProfileHomeViewTestCase(BaseProfileTestCase):
         response = self.client.get(url)
         login_url = reverse("account_login")
         self.assertRedirects(response, f"{login_url}?next={url}")
+
+
+class ProfileUpdateViewTestCase(BaseProfileTestCase):
+
+    def test_get_profile_update_page(self):
+        # Create a user
+        self.login()
+        # Access the profile update page
+        response = self.client.get(self.get_profile_update_url())
+        # Assert that the status code is 200
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "profile_update.html")
+        self.assertIsInstance(response.context["form"], ProfileForm)
+
+       
