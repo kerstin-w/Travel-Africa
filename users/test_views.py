@@ -16,21 +16,20 @@ class BaseProfileTestCase(TestCase):
     def setUp(self):
         User.objects.all().delete()
         self.user = get_user_model().objects.create_user(
-            username='testuser',
-            email='testuser@example.com',
-            password='testpass'
+            username="testuser",
+            email="testuser@example.com",
+            password="testpass",
         )
         self.profile = get_object_or_404(Profile, user=self.user)
 
     def login(self):
-        self.client.login(username='testuser', password='testpass')
+        self.client.login(username="testuser", password="testpass")
 
     def get_profile_update_url(self):
-        return reverse('users:profile_update', kwargs={'pk': self.profile.pk})
+        return reverse("users:profile_update", kwargs={"pk": self.profile.pk})
 
 
 class ProfileHomeViewTestCase(BaseProfileTestCase):
-
     def test_profile_home_view(self):
         """
         Test Profile Page and context
@@ -64,7 +63,6 @@ class ProfileHomeViewTestCase(BaseProfileTestCase):
 
 
 class ProfileUpdateViewTestCase(BaseProfileTestCase):
-
     def test_get_profile_update_page(self):
         # Create a user
         self.login()
@@ -78,15 +76,31 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
     def test_update_profile(self):
         self.login()
         data = {
-            'username': 'testuser',
-            'email': 'testuser@example.com',
-            'description': 'Updated test description',
+            "username": "testuser",
+            "email": "testuser@example.com",
+            "description": "Updated test description",
         }
-        response = self.client.post(self.get_profile_update_url(), data=data, follow=True)
+        response = self.client.post(
+            self.get_profile_update_url(), data=data, follow=True
+        )
         self.assertRedirects(
             response,
-            reverse_lazy('users:profile_home', kwargs={'username': self.user.username})
+            reverse_lazy(
+                "users:profile_home", kwargs={"username": self.user.username}
+            ),
         )
         self.profile.refresh_from_db()
         self.assertContains(response, "Profile updated successfully")
         self.assertEqual(self.profile.description, "Updated test description")
+
+    def test_form_valid(self):
+        self.login()
+        data = {
+            "user": "testuser",
+            "username": "testuser",
+            "email": "testuser@example.com",
+            "description": "Updated test description",
+        }
+        form = ProfileForm(data=data, instance=self.profile)
+        self.assertTrue(form.is_valid())
+        form.instance.user = self.user
