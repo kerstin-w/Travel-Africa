@@ -301,7 +301,7 @@ class PostLikeView(View):
         post = get_object_or_404(Post, slug=slug)
         user = self.request.user
         liked = False
-        count = post.likes.count()
+        count = post.number_of_likes()
         if user in post.likes.all():
             post.likes.remove(user)
         else:
