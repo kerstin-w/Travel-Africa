@@ -1,27 +1,41 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from users.models import Profile
+from users.forms import ProfileForm
 
 
-class ProfileHomeViewTestCase(TestCase):
+class BaseProfileTestCase(TestCase):
     """
-    A class to test the ProfileHomeView
+    A base class for Profile-related test cases.
     """
 
     def setUp(self):
-        self.user = User.objects.create_user(
-            username="testuser", email="testuser@test.com", password="testpass"
+        User.objects.all().delete()
+        self.user = get_user_model().objects.create_user(
+            username='testuser',
+            email='testuser@example.com',
+            password='testpass'
         )
         self.profile = get_object_or_404(Profile, user=self.user)
+
+    def login(self):
+        self.client.login(username='testuser', password='testpass')
+
+    def get_profile_update_url(self):
+        return reverse('users:profile_update', kwargs={'pk': self.profile.pk})
+
+
+class ProfileHomeViewTestCase(BaseProfileTestCase):
 
     def test_profile_home_view(self):
         """
         Test Profile Page and context
         """
-        self.client.login(username="testuser", password="testpass")
+        self.login()
         url = reverse("users:profile_home", args=[self.user.username])
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)

@@ -100,6 +100,9 @@ class ProfileDeleteView(
             self.request.user.is_authenticated
             and self.request.user == profile.user
         )
+    
+    def get_template_names(self):
+        return ["profile.html"]
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
