@@ -9,6 +9,7 @@ class PostForm(ModelForm):
     """
     Form to create a Blog Post
     """
+
     class Meta:
         model = Post
         fields = [
@@ -50,17 +51,18 @@ class PostForm(ModelForm):
             ),
         }
 
-        def clean(self):
-            cleaned_data = super().clean()
-            title = cleaned_data.get("title")
-            if Post.objects.filter(title=title).exists():
-                raise ValidationError("A post with this title already exists.")
+    def clean(self):
+        cleaned_data = super().clean()
+        title = cleaned_data.get("title")
+        if Post.objects.filter(title=title).exists():
+            raise ValidationError("A post with this title already exists.")
 
 
 class CommentForm(forms.ModelForm):
     """
     Form to create a comment
     """
+
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         self.fields["body"].label = False
