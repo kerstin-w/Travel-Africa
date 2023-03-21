@@ -75,4 +75,18 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         self.assertTemplateUsed(response, "profile_update.html")
         self.assertIsInstance(response.context["form"], ProfileForm)
 
-       
+    def test_update_profile(self):
+        self.login()
+        data = {
+            'username': 'testuser',
+            'email': 'testuser@example.com',
+            'description': 'Updated test description',
+        }
+        response = self.client.post(self.get_profile_update_url(), data=data, follow=True)
+        self.assertRedirects(
+            response,
+            reverse_lazy('users:profile_home', kwargs={'username': self.user.username})
+        )
+        self.profile.refresh_from_db()
+        self.assertContains(response, "Profile updated successfully")
+        self.assertEqual(self.profile.description, "Updated test description")
