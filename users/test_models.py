@@ -1,13 +1,8 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from users.models import Profile
-from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
-from .models import Profile
+from users.models import Profile
 
 
 class TestProfileModel(TestCase):
