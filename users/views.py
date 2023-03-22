@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db import models
 from django.db.models import Count, Q
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, TemplateView, UpdateView
@@ -70,6 +71,12 @@ class ProfileUpdateView(
     def test_func(self):
         profile = get_object_or_404(Profile, user=self.request.user)
         return self.request.user == profile.user
+    
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        if self.request.user != obj.user:
+            raise Http404()
+        return obj
 
     def form_valid(self, form):
         form.instance.status = 0

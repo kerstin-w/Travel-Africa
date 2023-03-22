@@ -111,5 +111,3 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         url = reverse('users:profile_update', kwargs={'pk': self.profile.pk})
         response = self.client.get(url)
         self.assertRedirects(response, f'/accounts/login/?next={url}')
-
-
