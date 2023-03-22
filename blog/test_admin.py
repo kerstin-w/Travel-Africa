@@ -230,3 +230,13 @@ class CommentAdminTest(BaseAdminTest):
         self.assertEqual(mail.outbox[0].subject, "A new comment on your Post!")
         self.assertEqual(mail.outbox[0].to, [self.post.author.email])
         self.assertIn(self.comment.body, mail.outbox[0].body)
+
+    def test_list_display(self):
+        """
+        Test list_display
+        """
+        comment_admin = CommentAdmin(Comment, self.admin_site)
+        self.assertEqual(
+            list(comment_admin.get_list_display(None)),
+            ["name", "body", "post", "created_on", "approved"],
+        )
