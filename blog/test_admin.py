@@ -78,7 +78,7 @@ class PostAdminTest(TestCase):
         self.assertContains(response, 'name="q"')
         response = self.client.get(reverse("admin:blog_post_changelist"), {'q': 'Test Post'})
         self.assertContains(response, 'Test Post')
-    
+
     def test_summernote_fields(self):
         """
         Test Summernote
@@ -86,3 +86,19 @@ class PostAdminTest(TestCase):
         response = self.client.get(reverse("admin:blog_post_add"))
         self.assertContains(response, "content")
         self.assertContains(response, 'class="summernote-div"')
+
+
+class CategoryAdminTestCase(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_superuser(
+            username="admin", email="admin@test.com", password="password"
+        )
+        self.client.login(username="admin", password="password")
+        Category.objects.create(title="Test Category")
+
+    def test_category_admin_list_display(self):
+        """
+        Test List Display in Admin Panel
+        """
+        response = self.client.get(reverse("admin:blog_category_changelist"))
+        self.assertContains(response, "title")
