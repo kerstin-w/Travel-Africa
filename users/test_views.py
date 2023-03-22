@@ -67,16 +67,19 @@ class ProfileHomeViewTestCase(BaseProfileTestCase):
 
 class ProfileUpdateViewTestCase(BaseProfileTestCase):
     def test_get_profile_update_page(self):
-        # Create a user
+        """
+        Test Update Page
+        """
         self.login()
-        # Access the profile update page
         response = self.client.get(self.get_profile_update_url())
-        # Assert that the status code is 200
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "profile_update.html")
         self.assertIsInstance(response.context["form"], ProfileForm)
 
     def test_update_profile(self):
+        """
+        Test User updating own Profile
+        """
         self.login()
         data = {
             "username": "testuser",
@@ -97,6 +100,9 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         self.assertEqual(self.profile.description, "Updated test description")
 
     def test_form_valid(self):
+        """
+        Test Form Validation
+        """
         self.login()
         data = {
             "user": "testuser",
@@ -107,8 +113,23 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         form = ProfileForm(data=data, instance=self.profile)
         self.assertTrue(form.is_valid())
         form.instance.user = self.user
-    
+
     def test_unauthenticated_user_redirected_to_login_page(self):
-        url = reverse('users:profile_update', kwargs={'pk': self.profile.pk})
+        """
+        Test Access of unauthenticated user
+        """
+        url = reverse("users:profile_update", kwargs={"pk": self.profile.pk})
         response = self.client.get(url)
-        self.assertRedirects(response, f'/accounts/login/?next={url}')
+        self.assertRedirects(response, f"/accounts/login/?next={url}")
+
+    def test_user_cannot_update_profile_of_another_user(self):
+        """
+        Test Access of different User than Profile
+        """
+        user1 = User.objects.create_user(
+            username="user1", email="user1@test.com", password="testpassword"
+        )
+        self.client.login(username="user1", password="testpassword")
+        url = reverse("users:profile_update", kwargs={"pk": self.profile.pk})
+        response = self.client.get(url)
+        self.assertContains(response, "Something went wrong...")
