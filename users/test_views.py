@@ -149,3 +149,17 @@ class ProfileDeleteViewTestCase(BaseProfileTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Profile.objects.filter(pk=self.profile.pk).exists())
 
+    def test_profile_delete_view_redirects_to_login(self):
+        """
+        Test Access of unauthenticated user
+        """
+        response = self.client.post(
+            reverse(
+                "users:profile_delete",
+                kwargs={"username": self.user.username, "pk": self.profile.pk},
+            )
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(
+            response, "/accounts/login/?next=/testuser/1/delete/"
+        )
