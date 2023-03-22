@@ -21,6 +21,8 @@ class BaseProfileTestCase(TestCase):
             password="testpass",
         )
         self.profile = get_object_or_404(Profile, user=self.user)
+        self.profile.pk = 1  # Set the pk attribute explicitly
+        self.profile.save()
 
     def login(self):
         self.client.login(username="testuser", password="testpass")
@@ -104,3 +106,10 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         form = ProfileForm(data=data, instance=self.profile)
         self.assertTrue(form.is_valid())
         form.instance.user = self.user
+    
+    def test_unauthenticated_user_redirected_to_login_page(self):
+        url = reverse('users:profile_update', kwargs={'pk': self.profile.pk})
+        response = self.client.get(url)
+        self.assertRedirects(response, f'/accounts/login/?next={url}')
+
+
