@@ -133,3 +133,19 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         url = reverse("users:profile_update", kwargs={"pk": self.profile.pk})
         response = self.client.get(url)
         self.assertContains(response, "Something went wrong...")
+
+class ProfileDeleteViewTestCase(BaseProfileTestCase):
+    def test_profile_delete(self):
+        """
+        Test Delete Profile
+        """
+        self.login()
+        response = self.client.post(
+            reverse(
+                "users:profile_delete",
+                kwargs={"username": self.user.username, "pk": self.profile.pk},
+            )
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Profile.objects.filter(pk=self.profile.pk).exists())
+
