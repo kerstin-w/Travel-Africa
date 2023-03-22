@@ -1,9 +1,13 @@
 from django.test import TestCase
+from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.shortcuts import get_object_or_404
+from datetime import datetime
 from blog.models import Post, Category, Comment, BucketList
+from users.models import Profile
 from .models import Post
-
+from blog.admin import ProfileAdmin
 
 class PostAdminTest(TestCase):
     """
@@ -123,3 +127,36 @@ class CategoryAdminTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
         category = Category.objects.get(title="Test Category 2")
         self.assertEqual(category.slug, expected_slug)
+
+
+class ProfileAdminTest(TestCase):
+    def setUp(self):
+        self.admin_site = AdminSite()
+        self.user = User.objects.create_user(
+            username="testuser",
+            email="testuser@test.com",
+            password="testpassword",
+        )
+        created_on = datetime.strptime(
+            "2022-01-01 00:00:00", "%Y-%m-%d %H:%M:%S"
+        )
+
+        self.profile_admin = ProfileAdmin(Profile, self.admin_site)
+
+    def test_list_display(self):
+        """
+        Test List Display in Admin Panel
+        """
+        expected_list_display = ("user", "created_on")
+        self.assertEqual(
+            self.profile_admin.list_display, expected_list_display
+        )
+
+    def test_search_fields(self):
+        """
+        Test Search Field
+        """
+        expected_search_fields = ["user"]
+        self.assertEqual(
+            self.profile_admin.search_fields, expected_search_fields
+        )
