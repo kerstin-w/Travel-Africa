@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from django.http import Http404
 from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 
@@ -21,7 +22,7 @@ class BaseProfileTestCase(TestCase):
             password="testpass",
         )
         self.profile = get_object_or_404(Profile, user=self.user)
-        self.profile.pk = 1  # Set the pk attribute explicitly
+        self.profile.pk = 1
         self.profile.save()
 
     def login(self):

@@ -75,6 +75,7 @@ class ProfileUpdateView(
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         if self.request.user != obj.user:
+            messages.error(self.request, "You are not authorized to view this page.")
             raise Http404()
         return obj
 
