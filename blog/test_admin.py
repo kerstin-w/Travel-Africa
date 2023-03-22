@@ -1,13 +1,15 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
+from django.core import mail
 from django.urls import reverse
+from django.utils import timezone
 from django.shortcuts import get_object_or_404
 from datetime import datetime
 from blog.models import Post, Category, Comment, BucketList
 from users.models import Profile
 from .models import Post
-from blog.admin import ProfileAdmin
+from blog.admin import ProfileAdmin, CommentAdmin
 
 
 class BaseAdminTest(TestCase):
@@ -176,3 +178,55 @@ class ProfileAdminTest(BaseAdminTest):
         self.assertEqual(
             self.profile_admin.search_fields, expected_search_fields
         )
+
+
+class CommentAdminTest(BaseAdminTest):
+    """
+    Test case for CommentAdmin
+    """
+
+    def setUp(self):
+        """
+        Set up the CommentAdminTest
+        """
+        super().setUp()
+        self.post = Post.objects.create(
+            title="Test Post",
+            content="This is a test post.",
+            author=self.user,
+        )
+        self.profile = get_object_or_404(Profile, user=self.user)
+        self.comment = Comment.objects.create(
+            post=self.post,
+            name=self.user,
+            body="This is a test comment.",
+            created_on=datetime.now(),
+            approved=True,
+            profile=self.profile,
+        )
+        self.admin_site = AdminSite()
+        self.profile_admin = ProfileAdmin(Profile, self.admin_site)
+
+    def test_approve_comments(self):
+        """
+        Test that approve_comments updates the approved field and
+        sends a notification email to the post author
+        """
+        # Set up the client
+        client = Client()
+        client.login(username="admin", password="password")
+        response = client.post(
+            reverse("admin:blog_comment_changelist"),
+            {
+                "action": "approve_comments",
+                "_selected_action": [self.comment.pk],
+            },
+        )
+        self.comment.refresh_from_db()
+        self.assertTrue(self.comment.approved)
+
+        # Check that a notification email was sent to the post author
+        self.assertEqual(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, "A new comment on your Post!")
+        self.assertEqual(mail.outbox[0].to, [self.post.author.email])
+        self.assertIn(self.comment.body, mail.outbox[0].body)
