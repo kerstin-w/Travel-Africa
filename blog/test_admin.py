@@ -78,3 +78,11 @@ class PostAdminTest(TestCase):
         self.assertContains(response, 'name="q"')
         response = self.client.get(reverse("admin:blog_post_changelist"), {'q': 'Test Post'})
         self.assertContains(response, 'Test Post')
+    
+    def test_summernote_fields(self):
+        """
+        Test Summernote
+        """
+        response = self.client.get(reverse("admin:blog_post_add"))
+        self.assertContains(response, "content")
+        self.assertContains(response, 'class="summernote-div"')
