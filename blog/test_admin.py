@@ -9,9 +9,10 @@ from users.models import Profile
 from .models import Post
 from blog.admin import ProfileAdmin
 
-class PostAdminTest(TestCase):
+
+class BaseAdminTest(TestCase):
     """
-    Test Cases for PostAdmin
+    Base Data for Admin Test
     """
 
     def setUp(self):
@@ -24,6 +25,18 @@ class PostAdminTest(TestCase):
             password="password",
         )
         self.client.login(username="admin", password="password")
+
+
+class PostAdminTest(BaseAdminTest):
+    """
+    Test Cases for PostAdmin
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        super().setUp()
         category1 = Category.objects.create(title="Category 1")
         self.post = Post.objects.create(
             title="Test Post",
@@ -52,11 +65,15 @@ class PostAdminTest(TestCase):
         Test List Display in Admin Panel
         """
         response = self.client.get(reverse("admin:blog_post_changelist"))
-        self.assertContains(response, "Title")
-        self.assertContains(response, "Status")
-        self.assertContains(response, "Created on")
-        self.assertContains(response, "Author")
-        self.assertContains(response, "Featured")
+        expected_list_display = (
+            "Title",
+            "Status",
+            "Created on",
+            "Author",
+            "Featured",
+        )
+        for field in expected_list_display:
+            self.assertContains(response, field)
 
     def test_prepopulated_fields(self):
         """
@@ -70,9 +87,9 @@ class PostAdminTest(TestCase):
         Test List Filter
         """
         response = self.client.get(reverse("admin:blog_post_changelist"))
-        self.assertContains(response, "status")
-        self.assertContains(response, "created_on")
-        self.assertContains(response, "regions")
+        expected_list_filter = ("status", "created_on", "regions")
+        for field in expected_list_filter:
+            self.assertContains(response, field)
 
     def test_search_fields(self):
         """
@@ -80,8 +97,10 @@ class PostAdminTest(TestCase):
         """
         response = self.client.get(reverse("admin:blog_post_changelist"))
         self.assertContains(response, 'name="q"')
-        response = self.client.get(reverse("admin:blog_post_changelist"), {'q': 'Test Post'})
-        self.assertContains(response, 'Test Post')
+        response = self.client.get(
+            reverse("admin:blog_post_changelist"), {"q": "Test Post"}
+        )
+        self.assertContains(response, "Test Post")
 
     def test_summernote_fields(self):
         """
@@ -92,12 +111,9 @@ class PostAdminTest(TestCase):
         self.assertContains(response, 'class="summernote-div"')
 
 
-class CategoryAdminTestCase(TestCase):
+class CategoryAdminTestCase(BaseAdminTest):
     def setUp(self):
-        self.user = User.objects.create_superuser(
-            username="admin", email="admin@test.com", password="password"
-        )
-        self.client.login(username="admin", password="password")
+        super().setUp()
         Category.objects.create(title="Test Category")
 
     def test_category_admin_list_display(self):
@@ -129,7 +145,7 @@ class CategoryAdminTestCase(TestCase):
         self.assertEqual(category.slug, expected_slug)
 
 
-class ProfileAdminTest(TestCase):
+class ProfileAdminTest(BaseAdminTest):
     def setUp(self):
         self.admin_site = AdminSite()
         self.user = User.objects.create_user(
