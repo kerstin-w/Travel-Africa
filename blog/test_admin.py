@@ -102,3 +102,24 @@ class CategoryAdminTestCase(TestCase):
         """
         response = self.client.get(reverse("admin:blog_category_changelist"))
         self.assertContains(response, "title")
+
+    def test_category_admin_search_fields(self):
+        """
+        Test Search Field
+        """
+        response = self.client.get(
+            reverse("admin:blog_category_changelist"), {"q": "Test"}
+        )
+        self.assertContains(response, "Test Category")
+
+    def test_category_admin_prepopulated_fields(self):
+        """
+        Test Prepopulated Fields
+        """
+        response = self.client.get(reverse("admin:blog_category_add"))
+        data = {"title": "Test Category 2", "slug": "test-category-2"}
+        expected_slug = "test-category-2"
+        response = self.client.post(reverse("admin:blog_category_add"), data)
+        self.assertEqual(response.status_code, 302)
+        category = Category.objects.get(title="Test Category 2")
+        self.assertEqual(category.slug, expected_slug)
