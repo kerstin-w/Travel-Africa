@@ -240,7 +240,7 @@ class CommentAdminTest(BaseAdminTest):
             list(comment_admin.get_list_display(None)),
             ["name", "body", "post", "created_on", "approved"],
         )
-    
+
     def test_search_fields(self):
         """
         Test for search_fields
@@ -249,4 +249,14 @@ class CommentAdminTest(BaseAdminTest):
         self.assertEqual(
             list(comment_admin.get_search_fields(None)),
             ["name", "email", "body"],
+        )
+
+    def test_list_filter(self):
+        """
+        Test for list_filter
+        """
+        comment_admin = CommentAdmin(Comment, self.admin_site)
+        self.assertEqual(
+            list(comment_admin.get_list_filter(None)),
+            ["approved", "created_on"],
         )
