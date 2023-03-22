@@ -69,3 +69,12 @@ class PostAdminTest(TestCase):
         self.assertContains(response, "status")
         self.assertContains(response, "created_on")
         self.assertContains(response, "regions")
+
+    def test_search_fields(self):
+        """
+        Test Search Field
+        """
+        response = self.client.get(reverse("admin:blog_post_changelist"))
+        self.assertContains(response, 'name="q"')
+        response = self.client.get(reverse("admin:blog_post_changelist"), {'q': 'Test Post'})
+        self.assertContains(response, 'Test Post')
