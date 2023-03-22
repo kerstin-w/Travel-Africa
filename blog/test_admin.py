@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
+
 from .models import Post
 
 
@@ -51,3 +52,21 @@ class PostAdminTest(TestCase):
         self.assertContains(response, "Created on")
         self.assertContains(response, "Author")
         self.assertContains(response, "Featured")
+    
+    def test_prepopulated_fields(self):
+        """
+        Test Prepopulated Fields
+        """
+        response = self.client.get(reverse("admin:blog_post_add"))
+        self.assertContains(response, 'name="slug"')
+        self.assertContains(response, 'data-autoslugify-source="title"')
+
+    def test_list_filter(self):
+        """
+        Test List Filter
+        """
+        response = self.client.get(reverse("admin:blog_post_changelist"))
+        self.assertContains(response, 'name="status"')
+        self.assertContains(response, 'name="created_on"')
+        self.assertContains(response, 'name="regions"')
+
