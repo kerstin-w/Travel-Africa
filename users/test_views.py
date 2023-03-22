@@ -134,6 +134,7 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         response = self.client.get(url)
         self.assertContains(response, "Something went wrong...")
 
+
 class ProfileDeleteViewTestCase(BaseProfileTestCase):
     def test_profile_delete(self):
         """
@@ -162,4 +163,36 @@ class ProfileDeleteViewTestCase(BaseProfileTestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
             response, "/accounts/login/?next=/testuser/1/delete/"
+        )
+
+    def test_profile_delete_view_success(self):
+        """
+        Test delete successfully and redirect
+        """
+        self.login()
+        response = self.client.post(
+            reverse(
+                "users:profile_delete",
+                kwargs={"username": self.user.username, "pk": self.profile.pk},
+            )
+        )
+        self.assertRedirects(response, reverse("home"))
+        self.assertFalse(Profile.objects.filter(pk=self.profile.pk).exists())
+
+    def test_profile_delete_view_not_owner(self):
+        """
+        Test Access of different User than Profile owner
+        """
+        user2 = User.objects.create_user(
+            username="user2", password="testpass123"
+        )
+        self.client.login(username=user2.username, password="testpass123")
+        response = self.client.get(
+            reverse(
+                "users:profile_home", kwargs={"username": self.user.username}
+            )
+        )
+        self.assertNotContains(
+            response,
+            '<a data-bs-toggle="modal" href="#deleteProfileModal"><i class="fa-solid fa-trash icon"></i></a>',
         )
