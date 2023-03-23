@@ -95,6 +95,7 @@ class PostModelTest(TestCase):
     """
     Test Cases for Post Model
     """
+
     def setUp(self):
         user = User.objects.create_user(
             username="testuser", password="testpass"
@@ -112,10 +113,17 @@ class PostModelTest(TestCase):
         )
         self.post.regions.add(category)
         self.post.save()
-    
+
     def test_title_label(self):
         """
         Test the title
         """
         field_label = self.post._meta.get_field("title").verbose_name
         self.assertEquals(field_label, "title")
+
+    def test_title_max_length(self):
+        """
+        Test maximal length of Title
+        """
+        max_length = self.post._meta.get_field("title").max_length
+        self.assertEquals(max_length, 100)
