@@ -39,3 +39,11 @@ class CategoryModelTest(TestCase):
         category = Category(title="Test Category", slug="test-category-2")
         with self.assertRaises(Exception):
             category.save()
+    
+    def test_slug_unique(self):
+        """
+        Test unique slug
+        """
+        category = Category(title="Test Category 2", slug="test-category")
+        with self.assertRaises(Exception):
+            category.save()
