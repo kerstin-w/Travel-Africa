@@ -294,7 +294,7 @@ class PostModelTest(TestCase):
         # Check setting to True
         self.post.featured = True
         self.assertTrue(self.post.featured)
-    
+
     def test_ordering(self):
         """
         Test the ordering of posts
@@ -302,3 +302,16 @@ class PostModelTest(TestCase):
         posts = Post.objects.all()
         self.assertEqual(posts[0], self.new_post)
         self.assertEqual(posts[1], self.post)
+
+    def test_str(self):
+        """
+        Test title as string
+        """
+        self.assertEqual(str(self.post), 'test post')
+    
+    def test_number_of_likes(self):
+        """
+        Test number of likes
+        """
+        likes_count = self.post.likes.count()
+        self.assertEqual(self.post.number_of_likes(), likes_count)
