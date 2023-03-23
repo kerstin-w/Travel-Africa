@@ -1,15 +1,14 @@
+from datetime import datetime
+from django.core import mail
+from django.shortcuts import get_object_or_404
 from django.test import TestCase, Client
+from django.urls import reverse
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
-from django.core import mail
-from django.urls import reverse
-from django.utils import timezone
 from django.shortcuts import get_object_or_404
-from datetime import datetime
 from blog.models import Post, Category, Comment, BucketList
-from users.models import Profile
-from .models import Post
 from blog.admin import ProfileAdmin, CommentAdmin, BucketListAdmin
+from users.models import Profile
 
 
 class BaseAdminTest(TestCase):
