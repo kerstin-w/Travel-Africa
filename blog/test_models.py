@@ -232,3 +232,17 @@ class PostModelTest(TestCase):
         category = Category.objects.get(id=1)
         self.assertEqual(self.post.regions.count(), 1)
         self.assertEqual(self.post.regions.first(), self.category)
+
+    def test_status_label(self):
+        """
+        Test the status label
+        """
+        field_label = self.post._meta.get_field("status").verbose_name
+        self.assertEquals(field_label, "status")
+
+    def test_status_choices(self):
+        """
+        Test the status choices
+        """
+        for choice in STATUS:
+            self.assertIn(choice[0], [value for value, _ in STATUS])
