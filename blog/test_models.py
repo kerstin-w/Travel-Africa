@@ -117,11 +117,11 @@ class PostModelTest(TestCase):
         self.post.save()
 
         self.new_post = Post.objects.create(
-            title='Test Post 2',
-            slug='test-post-2',
+            title="Test Post 2",
+            slug="test-post-2",
             author=self.user,
-            content='This is a test post 2.',
-            country='Kongo',
+            content="This is a test post 2.",
+            country="Kongo",
         )
 
     def test_post_title_label(self):
@@ -306,7 +306,7 @@ class PostModelTest(TestCase):
         """
         Test title as string
         """
-        self.assertEqual(str(self.post), 'test post')
+        self.assertEqual(str(self.post), "test post")
 
     def test_post_number_of_likes(self):
         """
@@ -319,7 +319,7 @@ class PostModelTest(TestCase):
         """
         Test getting URL for Post
         """
-        expected_url = reverse('post_detail', kwargs={'slug': self.post.slug})
+        expected_url = reverse("post_detail", kwargs={"slug": self.post.slug})
         self.assertEqual(self.post.get_absolute_url(), expected_url)
 
 
@@ -327,6 +327,7 @@ class CommentModelTest(TestCase):
     """
     Test Cases for Comment Model
     """
+
     def setUp(self):
         """
         Test Data
@@ -339,22 +340,22 @@ class CommentModelTest(TestCase):
         self.profile.pk = 1
         self.profile.save()
         self.post = Post.objects.create(
-            title='Test Post',
-            slug='test-post',
+            title="Test Post",
+            slug="test-post",
             author=self.user,
-            content='This is a test post',
-            country='Botswana',
+            content="This is a test post",
+            country="Botswana",
         )
 
         self.comment = Comment.objects.create(
             post=self.post,
             name=self.user,
-            body='This is a test comment',
+            body="This is a test comment",
         )
         self.new_comment = Comment.objects.create(
             post=self.post,
             name=self.user,
-            body='This is another test comment',
+            body="This is another test comment",
         )
 
     def test_comment_id(self):
@@ -508,14 +509,14 @@ class BucketListModelTest(TestCase):
         Test the user is set
         """
         self.assertEqual(self.bucket_list.user, self.user)
-        
+
     def test_bucket_list_post_label(self):
         """
         Test the post label
         """
         field_label = self.bucket_list._meta.get_field("post").verbose_name
         self.assertEquals(field_label, "post")
-    
+
     def test_bucket_list_post(self):
         """
         Test that the posts
@@ -525,3 +526,18 @@ class BucketListModelTest(TestCase):
         self.assertCountEqual(
             self.bucket_list.post.all(), [self.post1, self.post2]
         )
+
+    def test_bucket_list_created_on_label(self):
+        """
+        Test the created on label
+        """
+        field_label = self.bucket_list._meta.get_field(
+            "created_on"
+        ).verbose_name
+        self.assertEquals(field_label, "created on")
+
+    def test_bucket_list_created_on(self):
+        """
+        Test created_on is automatically set
+        """
+        self.assertIsNotNone(self.bucket_list.created_on)
