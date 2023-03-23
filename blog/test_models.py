@@ -246,3 +246,20 @@ class PostModelTest(TestCase):
         """
         for choice in STATUS:
             self.assertIn(choice[0], [value for value, _ in STATUS])
+
+    def test_likes_label(self):
+        """
+        Test the likes label
+        """
+        field_label = self.post._meta.get_field("likes").verbose_name
+        self.assertEquals(field_label, "likes")
+
+    def test_likes(self):
+        """
+        Test the likes
+        """
+        self.post.likes.add(self.user)
+        self.assertEqual(self.post.likes.count(), 1)
+        self.assertEqual(self.post.likes.first().username, "testuser")
+        self.post.likes.remove(self.user)
+        self.assertEqual(self.post.likes.count(), 0)
