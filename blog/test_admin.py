@@ -9,7 +9,7 @@ from datetime import datetime
 from blog.models import Post, Category, Comment, BucketList
 from users.models import Profile
 from .models import Post
-from blog.admin import ProfileAdmin, CommentAdmin
+from blog.admin import ProfileAdmin, CommentAdmin, BucketListAdmin
 
 
 class BaseAdminTest(TestCase):
@@ -212,7 +212,6 @@ class CommentAdminTest(BaseAdminTest):
         Test that approve_comments updates the approved field and
         sends a notification email to the post author
         """
-        # Set up the client
         client = Client()
         client.login(username="admin", password="password")
         response = client.post(
@@ -260,3 +259,26 @@ class CommentAdminTest(BaseAdminTest):
             list(comment_admin.get_list_filter(None)),
             ["approved", "created_on"],
         )
+
+class BucketListAdminTest(BaseAdminTest):
+    """
+    Test case for BucketListAdmin
+    """
+
+    def setUp(self):
+        """
+        Set up the BucketListAdminTest
+        """
+        super().setUp()
+        self.admin_site = AdminSite()
+        self.bucket_list_admin = BucketListAdmin(BucketList, self.admin_site)
+
+    def test_list_display(self):
+        """
+        Test list_display
+        """
+        self.assertEqual(
+            self.bucket_list_admin.list_display,
+            ("user", "created_on"),
+        )
+
