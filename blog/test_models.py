@@ -1,9 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
-from django.core.files.uploadedfile import SimpleUploadedFile
-from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from django.contrib.auth.models import User
-from .models import Category, Post, STATUS
+from .models import Category, Post, Comment, STATUS
 
 
 class CategoryModelTest(TestCase):
@@ -308,17 +306,49 @@ class PostModelTest(TestCase):
         Test title as string
         """
         self.assertEqual(str(self.post), 'test post')
-    
+
     def test_number_of_likes(self):
         """
         Test number of likes
         """
         likes_count = self.post.likes.count()
         self.assertEqual(self.post.number_of_likes(), likes_count)
-    
+
     def test_get_absolute_url(self):
         """
         Test getting URL for Post
         """
         expected_url = reverse('post_detail', kwargs={'slug': self.post.slug})
         self.assertEqual(self.post.get_absolute_url(), expected_url)
+
+
+class CommentModelTest(TestCase):
+    """
+    Test Cases for Comment Model
+    """
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.user = User.objects.create_user(
+            username="testuser", password="testpass"
+        )
+        self.user.save()
+        self.post = Post.objects.create(
+            title='Test Post',
+            slug='test-post',
+            author=self.user,
+            content='This is a test post',
+            country='Botswana',
+        )
+        self.comment = Comment.objects.create(
+            post=self.post,
+            name=self.user,
+            body='This is a test comment',
+        )
+
+    def test_comment_id(self):
+        """
+        Test comment id
+        """
+        self.assertIsNotNone(self.comment.id)
