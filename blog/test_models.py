@@ -15,7 +15,19 @@ class CategoryModelTest(TestCase):
         Category.objects.create(title="Test Category", slug="test-category")
 
     def test_title_max_length(self):
+        """
+        Test maximal length of Title
+        """
         category = Category.objects.get(id=1)
         max_length = category._meta.get_field("title").max_length
+        # Check maximum length of field
+        self.assertEqual(max_length, 30)
+    
+    def test_slug_max_length(self):
+        """
+        Test maximal length of Slug
+        """
+        category = Category.objects.get(id=1)
+        max_length = category._meta.get_field("slug").max_length
         # Check maximum length of field
         self.assertEqual(max_length, 30)
