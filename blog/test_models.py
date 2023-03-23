@@ -345,11 +345,16 @@ class CommentModelTest(TestCase):
             content='This is a test post',
             country='Botswana',
         )
-        
+
         self.comment = Comment.objects.create(
             post=self.post,
             name=self.user,
             body='This is a test comment',
+        )
+        self.new_comment = Comment.objects.create(
+            post=self.post,
+            name=self.user,
+            body='This is another test comment',
         )
 
     def test_comment_id(self):
@@ -444,3 +449,11 @@ class CommentModelTest(TestCase):
         Test the profile
         """
         self.assertEqual(self.comment.name.profile, self.profile)
+
+    def test_comments_ordering(self):
+        """
+        Test the ordering of comments
+        """
+        comments = Comment.objects.all()
+        self.assertEqual(comments[0], self.comment)
+        self.assertEqual(comments[1], self.new_comment)
