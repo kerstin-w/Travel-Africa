@@ -171,7 +171,7 @@ class PostModelTest(TestCase):
         """
         self.assertEqual(self.post.author, self.user)
 
-    def test_delete_user(self):
+    def test_delete_user_with_posts(self):
         """
         Test deleting User and check if posts from user are deleted as well
         """
@@ -352,3 +352,17 @@ class CommentModelTest(TestCase):
         Test comment id
         """
         self.assertIsNotNone(self.comment.id)
+
+    def test_comment_name(self):
+        """
+        Test commenter name
+        """
+        self.assertEqual(self.comment.name, self.user)
+
+    def test_delete_user_with_comments(self):
+        """
+        Test deleting User and check if comments from user are deleted as well
+        """
+        self.assertEqual(self.comment.name, self.user)
+        self.user.delete()
+        self.assertFalse(Comment.objects.filter(pk=self.comment.pk).exists())
