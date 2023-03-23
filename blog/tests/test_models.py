@@ -2,7 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from .models import Category, Post, Comment, BucketList, STATUS, Profile
+from blog.models import Category, Post, Comment, BucketList, STATUS
+from users.models import Profile
 
 
 class CategoryModelTest(TestCase):
