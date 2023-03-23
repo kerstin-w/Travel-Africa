@@ -124,6 +124,7 @@ class CategoryAdminTestCase(BaseAdminTest):
     """
     Test Cases for CategoryAdmin
     """
+
     def setUp(self):
         """
         Test Data
@@ -168,6 +169,7 @@ class ProfileAdminTest(BaseAdminTest):
     """
     Test Cases for ProfileAdmin
     """
+
     def setUp(self):
         """
         Test Data
@@ -215,7 +217,9 @@ class CommentAdminTest(BaseAdminTest):
         """
         super().setUp()
         self.user1 = User.objects.create_user(
-            username="testuser", email="testuser@example.com", password="testpass"
+            username="testuser",
+            email="testuser@example.com",
+            password="testpass",
         )
         self.post = Post.objects.create(
             title="Test Post",
@@ -231,7 +235,6 @@ class CommentAdminTest(BaseAdminTest):
             approved=True,
         )
         self.admin_site = AdminSite()
-        self.profile_admin = ProfileAdmin(Profile, self.admin_site)
 
     def test_approve_comments(self):
         """
@@ -277,7 +280,9 @@ class CommentAdminTest(BaseAdminTest):
             list(comment_admin.get_search_fields(None)),
             ["name__username", "body"],
         )
-        response = self.client.get(reverse("admin:blog_comment_changelist"), {"q": "Admin"})
+        response = self.client.get(
+            reverse("admin:blog_comment_changelist"), {"q": "Admin"}
+        )
         # Check that the search query matches response
         self.assertContains(response, "Admin")
 
@@ -292,6 +297,7 @@ class CommentAdminTest(BaseAdminTest):
             ["approved", "created_on"],
         )
 
+
 class BucketListAdminTest(BaseAdminTest):
     """
     Test case for BucketListAdmin
@@ -299,7 +305,7 @@ class BucketListAdminTest(BaseAdminTest):
 
     def setUp(self):
         """
-        Set up the BucketListAdminTest
+        Test Data
         """
         super().setUp()
         self.admin_site = AdminSite()
@@ -331,6 +337,11 @@ class BucketListAdminTest(BaseAdminTest):
             self.bucket_list_admin.search_fields,
             ("user__username",),
         )
+        response = self.client.get(
+            reverse("admin:blog_bucketlist_changelist"), {"q": "Admin"}
+        )
+        # Check that the search query matches response
+        self.assertContains(response, "Admin")
 
     def test_filter_horizontal(self):
         """
@@ -340,7 +351,7 @@ class BucketListAdminTest(BaseAdminTest):
             self.bucket_list_admin.filter_horizontal,
             ("post",),
         )
-    
+
     def test_save_model(self):
         """
         Test search fields
