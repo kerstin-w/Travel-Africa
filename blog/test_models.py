@@ -315,3 +315,10 @@ class PostModelTest(TestCase):
         """
         likes_count = self.post.likes.count()
         self.assertEqual(self.post.number_of_likes(), likes_count)
+    
+    def test_get_absolute_url(self):
+        """
+        Test getting URL for Post
+        """
+        expected_url = reverse('post_detail', kwargs={'slug': self.post.slug})
+        self.assertEqual(self.post.get_absolute_url(), expected_url)
