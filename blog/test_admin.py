@@ -308,3 +308,31 @@ class BucketListAdminTest(BaseAdminTest):
             self.bucket_list_admin.filter_horizontal,
             ("post",),
         )
+    
+    def test_save_model(self):
+        """
+        Test search fields
+        """
+        # create a new bucket list to test
+        bucket_list = BucketList.objects.create(
+            user=self.user,
+            created_on=datetime.now(),
+        )
+        # create a new post to test
+        post = Post.objects.create(
+            author=self.user,
+            title="Test Post",
+            content="Test Post Content",
+        )
+        # add the post and save bucket list
+        bucket_list.post.add(post)
+        self.bucket_list_admin.save_model(
+            request=None,
+            obj=bucket_list,
+            form=None,
+            change=None,
+        )
+        # refresh the bucket list object from the database
+        bucket_list.refresh_from_db()
+        # validate that the post was saved correctly
+        self.assertIn(post, bucket_list.post.all())
