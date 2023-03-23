@@ -275,10 +275,36 @@ class BucketListAdminTest(BaseAdminTest):
 
     def test_list_display(self):
         """
-        Test list_display
+        Test list display
         """
         self.assertEqual(
             self.bucket_list_admin.list_display,
             ("user", "created_on"),
         )
 
+    def test_list_filter(self):
+        """
+        Test list filter
+        """
+        self.assertEqual(
+            self.bucket_list_admin.list_filter,
+            ("user", "created_on"),
+        )
+
+    def test_search_fields(self):
+        """
+        Test search fields
+        """
+        self.assertEqual(
+            self.bucket_list_admin.search_fields,
+            ("user__username",),
+        )
+
+    def test_filter_horizontal(self):
+        """
+        Test filter horizontal
+        """
+        self.assertEqual(
+            self.bucket_list_admin.filter_horizontal,
+            ("post",),
+        )
