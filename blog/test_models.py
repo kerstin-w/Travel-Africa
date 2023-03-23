@@ -406,3 +406,23 @@ class CommentModelTest(TestCase):
         Test that date is set automatically
         """
         self.assertIsNotNone(self.comment.created_on)
+
+    def test_comment_approved_label(self):
+        """
+        Test the approved label
+        """
+        field_label = self.comment._meta.get_field("approved").verbose_name
+        self.assertEquals(field_label, "approved")
+
+    def test_comment_approved_default(self):
+        """
+        Test approved default is False
+        """
+        self.assertFalse(self.comment.approved)
+
+    def test_comment_approved_true(self):
+        """
+        Test setting approved to True
+        """
+        self.comment.approved = True
+        self.assertTrue(self.comment.approved)
