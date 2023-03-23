@@ -1,13 +1,16 @@
 from django.test import TestCase
 from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
+from cloudinary_storage.storage import RawMediaCloudinaryStorage
 from django.contrib.auth.models import User
-from .models import Category
+from .models import Category, Post, STATUS
 
 
 class CategoryModelTest(TestCase):
     """
     Test Cases for Category Model
     """
+
     @classmethod
     def setUpTestData(cls):
         """
@@ -37,17 +40,19 @@ class CategoryModelTest(TestCase):
         """
         Test unique title
         """
-        category = Category(title="Test Category", slug="test-category-2")
         with self.assertRaises(Exception):
-            category.save()
+            Category.objects.create(
+                title="Test Category", slug="test-category-2"
+            )
 
     def test_slug_unique(self):
         """
         Test unique slug
         """
-        category = Category(title="Test Category 2", slug="test-category")
         with self.assertRaises(Exception):
-            category.save()
+            Category.objects.create(
+                title="Test Category 2", slug="test-category"
+            )
 
     def test_ordering(self):
         """
