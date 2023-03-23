@@ -97,6 +97,9 @@ class PostModelTest(TestCase):
     """
 
     def setUp(self):
+        """
+        Test Data
+        """
         user = User.objects.create_user(
             username="testuser", password="testpass"
         )
@@ -141,3 +144,10 @@ class PostModelTest(TestCase):
         """
         field_label = self.post._meta.get_field("slug").verbose_name
         self.assertEquals(field_label, "slug")
+
+    def test_slug_max_length(self):
+        """
+        Test maximal length of slug
+        """
+        max_length = self.post._meta.get_field("slug").max_length
+        self.assertEquals(max_length, 100)
