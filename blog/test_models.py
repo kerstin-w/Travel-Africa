@@ -177,36 +177,43 @@ class PostModelTest(TestCase):
         Test created_on is automatically set
         """
         self.assertIsNotNone(self.post.created_on)
-    
+
     def test_content_label(self):
         """
         Test the content label
         """
         field_label = self.post._meta.get_field("content").verbose_name
         self.assertEquals(field_label, "content")
-    
+
     def test_content(self):
         """
         Test the content
         """
-        self.assertEqual(self.post.content, 'This is a test post.')
-    
+        self.assertEqual(self.post.content, "This is a test post.")
+
     def test_country_label(self):
         """
         Test the country label
         """
         field_label = self.post._meta.get_field("country").verbose_name
         self.assertEquals(field_label, "country")
-    
+
     def test_country_max_length(self):
         """
         Test maximal length of country
         """
         max_length = self.post._meta.get_field("country").max_length
         self.assertEquals(max_length, 100)
-    
+
     def test_country(self):
         """
         Test the country
         """
-        self.assertEqual(self.post.country, 'Namibia')
+        self.assertEqual(self.post.country, "Namibia")
+
+    def test_featured_image_label(self):
+        """
+        Test the featued image label
+        """
+        field_label = self.post._meta.get_field("featured_image").verbose_name
+        self.assertEquals(field_label, "image")
