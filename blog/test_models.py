@@ -100,16 +100,16 @@ class PostModelTest(TestCase):
         """
         Test Data
         """
-        user = User.objects.create_user(
+        self.user = User.objects.create_user(
             username="testuser", password="testpass"
         )
-        user.save()
+        self.user.save()
         category = Category.objects.create(title="test category")
         category.save()
         self.post = Post.objects.create(
             title="test post",
             slug="test-post",
-            author=user,
+            author=self.user,
             content="This is a test post.",
             country="Namibia",
             featured_image="test.jpg",
@@ -119,7 +119,7 @@ class PostModelTest(TestCase):
 
     def test_title_label(self):
         """
-        Test the title
+        Test the title label
         """
         field_label = self.post._meta.get_field("title").verbose_name
         self.assertEquals(field_label, "title")
@@ -130,17 +130,17 @@ class PostModelTest(TestCase):
         """
         max_length = self.post._meta.get_field("title").max_length
         self.assertEquals(max_length, 100)
-    
+
     def test_title_unique(self):
         """
         Test unique title
         """
         with self.assertRaises(Exception):
             Post.objects.create(title="Test Post", slug="test-category-2")
-    
+
     def test_slug_label(self):
         """
-        Test the slug
+        Test the slug label
         """
         field_label = self.post._meta.get_field("slug").verbose_name
         self.assertEquals(field_label, "slug")
@@ -151,3 +151,16 @@ class PostModelTest(TestCase):
         """
         max_length = self.post._meta.get_field("slug").max_length
         self.assertEquals(max_length, 100)
+
+    def test_author_label(self):
+        """
+        Test the author label
+        """
+        field_label = self.post._meta.get_field("author").verbose_name
+        self.assertEquals(field_label, "author")
+
+    def test_post_author(self):
+        """
+        Test the author
+        """
+        self.assertEqual(self.post.author, self.user)
