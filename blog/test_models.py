@@ -495,3 +495,16 @@ class BucketListModelTest(TestCase):
             content="This is a test post 2",
             country="Kenya",
         )
+
+    def test_bucket_list_user_label(self):
+        """
+        Test the user label
+        """
+        field_label = self.bucket_list._meta.get_field("user").verbose_name
+        self.assertEquals(field_label, "user")
+
+    def test_bucket_list_user(self):
+        """
+        Test the user is set
+        """
+        self.assertEqual(self.bucket_list.user, self.user)
