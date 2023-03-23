@@ -89,3 +89,33 @@ class CategoryModelTest(TestCase):
         """
         category = Category.objects.get(id=1)
         self.assertEqual(str(category), "Test Category")
+
+
+class PostModelTest(TestCase):
+    """
+    Test Cases for Post Model
+    """
+    def setUp(self):
+        user = User.objects.create_user(
+            username="testuser", password="testpass"
+        )
+        user.save()
+        category = Category.objects.create(title="test category")
+        category.save()
+        self.post = Post.objects.create(
+            title="test post",
+            slug="test-post",
+            author=user,
+            content="This is a test post.",
+            country="Namibia",
+            featured_image="test.jpg",
+        )
+        self.post.regions.add(category)
+        self.post.save()
+    
+    def test_title_label(self):
+        """
+        Test the title
+        """
+        field_label = self.post._meta.get_field("title").verbose_name
+        self.assertEquals(field_label, "title")
