@@ -69,3 +69,18 @@ class CategoryModelTest(TestCase):
         ]
         # Compare actual order with expected order
         self.assertListEqual(actual_categories, expected_categories)
+
+    def test_verbose_name_plural(self):
+        """
+        Test verbose name
+        """
+        category = Category.objects.get(id=1)
+        verbose_name_plural = category._meta.verbose_name_plural
+        self.assertEquals(verbose_name_plural, "Categories")
+
+    def test_str(self):
+        """
+        Test string title
+        """
+        category = Category.objects.get(id=1)
+        self.assertEqual(str(category), "Test Category")
