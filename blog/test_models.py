@@ -457,3 +457,11 @@ class CommentModelTest(TestCase):
         comments = Comment.objects.all()
         self.assertEqual(comments[0], self.comment)
         self.assertEqual(comments[1], self.new_comment)
+    
+    def test_comment_str(self):
+        """
+        Test that the str method returns the correct string
+        """
+        expected_string = f"Comment This is a test comment by {self.user}"
+        comment_string = str(self.comment)
+        self.assertEqual(comment_string, expected_string)
