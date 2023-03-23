@@ -104,8 +104,8 @@ class PostModelTest(TestCase):
             username="testuser", password="testpass"
         )
         self.user.save()
-        category = Category.objects.create(title="test category")
-        category.save()
+        self.category = Category.objects.create(title="test category")
+        self.category.save()
         self.post = Post.objects.create(
             title="test post",
             slug="test-post",
@@ -114,7 +114,7 @@ class PostModelTest(TestCase):
             country="Namibia",
             featured_image="test.jpg",
         )
-        self.post.regions.add(category)
+        self.post.regions.add(self.category)
         self.post.save()
 
     def test_title_label(self):
@@ -217,3 +217,18 @@ class PostModelTest(TestCase):
         """
         field_label = self.post._meta.get_field("featured_image").verbose_name
         self.assertEquals(field_label, "image")
+
+    def test_regions_label(self):
+        """
+        Test the regions label
+        """
+        field_label = self.post._meta.get_field("regions").verbose_name
+        self.assertEquals(field_label, "regions")
+
+    def test_regions(self):
+        """
+        Test the regions
+        """
+        category = Category.objects.get(id=1)
+        self.assertEqual(self.post.regions.count(), 1)
+        self.assertEqual(self.post.regions.first(), self.category)
