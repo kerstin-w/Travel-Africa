@@ -508,3 +508,20 @@ class BucketListModelTest(TestCase):
         Test the user is set
         """
         self.assertEqual(self.bucket_list.user, self.user)
+        
+    def test_bucket_list_post_label(self):
+        """
+        Test the post label
+        """
+        field_label = self.bucket_list._meta.get_field("post").verbose_name
+        self.assertEquals(field_label, "post")
+    
+    def test_bucket_list_post(self):
+        """
+        Test that the posts
+        """
+        self.bucket_list.post.add(self.post1)
+        self.bucket_list.post.add(self.post2)
+        self.assertCountEqual(
+            self.bucket_list.post.all(), [self.post1, self.post2]
+        )
