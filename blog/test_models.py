@@ -541,3 +541,11 @@ class BucketListModelTest(TestCase):
         Test created_on is automatically set
         """
         self.assertIsNotNone(self.bucket_list.created_on)
+
+    def test_bucket_list_str(self):
+        """
+        Test that the str method returns the correct string
+        """
+        expected_string = f"{self.user.username}'s Bucket List"
+        bucket_list_string = str(self.bucket_list)
+        self.assertEqual(bucket_list_string, expected_string)
