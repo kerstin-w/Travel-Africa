@@ -202,9 +202,6 @@ class ProfileAdminTest(BaseAdminTest):
         self.assertEqual(
             self.profile_admin.search_fields, expected_search_fields
         )
-        response = self.client.get(
-            reverse("admin:blog_profile_changelist"), {"q": "Test"}
-        )
 
 
 class CommentAdminTest(BaseAdminTest):
@@ -217,10 +214,13 @@ class CommentAdminTest(BaseAdminTest):
         Test Data
         """
         super().setUp()
+        self.user1 = User.objects.create_user(
+            username="testuser", email="testuser@example.com", password="testpass"
+        )
         self.post = Post.objects.create(
             title="Test Post",
             content="This is a test post.",
-            author=self.user,
+            author=self.user1,
         )
         self.profile = get_object_or_404(Profile, user=self.user)
         self.comment = Comment.objects.create(
@@ -229,7 +229,6 @@ class CommentAdminTest(BaseAdminTest):
             body="This is a test comment.",
             created_on=datetime.now(),
             approved=True,
-            profile=self.profile,
         )
         self.admin_site = AdminSite()
         self.profile_admin = ProfileAdmin(Profile, self.admin_site)
@@ -276,8 +275,11 @@ class CommentAdminTest(BaseAdminTest):
         # Check that search field is displayed
         self.assertEqual(
             list(comment_admin.get_search_fields(None)),
-            ["name", "email", "body"],
+            ["name__username", "body"],
         )
+        response = self.client.get(reverse("admin:blog_comment_changelist"), {"q": "Admin"})
+        # Check that the search query matches response
+        self.assertContains(response, "Admin")
 
     def test_list_filter(self):
         """
