@@ -164,6 +164,13 @@ class PostModelTest(TestCase):
         Test the author
         """
         self.assertEqual(self.post.author, self.user)
+    
+    def test_delete_user(self):
+        """
+        Test deleting User and check if posts from user are deleted as well
+        """
+        self.user.delete()
+        self.assertFalse(Post.objects.filter(pk=self.post.pk).exists())
 
     def test_created_on_label(self):
         """
