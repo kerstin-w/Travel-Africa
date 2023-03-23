@@ -16,7 +16,7 @@ class CategoryModelTest(TestCase):
         """
         Category.objects.create(title="Test Category", slug="test-category")
 
-    def test_title_max_length(self):
+    def test_category_title_max_length(self):
         """
         Test maximal length of Title
         """
@@ -25,7 +25,7 @@ class CategoryModelTest(TestCase):
         # Check maximum length of field
         self.assertEqual(max_length, 30)
 
-    def test_slug_max_length(self):
+    def test_category_slug_max_length(self):
         """
         Test maximal length of Slug
         """
@@ -34,7 +34,7 @@ class CategoryModelTest(TestCase):
         # Check maximum length of field
         self.assertEqual(max_length, 30)
 
-    def test_title_unique(self):
+    def test_category_title_unique(self):
         """
         Test unique title
         """
@@ -43,7 +43,7 @@ class CategoryModelTest(TestCase):
                 title="Test Category", slug="test-category-2"
             )
 
-    def test_slug_unique(self):
+    def test_category_slug_unique(self):
         """
         Test unique slug
         """
@@ -52,7 +52,7 @@ class CategoryModelTest(TestCase):
                 title="Test Category 2", slug="test-category"
             )
 
-    def test_ordering(self):
+    def test_category_ordering(self):
         """
         Test ordering of categories
         """
@@ -81,7 +81,7 @@ class CategoryModelTest(TestCase):
         verbose_name_plural = category._meta.verbose_name_plural
         self.assertEquals(verbose_name_plural, "Categories")
 
-    def test_str(self):
+    def test_str_category(self):
         """
         Test string title
         """
@@ -123,14 +123,14 @@ class PostModelTest(TestCase):
             country='Kongo',
         )
 
-    def test_title_label(self):
+    def test_post_title_label(self):
         """
         Test the title label
         """
         field_label = self.post._meta.get_field("title").verbose_name
         self.assertEquals(field_label, "title")
 
-    def test_title_max_length(self):
+    def test_post_max_length(self):
         """
         Test maximal length of Title
         """
@@ -144,14 +144,14 @@ class PostModelTest(TestCase):
         with self.assertRaises(Exception):
             Post.objects.create(title="Test Post", slug="test-category-2")
 
-    def test_slug_label(self):
+    def test_post_slug_label(self):
         """
         Test the slug label
         """
         field_label = self.post._meta.get_field("slug").verbose_name
         self.assertEquals(field_label, "slug")
 
-    def test_slug_max_length(self):
+    def test_post_slug_max_length(self):
         """
         Test maximal length of slug
         """
@@ -293,7 +293,7 @@ class PostModelTest(TestCase):
         self.post.featured = True
         self.assertTrue(self.post.featured)
 
-    def test_ordering(self):
+    def test_orderin_posts(self):
         """
         Test the ordering of posts
         """
@@ -301,7 +301,7 @@ class PostModelTest(TestCase):
         self.assertEqual(posts[0], self.new_post)
         self.assertEqual(posts[1], self.post)
 
-    def test_str(self):
+    def test_str_post_title(self):
         """
         Test title as string
         """
