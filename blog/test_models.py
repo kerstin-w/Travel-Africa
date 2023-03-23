@@ -176,10 +176,17 @@ class PostModelTest(TestCase):
         """
         Test created_on is automatically set
         """
-        new_post = Post.objects.create(
-            title='New Test Post',
-            slug='new-test-post',
-            content='This is a test post',
-            author=self.user
-        )
-        self.assertIsNotNone(new_post.created_on)
+        self.assertIsNotNone(self.post.created_on)
+    
+    def test_content_label(self):
+        """
+        Test the content label
+        """
+        field_label = self.post._meta.get_field("content").verbose_name
+        self.assertEquals(field_label, "content")
+    
+    def test_content(self):
+        """
+        Test the content
+        """
+        self.assertEqual(self.post.content, 'This is a test post.')
