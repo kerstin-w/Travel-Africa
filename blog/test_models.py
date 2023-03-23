@@ -352,6 +352,13 @@ class CommentModelTest(TestCase):
         Test comment id
         """
         self.assertIsNotNone(self.comment.id)
+    
+    def test_comment_name_label(self):
+        """
+        Test the featured label
+        """
+        field_label = self.comment._meta.get_field("name").verbose_name
+        self.assertEquals(field_label, "name")
 
     def test_comment_name(self):
         """
