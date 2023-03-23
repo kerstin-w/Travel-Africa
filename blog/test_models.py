@@ -127,3 +127,10 @@ class PostModelTest(TestCase):
         """
         max_length = self.post._meta.get_field("title").max_length
         self.assertEquals(max_length, 100)
+    
+    def test_title_unique(self):
+        """
+        Test unique title
+        """
+        with self.assertRaises(Exception):
+            Post.objects.create(title="Test Post", slug="test-category-2")
