@@ -137,7 +137,7 @@ class PostModelTest(TestCase):
         max_length = self.post._meta.get_field("title").max_length
         self.assertEquals(max_length, 100)
 
-    def test_title_unique(self):
+    def test_post_title_unique(self):
         """
         Test unique title
         """
@@ -178,67 +178,67 @@ class PostModelTest(TestCase):
         self.user.delete()
         self.assertFalse(Post.objects.filter(pk=self.post.pk).exists())
 
-    def test_created_on_label(self):
+    def test_post_created_on_label(self):
         """
         Test the created_on label
         """
         field_label = self.post._meta.get_field("created_on").verbose_name
         self.assertEquals(field_label, "created on")
 
-    def test_created_on(self):
+    def test_post_created_on(self):
         """
         Test created_on is automatically set
         """
         self.assertIsNotNone(self.post.created_on)
 
-    def test_content_label(self):
+    def test_post_content_label(self):
         """
         Test the content label
         """
         field_label = self.post._meta.get_field("content").verbose_name
         self.assertEquals(field_label, "content")
 
-    def test_content(self):
+    def test_post_content(self):
         """
         Test the content
         """
         self.assertEqual(self.post.content, "This is a test post.")
 
-    def test_country_label(self):
+    def test_post_country_label(self):
         """
         Test the country label
         """
         field_label = self.post._meta.get_field("country").verbose_name
         self.assertEquals(field_label, "country")
 
-    def test_country_max_length(self):
+    def test_post_country_max_length(self):
         """
         Test maximal length of country
         """
         max_length = self.post._meta.get_field("country").max_length
         self.assertEquals(max_length, 100)
 
-    def test_country(self):
+    def test_post_country(self):
         """
         Test the country
         """
         self.assertEqual(self.post.country, "Namibia")
 
-    def test_featured_image_label(self):
+    def test_post_featured_image_label(self):
         """
         Test the featued image label
         """
         field_label = self.post._meta.get_field("featured_image").verbose_name
         self.assertEquals(field_label, "image")
 
-    def test_regions_label(self):
+    def test_post_regions_label(self):
         """
         Test the regions label
         """
         field_label = self.post._meta.get_field("regions").verbose_name
         self.assertEquals(field_label, "regions")
 
-    def test_regions(self):
+    def test_post_regions(self):
         """
         Test the regions
         """
@@ -246,28 +246,28 @@ class PostModelTest(TestCase):
         self.assertEqual(self.post.regions.count(), 1)
         self.assertEqual(self.post.regions.first(), self.category)
 
-    def test_status_label(self):
+    def test_post_status_label(self):
         """
         Test the status label
         """
         field_label = self.post._meta.get_field("status").verbose_name
         self.assertEquals(field_label, "status")
 
-    def test_status_choices(self):
+    def test_post_status_choices(self):
         """
         Test the status choices
         """
         for choice in STATUS:
             self.assertIn(choice[0], [value for value, _ in STATUS])
 
-    def test_likes_label(self):
+    def test_post_likes_label(self):
         """
         Test the likes label
         """
         field_label = self.post._meta.get_field("likes").verbose_name
         self.assertEquals(field_label, "likes")
 
-    def test_likes(self):
+    def test_post_likes(self):
         """
         Test the likes.
         """
@@ -279,21 +279,21 @@ class PostModelTest(TestCase):
         self.post.likes.remove(self.user)
         self.assertEqual(self.post.likes.count(), 0)
 
-    def test_featured_label(self):
+    def test_post_featured_label(self):
         """
         Test the featured label
         """
         field_label = self.post._meta.get_field("featured").verbose_name
         self.assertEquals(field_label, "featured")
 
-    def test_featured(self):
+    def test_post_featured(self):
         # Check default is False
         self.assertFalse(self.post.featured)
         # Check setting to True
         self.post.featured = True
         self.assertTrue(self.post.featured)
 
-    def test_orderin_posts(self):
+    def test_ordering_posts(self):
         """
         Test the ordering of posts
         """
@@ -307,14 +307,14 @@ class PostModelTest(TestCase):
         """
         self.assertEqual(str(self.post), 'test post')
 
-    def test_number_of_likes(self):
+    def test_post_number_of_likes(self):
         """
         Test number of likes
         """
         likes_count = self.post.likes.count()
         self.assertEqual(self.post.number_of_likes(), likes_count)
 
-    def test_get_absolute_url(self):
+    def test_post_get_absolute_url(self):
         """
         Test getting URL for Post
         """
@@ -393,3 +393,4 @@ class CommentModelTest(TestCase):
         Test content of body
         """
         self.assertEqual(self.comment.body, "This is a test comment")
+    
