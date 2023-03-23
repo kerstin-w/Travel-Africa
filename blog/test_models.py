@@ -134,3 +134,10 @@ class PostModelTest(TestCase):
         """
         with self.assertRaises(Exception):
             Post.objects.create(title="Test Post", slug="test-category-2")
+    
+    def test_slug_label(self):
+        """
+        Test the slug
+        """
+        field_label = self.post._meta.get_field("slug").verbose_name
+        self.assertEquals(field_label, "slug")
