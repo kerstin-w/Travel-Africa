@@ -164,7 +164,7 @@ class PostModelTest(TestCase):
         Test the author
         """
         self.assertEqual(self.post.author, self.user)
-    
+
     def test_delete_user(self):
         """
         Test deleting User and check if posts from user are deleted as well
@@ -263,10 +263,26 @@ class PostModelTest(TestCase):
 
     def test_likes(self):
         """
-        Test the likes
+        Test the likes.
         """
+        # Add a like
         self.post.likes.add(self.user)
         self.assertEqual(self.post.likes.count(), 1)
         self.assertEqual(self.post.likes.first().username, "testuser")
+        # Remove a like
         self.post.likes.remove(self.user)
         self.assertEqual(self.post.likes.count(), 0)
+
+    def test_featured_label(self):
+        """
+        Test the featured label
+        """
+        field_label = self.post._meta.get_field("featured").verbose_name
+        self.assertEquals(field_label, "featured")
+
+    def test_featured(self):
+        # Check default is False
+        self.assertFalse(self.post.featured)
+        # Check setting to True
+        self.post.featured = True
+        self.assertTrue(self.post.featured)
