@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
-from .models import Category, Post, Comment, STATUS, Profile
+from .models import Category, Post, Comment, BucketList, STATUS, Profile
 
 
 class CategoryModelTest(TestCase):
@@ -457,7 +457,7 @@ class CommentModelTest(TestCase):
         comments = Comment.objects.all()
         self.assertEqual(comments[0], self.comment)
         self.assertEqual(comments[1], self.new_comment)
-    
+
     def test_comment_str(self):
         """
         Test that the str method returns the correct string
@@ -465,3 +465,33 @@ class CommentModelTest(TestCase):
         expected_string = f"Comment This is a test comment by {self.user}"
         comment_string = str(self.comment)
         self.assertEqual(comment_string, expected_string)
+
+
+class BucketListModelTest(TestCase):
+    """
+    Test Cases for BucketList Model
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.user = User.objects.create_user(
+            username="testuser", password="testpass"
+        )
+        self.user.save()
+        self.bucket_list = BucketList.objects.create(user=self.user)
+        self.post1 = Post.objects.create(
+            title="Test Post 1",
+            slug="test-post-1",
+            author=self.user,
+            content="This is a test post 1",
+            country="Lesotho",
+        )
+        self.post2 = Post.objects.create(
+            title="Test Post 2",
+            slug="test-post-2",
+            author=self.user,
+            content="This is a test post 2",
+            country="Kenya",
+        )
