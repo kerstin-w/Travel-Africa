@@ -59,7 +59,9 @@ class PostAdminTest(BaseAdminTest):
             },
         )
         self.assertRedirects(response, reverse("admin:blog_post_changelist"))
+        # Refresh database
         self.post.refresh_from_db()
+        # Check that status has been updated to True
         self.assertTrue(self.post.status)
 
     def test_list_display(self):
@@ -74,6 +76,7 @@ class PostAdminTest(BaseAdminTest):
             "Author",
             "Featured",
         )
+        # Check that each expected fields are present
         for field in expected_list_display:
             self.assertContains(response, field)
 
@@ -90,6 +93,7 @@ class PostAdminTest(BaseAdminTest):
         """
         response = self.client.get(reverse("admin:blog_post_changelist"))
         expected_list_filter = ("status", "created_on", "regions")
+        # Check that each expected field is present
         for field in expected_list_filter:
             self.assertContains(response, field)
 
@@ -99,9 +103,11 @@ class PostAdminTest(BaseAdminTest):
         """
         response = self.client.get(reverse("admin:blog_post_changelist"))
         self.assertContains(response, 'name="q"')
+        # Send a GET request with a search query
         response = self.client.get(
             reverse("admin:blog_post_changelist"), {"q": "Test Post"}
         )
+        # Check that the search query matches response
         self.assertContains(response, "Test Post")
 
     def test_summernote_fields(self):
@@ -109,12 +115,19 @@ class PostAdminTest(BaseAdminTest):
         Test Summernote
         """
         response = self.client.get(reverse("admin:blog_post_add"))
+        # Check that the "content" field and Summernote Div are present
         self.assertContains(response, "content")
         self.assertContains(response, 'class="summernote-div"')
 
 
 class CategoryAdminTestCase(BaseAdminTest):
+    """
+    Test Cases for CategoryAdmin
+    """
     def setUp(self):
+        """
+        Test Data
+        """
         super().setUp()
         Category.objects.create(title="Test Category")
 
@@ -123,6 +136,7 @@ class CategoryAdminTestCase(BaseAdminTest):
         Test List Display in Admin Panel
         """
         response = self.client.get(reverse("admin:blog_category_changelist"))
+        # Check that the "title" field is displayed
         self.assertContains(response, "title")
 
     def test_category_admin_search_fields(self):
@@ -132,6 +146,7 @@ class CategoryAdminTestCase(BaseAdminTest):
         response = self.client.get(
             reverse("admin:blog_category_changelist"), {"q": "Test"}
         )
+        # Check that the search query matches response
         self.assertContains(response, "Test Category")
 
     def test_category_admin_prepopulated_fields(self):
@@ -139,10 +154,12 @@ class CategoryAdminTestCase(BaseAdminTest):
         Test Prepopulated Fields
         """
         response = self.client.get(reverse("admin:blog_category_add"))
+        # Create a dictionary with test data
         data = {"title": "Test Category 2", "slug": "test-category-2"}
         expected_slug = "test-category-2"
         response = self.client.post(reverse("admin:blog_category_add"), data)
         self.assertEqual(response.status_code, 302)
+        # Get category and check slug field
         category = Category.objects.get(title="Test Category 2")
         self.assertEqual(category.slug, expected_slug)
 
