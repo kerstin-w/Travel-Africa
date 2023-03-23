@@ -31,3 +31,11 @@ class CategoryModelTest(TestCase):
         max_length = category._meta.get_field("slug").max_length
         # Check maximum length of field
         self.assertEqual(max_length, 30)
+    
+    def test_title_unique(self):
+        """
+        Test unique title
+        """
+        category = Category(title="Test Category", slug="test-category-2")
+        with self.assertRaises(Exception):
+            category.save()
