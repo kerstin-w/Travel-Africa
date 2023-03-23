@@ -1,7 +1,8 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
-from .models import Category, Post, Comment, STATUS
+from django.shortcuts import get_object_or_404
+from .models import Category, Post, Comment, STATUS, Profile
 
 
 class CategoryModelTest(TestCase):
@@ -334,6 +335,9 @@ class CommentModelTest(TestCase):
             username="testuser", password="testpass"
         )
         self.user.save()
+        self.profile = get_object_or_404(Profile, user=self.user)
+        self.profile.pk = 1
+        self.profile.save()
         self.post = Post.objects.create(
             title='Test Post',
             slug='test-post',
@@ -341,6 +345,7 @@ class CommentModelTest(TestCase):
             content='This is a test post',
             country='Botswana',
         )
+        
         self.comment = Comment.objects.create(
             post=self.post,
             name=self.user,
@@ -426,3 +431,16 @@ class CommentModelTest(TestCase):
         """
         self.comment.approved = True
         self.assertTrue(self.comment.approved)
+
+    def test_comment_profile_label(self):
+        """
+        Test the profile label
+        """
+        field_label = self.comment._meta.get_field("profile").verbose_name
+        self.assertEquals(field_label, "profile")
+
+    def test_comment_profile(self):
+        """
+        Test the profile
+        """
+        self.assertEqual(self.comment.name.profile, self.profile)
