@@ -393,4 +393,16 @@ class CommentModelTest(TestCase):
         Test content of body
         """
         self.assertEqual(self.comment.body, "This is a test comment")
-    
+
+    def test_comment_created_on_label(self):
+        """
+        Test the created_on label
+        """
+        field_label = self.comment._meta.get_field("created_on").verbose_name
+        self.assertEquals(field_label, "created on")
+
+    def test_comment_created_on(self):
+        """
+        Test that date is set automatically
+        """
+        self.assertIsNotNone(self.comment.created_on)
