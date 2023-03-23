@@ -165,9 +165,15 @@ class CategoryAdminTestCase(BaseAdminTest):
 
 
 class ProfileAdminTest(BaseAdminTest):
+    """
+    Test Cases for ProfileAdmin
+    """
     def setUp(self):
+        """
+        Test Data
+        """
         self.admin_site = AdminSite()
-        self.user = User.objects.create_user(
+        self.user1 = User.objects.create_user(
             username="testuser",
             email="testuser@test.com",
             password="testpassword",
@@ -175,7 +181,6 @@ class ProfileAdminTest(BaseAdminTest):
         created_on = datetime.strptime(
             "2022-01-01 00:00:00", "%Y-%m-%d %H:%M:%S"
         )
-
         self.profile_admin = ProfileAdmin(Profile, self.admin_site)
 
     def test_list_display(self):
@@ -183,6 +188,7 @@ class ProfileAdminTest(BaseAdminTest):
         Test List Display in Admin Panel
         """
         expected_list_display = ("user", "created_on")
+        # Check that expected fields are displayed
         self.assertEqual(
             self.profile_admin.list_display, expected_list_display
         )
@@ -192,8 +198,12 @@ class ProfileAdminTest(BaseAdminTest):
         Test Search Field
         """
         expected_search_fields = ["user"]
+        # Check that search field is displayed
         self.assertEqual(
             self.profile_admin.search_fields, expected_search_fields
+        )
+        response = self.client.get(
+            reverse("admin:blog_profile_changelist"), {"q": "Test"}
         )
 
 
@@ -204,7 +214,7 @@ class CommentAdminTest(BaseAdminTest):
 
     def setUp(self):
         """
-        Set up the CommentAdminTest
+        Test Data
         """
         super().setUp()
         self.post = Post.objects.create(
@@ -252,6 +262,7 @@ class CommentAdminTest(BaseAdminTest):
         Test list_display
         """
         comment_admin = CommentAdmin(Comment, self.admin_site)
+        # Check that fields are displayed
         self.assertEqual(
             list(comment_admin.get_list_display(None)),
             ["name", "body", "post", "created_on", "approved"],
@@ -262,6 +273,7 @@ class CommentAdminTest(BaseAdminTest):
         Test for search_fields
         """
         comment_admin = CommentAdmin(Comment, self.admin_site)
+        # Check that search field is displayed
         self.assertEqual(
             list(comment_admin.get_search_fields(None)),
             ["name", "email", "body"],
@@ -272,6 +284,7 @@ class CommentAdminTest(BaseAdminTest):
         Test for list_filter
         """
         comment_admin = CommentAdmin(Comment, self.admin_site)
+        # Check that filters are dispalyed
         self.assertEqual(
             list(comment_admin.get_list_filter(None)),
             ["approved", "created_on"],
