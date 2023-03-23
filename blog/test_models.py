@@ -117,6 +117,14 @@ class PostModelTest(TestCase):
         self.post.regions.add(self.category)
         self.post.save()
 
+        self.new_post = Post.objects.create(
+            title='Test Post 2',
+            slug='test-post-2',
+            author=self.user,
+            content='This is a test post 2.',
+            country='Kongo',
+        )
+
     def test_title_label(self):
         """
         Test the title label
@@ -286,3 +294,11 @@ class PostModelTest(TestCase):
         # Check setting to True
         self.post.featured = True
         self.assertTrue(self.post.featured)
+    
+    def test_ordering(self):
+        """
+        Test the ordering of posts
+        """
+        posts = Post.objects.all()
+        self.assertEqual(posts[0], self.new_post)
+        self.assertEqual(posts[1], self.post)
