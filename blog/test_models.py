@@ -352,10 +352,10 @@ class CommentModelTest(TestCase):
         Test comment id
         """
         self.assertIsNotNone(self.comment.id)
-    
+
     def test_comment_name_label(self):
         """
-        Test the featured label
+        Test the name label
         """
         field_label = self.comment._meta.get_field("name").verbose_name
         self.assertEquals(field_label, "name")
@@ -373,3 +373,23 @@ class CommentModelTest(TestCase):
         self.assertEqual(self.comment.name, self.user)
         self.user.delete()
         self.assertFalse(Comment.objects.filter(pk=self.comment.pk).exists())
+
+    def test_comment_body_label(self):
+        """
+        Test the body label
+        """
+        field_label = self.comment._meta.get_field("body").verbose_name
+        self.assertEquals(field_label, "body")
+
+    def test_comment_body_max_length(self):
+        """
+        Test maximal length of body
+        """
+        max_length = self.comment._meta.get_field("body").max_length
+        self.assertEquals(max_length, 255)
+
+    def test_comment_body_content(self):
+        """
+        Test content of body
+        """
+        self.assertEqual(self.comment.body, "This is a test comment")
