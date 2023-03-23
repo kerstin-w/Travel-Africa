@@ -164,3 +164,22 @@ class PostModelTest(TestCase):
         Test the author
         """
         self.assertEqual(self.post.author, self.user)
+
+    def test_created_on_label(self):
+        """
+        Test the created_on label
+        """
+        field_label = self.post._meta.get_field("created_on").verbose_name
+        self.assertEquals(field_label, "created on")
+
+    def test_created_on(self):
+        """
+        Test created_on is automatically set
+        """
+        new_post = Post.objects.create(
+            title='New Test Post',
+            slug='new-test-post',
+            content='This is a test post',
+            author=self.user
+        )
+        self.assertIsNotNone(new_post.created_on)
