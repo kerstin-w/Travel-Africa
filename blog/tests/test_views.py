@@ -522,7 +522,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         """
         self.client = Client()
         super().setUp()
-    
+
     def test_post_detail_view_url_exists(self):
         """
         Test post url
@@ -530,7 +530,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         url = reverse("post_detail", kwargs={"slug": self.post1.slug})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-    
+
     def test_post_detail_view_template(self):
         """
         Test template
@@ -538,7 +538,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         url = reverse('post_detail', kwargs={'slug': self.post1.slug})
         response = self.client.get(url)
         self.assertTemplateUsed(response, 'post_detail.html')
-    
+
     def test_post_list_view_contains_post(self):
         """
         Test that view contains post
@@ -547,3 +547,11 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         response = self.client.get(url)
         self.assertContains(response, self.post1.title)
         self.assertContains(response, self.post1.content)
+
+    def test_post_list_view_context_object_name(self):
+        """
+        Test context object name is post
+        """
+        url = reverse("post_detail", kwargs={"slug": self.post1.slug})
+        response = self.client.get(url)
+        self.assertEqual(response.context["post"], self.post1)
