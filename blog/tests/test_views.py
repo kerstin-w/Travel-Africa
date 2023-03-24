@@ -677,3 +677,18 @@ class PostDetailViewTest(TestDataMixin, TestCase):
             str(messages[0]),
             "Your comment has been successfully created and is waiting for approval..",
         )
+    
+    def test_post_list_comment_submission_redirect(self):
+        """
+        Test submission redirect
+        """
+        self.client.login(username="testuser", password="testpass")
+        form_data = {
+            'name': self.user.id,
+            'body': 'Test comment',
+        }
+        url = reverse('post_detail', kwargs={'slug': self.post1.slug})
+        response = self.client.post(url, data=form_data, follow=True)
+
+        self.assertRedirects(response, reverse('post_detail', kwargs={'slug': self.post1.slug}))
+
