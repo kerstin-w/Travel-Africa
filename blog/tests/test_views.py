@@ -6,6 +6,7 @@ from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http import HttpResponse
 from django.utils.text import slugify
 from django.shortcuts import get_object_or_404
+
 from datetime import datetime
 
 from django.urls import reverse
@@ -651,3 +652,28 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.view.get_user_profile(context)
         self.assertIn("profile", context)
         self.assertEqual(context["profile"], self.user.profile)
+
+    def test_post_list_view_comment_submission_success(self):
+        """
+        Test submission of comment
+        """
+        self.client.login(username="testuser", password="testpass")
+        form_data = {
+            "name": self.user.id,
+            "body": "Test comment",
+        }
+        url = reverse("post_detail", kwargs={"slug": self.post1.slug})
+        response = self.client.post(url, data=form_data, follow=True)
+
+        comment = Comment.objects.first()
+        self.assertEqual(comment.body, form_data["body"])
+        self.assertEqual(comment.post, self.post1)
+        self.assertEqual(comment.name, self.user)
+        self.assertEqual(comment.profile.user, self.profile.user)
+
+        messages = list(response.context.get("messages"))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(
+            str(messages[0]),
+            "Your comment has been successfully created and is waiting for approval..",
+        )

@@ -140,6 +140,7 @@ class PostDetailView(DetailView):
         self.get_user_profile(context)
         context["title"] = self.object.title.title()
         context["comment_form"] = CommentForm()
+        self.object = self.get_object()
         return context
 
     def get_comments(self, context):
