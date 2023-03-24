@@ -16,7 +16,8 @@ from blog.views import (
     PostFormInvalidMessageMixin,
     AboutView,
     HomeListView,
-    PostCategoryListView, PostDetailView
+    PostCategoryListView,
+    PostDetailView,
 )
 
 from blog.views import PageTitleViewMixin
@@ -519,6 +520,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
     """
     Test cases for PostDetailView
     """
+
     def setUp(self):
         """
         Test Data
@@ -553,15 +555,15 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         """
         Test template
         """
-        url = reverse('post_detail', kwargs={'slug': self.post1.slug})
+        url = reverse("post_detail", kwargs={"slug": self.post1.slug})
         response = self.client.get(url)
-        self.assertTemplateUsed(response, 'post_detail.html')
+        self.assertTemplateUsed(response, "post_detail.html")
 
     def test_post_list_view_contains_post(self):
         """
         Test that view contains post
         """
-        url = reverse('post_detail', kwargs={'slug': self.post1.slug})
+        url = reverse("post_detail", kwargs={"slug": self.post1.slug})
         response = self.client.get(url)
         self.assertContains(response, self.post1.title)
         self.assertContains(response, self.post1.content)
@@ -573,47 +575,63 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         url = reverse("post_detail", kwargs={"slug": self.post1.slug})
         response = self.client.get(url)
         self.assertEqual(response.context["post"], self.post1)
-    
+
     def test_post_list_view_context_comments(self):
         """
         Test context object comments
         """
         url = reverse("post_detail", kwargs={"slug": self.post1.slug})
         response = self.client.get(url)
-        self.assertEqual(
-            list(response.context["comments"]), [self.comment]
-        )
-    
+        self.assertEqual(list(response.context["comments"]), [self.comment])
+
     def test_post_list_view_get_comments(self):
         """
         Test get comments method
         """
-        context = {'object': self.post1}
+        context = {"object": self.post1}
         self.view.object = self.post1
         self.view.get_comments(context)
-        self.assertEqual(len(context['comments']), 1)
-    
+        self.assertEqual(len(context["comments"]), 1)
+
     def test_post_list_view_get_liked_status_authenticated(self):
         """
         Test the liked status when user liked post
         """
         self.post1.likes.add(self.user)
-        request = self.factory.get(reverse('post_detail', args=[self.post1.slug]))
+        request = self.factory.get(
+            reverse("post_detail", args=[self.post1.slug])
+        )
         request.user = self.user
         context = {}
         self.view.request = request
         self.view.object = self.post1
         self.view.get_liked_status(context)
-        self.assertEqual(context['liked'], True)
-    
-    def test_get_liked_status_not_authenticated(self):
+        self.assertEqual(context["liked"], True)
+
+    def test_post_list_view_get_liked_status_not_authenticated(self):
         """
         Test the liked status when user is nor registered
         """
-        request = self.factory.get(reverse('post_detail', args=[self.post1.slug]))
+        request = self.factory.get(
+            reverse("post_detail", args=[self.post1.slug])
+        )
         request.user = AnonymousUser()
         context = {}
         self.view.request = request
         self.view.object = self.post1
         self.view.get_liked_status(context)
-        self.assertEqual(context['liked'], False)
+        self.assertEqual(context["liked"], False)
+
+    def test_post_list_view_get_user_profile_not_authenticated(self):
+        """
+        Test get user profile when user is nor registered
+        """
+        request = self.factory.get("/")
+        request.user = AnonymousUser()
+        response = PostDetailView.as_view()(request, slug=self.post1.slug)
+        self.assertEqual(response.status_code, 200)
+        view_instance = response.context_data["view"]
+        context = response.context_data
+        view_instance.object = self.post1
+        view_instance.get_user_profile(context)
+        self.assertNotIn("profile", context)
