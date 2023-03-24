@@ -239,3 +239,10 @@ class HomeListViewTest(TestCase):
         """
         response = self.client.get(reverse("home"))
         self.assertEqual(response.status_code, 200)
+
+    def test_home_list_view_template_used(self):
+        """
+        Test the template
+        """
+        response = self.client.get(reverse("home"))
+        self.assertTemplateUsed(response, "index.html")
