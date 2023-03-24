@@ -313,3 +313,14 @@ class PostListViewTest(TestDataMixin, TestCase):
         """
         response = self.client.get(reverse("post_list"))
         self.assertEqual(response.status_code, 200)
+
+    def test_post_list_view_context(self):
+        """
+        Test correct context data
+        """
+        response = self.client.get(reverse("post_list"))
+        posts = response.context["posts"]
+        self.assertEqual(len(posts), 3)
+        self.assertIn(self.post1, posts)
+        self.assertIn(self.post2, posts)
+        self.assertIn(self.post4, posts)
