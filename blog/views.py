@@ -11,6 +11,7 @@ from django.views import generic
 from django.views.generic import DetailView, TemplateView, View, RedirectView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
+from django.views.generic.edit import FormMixin
 
 from .forms import CommentForm, PostForm
 from .models import Post, Category, BucketList, Comment
@@ -45,7 +46,7 @@ class SuperuserFormFieldsMixin:
         return form
 
 
-class PostFormInvalidMessageMixin:
+class PostFormInvalidMessageMixin(FormMixin):
     """
     Display error message when form is invalid
     """

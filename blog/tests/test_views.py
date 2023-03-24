@@ -1,7 +1,17 @@
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, override_settings
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.contrib.messages import get_messages
+from django.contrib.messages.storage.fallback import FallbackStorage
+from django.test import Client
+from django.http import HttpResponse
+from unittest.mock import Mock
+from django.contrib.messages.middleware import MessageMiddleware
+from django.contrib.sessions.middleware import SessionMiddleware
+
+
+from django.http import HttpRequest, HttpResponseBadRequest
 from django.urls import reverse
 from django.views import View
 from blog.views import (
@@ -100,6 +110,7 @@ class PostFormInvalidMessageMixinTest(TestCase):
         """
         Test Data
         """
+        self.factory = RequestFactory()
         self.user = User.objects.create_user(
             username="testuser",
             email="testuser@test.com",
@@ -120,3 +131,35 @@ class PostFormInvalidMessageMixinTest(TestCase):
 
         form = PostForm(data=form_data)
         self.assertTrue(form.is_valid())
+
+    def test_form_invalid(self):
+        """
+        Test a invalid form input and message response
+        """
+        form_data = {
+            "title": "",
+            "content": "",
+            "country": "",
+            "regions": [self.category.id],
+        }
+        request = RequestFactory().post("/", data=form_data)
+        mixin = PostFormInvalidMessageMixin()
+        mixin.request = request
+        form = PostForm(data=form_data)
+        setattr(request, "session", "session")
+        messages = FallbackStorage(request)
+        setattr(request, "_messages", messages)
+
+        # Create a mock HttpResponse object
+        response = HttpResponse()
+        setattr(mixin, "render_to_response", lambda context: response)
+
+        result = mixin.form_invalid(form)
+        messages = list(get_messages(request))
+        expected_message = (
+            "Your post could not be submitted. Please review your inputs!"
+        )
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), expected_message)
+        self.assertEqual(result, response)
+        self.assertEqual(result.status_code, 200)
