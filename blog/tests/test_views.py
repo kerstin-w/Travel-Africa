@@ -684,24 +684,28 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         """
         self.client.login(username="testuser", password="testpass")
         form_data = {
-            'name': self.user.id,
-            'body': 'Test comment',
+            "name": self.user.id,
+            "body": "Test comment",
         }
-        url = reverse('post_detail', kwargs={'slug': self.post1.slug})
+        url = reverse("post_detail", kwargs={"slug": self.post1.slug})
         response = self.client.post(url, data=form_data, follow=True)
 
-        self.assertRedirects(response, reverse('post_detail', kwargs={'slug': self.post1.slug}))
+        self.assertRedirects(
+            response, reverse("post_detail", kwargs={"slug": self.post1.slug})
+        )
+
 
 class PostCreateViewTest(TestDataMixin, TestCase):
     """
     Test cases for PostCreateView
     """
+
     def setUp(self):
         """
         Test Data
         """
-        self.client.login(username='testuser', password='testpass')
-        self.url = reverse('post_create')
+        self.client.login(username="testuser", password="testpass")
+        self.url = reverse("post_create")
         super().setUp()
 
     def test_post_create_view_user_passes_test(self):
@@ -712,3 +716,14 @@ class PostCreateViewTest(TestDataMixin, TestCase):
         request.user = self.user
         response = PostCreateView.as_view()(request)
         self.assertEqual(response.status_code, 200)
+
+    def test_post_create_view_user_fails_test(self):
+        """
+        Test that a not logged in user cannot access create post
+        """
+        client = Client()
+        response = client.get(reverse("post_create"))
+        self.assertRedirects(
+            response,
+            f"{reverse('account_login')}?next={reverse('post_create')}",
+        )
