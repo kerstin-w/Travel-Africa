@@ -1,11 +1,18 @@
 from django.test import TestCase, RequestFactory
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from django.urls import reverse
 from django.views import View
-from blog.views import SuperuserFormFieldsMixin, PostCreateView
+from blog.views import (
+    SuperuserFormFieldsMixin,
+    PostCreateView,
+    PostFormInvalidMessageMixin,
+)
 
 from blog.views import PageTitleViewMixin
+from blog.forms import PostForm
+from blog.models import Category
 
 
 class TestView(PageTitleViewMixin, TemplateView):
@@ -70,7 +77,7 @@ class SuperuserFormFieldsMixinTest(TestCase):
         # Check the featured field is in the form
         form = response.context_data["form"]
         self.assertIn("featured", form.fields)
-    
+
     def test_non_super_user_cannot_access_featured_form_field(self):
         """
         Test that the regular user cannot  access all form fields
@@ -80,5 +87,36 @@ class SuperuserFormFieldsMixinTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
         # Check the featured field is not in the form
-        form = response.context_data['form']
-        self.assertNotIn('featured', form.fields)
+        form = response.context_data["form"]
+        self.assertNotIn("featured", form.fields)
+
+
+class PostFormInvalidMessageMixinTest(TestCase):
+    """
+    Test cases for PostFormInvalidMessageMixin
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.user = User.objects.create_user(
+            username="testuser",
+            email="testuser@test.com",
+            password="testpass",
+        )
+        self.category = Category.objects.create(title="test category", id=1)
+
+    def test_form_valid(self):
+        """
+        Test a valid form input
+        """
+        form_data = {
+            "title": "Test Post Title",
+            "content": "This is a test post.",
+            "country": "Test Country",
+            "regions": [self.category.id],
+        }
+
+        form = PostForm(data=form_data)
+        self.assertTrue(form.is_valid())
