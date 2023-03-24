@@ -760,3 +760,15 @@ class PostCreateViewTest(TestDataMixin, TestCase):
             "Your post has been successfully created and is waiting for approval.",
         )
         self.assertRedirects(response, reverse("home"))
+
+    def test_post_create_viewinvalid_form(self):
+        """
+        Test invalid form submission
+        """
+        self.client.login(username="testuser", password="testpass")
+        form_data = {}
+        response = self.client.post(reverse("post_create"), data=form_data)
+
+        form = response.context["form"]
+        self.assertTrue(form.errors)
+        self.assertContains(response, "This field is required.")
