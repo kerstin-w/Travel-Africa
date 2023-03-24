@@ -1,6 +1,6 @@
 from django.test import TestCase, RequestFactory, Client
 from django.views.generic import TemplateView
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.messages import get_messages
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http import HttpResponse
@@ -84,6 +84,7 @@ class TestDataMixin:
             status=1,
             created_on=datetime.now(),
         )
+        cls.factory = RequestFactory()
 
     def get_posts(self):
         return [self.post1, self.post2, self.post3, self.post4]
@@ -132,7 +133,6 @@ class SuperuserFormFieldsMixinTest(TestDataMixin, TestCase):
         """
         Test Data
         """
-        self.factory = RequestFactory()
         self.superuser = User.objects.create_superuser(
             username="superuser", password="superpass"
         )
@@ -172,7 +172,6 @@ class PostFormInvalidMessageMixinTest(TestDataMixin, TestCase):
         """
         Test Data
         """
-        self.factory = RequestFactory()
         super().setUp()
 
     def test_form_valid(self):
@@ -199,7 +198,7 @@ class PostFormInvalidMessageMixinTest(TestDataMixin, TestCase):
             "country": "",
             "regions": [self.category.id],
         }
-        request = RequestFactory().post("/", data=form_data)
+        request = self.factory.post("/", data=form_data)
         mixin = PostFormInvalidMessageMixin()
         mixin.request = request
         form = PostForm(data=form_data)
@@ -233,7 +232,7 @@ class PostFormInvalidMessageMixinTest(TestDataMixin, TestCase):
             "featured": False,
             "regions": [self.category.id],
         }
-        request = RequestFactory().post("/", data=form_data)
+        request = self.factory.post("/", data=form_data)
         mixin = PostFormInvalidMessageMixin()
         mixin.request = request
         form = PostForm(data=form_data)
@@ -593,3 +592,16 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.view.object = self.post1
         self.view.get_comments(context)
         self.assertEqual(len(context['comments']), 1)
+    
+    def test_post_list_view_get_liked_status_authenticated(self):
+        """
+        Test the liked status when user liked post
+        """
+        self.post1.likes.add(self.user)
+        request = self.factory.get(reverse('post_detail', args=[self.post1.slug]))
+        request.user = self.user
+        context = {}
+        self.view.request = request
+        self.view.object = self.post1
+        self.view.get_liked_status(context)
+        self.assertEqual(context['liked'], True)
