@@ -51,12 +51,6 @@ class PostForm(ModelForm):
             ),
         }
 
-    def clean(self):
-        cleaned_data = super().clean()
-        title = cleaned_data.get("title")
-        if Post.objects.filter(title=title).exists():
-            raise ValidationError("A post with this title already exists.")
-
 
 class CommentForm(forms.ModelForm):
     """
