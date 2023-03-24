@@ -727,3 +727,36 @@ class PostCreateViewTest(TestDataMixin, TestCase):
             response,
             f"{reverse('account_login')}?next={reverse('post_create')}",
         )
+
+    def test_post_create_view_success(self):
+        """
+        Test valid form submission
+        """
+        self.client.login(username="testuser", password="testpass")
+        form_data = {
+            "author": self.user,
+            "title": "New Test Post",
+            "regions": self.category.id,
+            "content": "This is a new test post",
+            "country": "Ghana",
+        }
+        response = self.client.post(
+            reverse("post_create"), data=form_data, follow=True
+        )
+
+        self.assertEqual(Post.objects.count(), 5)
+        post = Post.objects.first()
+        self.assertEqual(post.title, form_data["title"].lower())
+        self.assertIn(self.category, post.regions.all())
+        self.assertEqual(post.content, form_data["content"])
+        self.assertEqual(post.country, form_data["country"])
+        self.assertEqual(post.author, self.user)
+        self.assertEqual(post.status, 0)
+
+        messages = list(response.context.get("messages"))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(
+            str(messages[0]),
+            "Your post has been successfully created and is waiting for approval.",
+        )
+        self.assertRedirects(response, reverse("home"))
