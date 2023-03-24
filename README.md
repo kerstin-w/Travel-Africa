@@ -358,7 +358,7 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
     | content | TextField | verbose_name='Text' |
     | country | CharField | max_length=100 |
     | featured_image | CloudinaryField | 'image', default='placeholder' |
-    | regions | ManyToManyField | Category |
+    | regions | ForeignKey | Category, on_delete=models.CASCADE, related_name="blog_posts" |
     | status | IntegerField | choices=STATUS, default=0 |
     | likes | ManyToManyField | User, related_name='blogpost_like', blank=True |
     | featured | BooleanField | default=False |
