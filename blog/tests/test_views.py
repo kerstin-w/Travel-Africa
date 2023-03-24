@@ -20,7 +20,7 @@ from blog.views import (
 )
 
 from blog.views import PageTitleViewMixin
-from blog.forms import PostForm
+from blog.forms import PostForm, CommentForm
 from blog.models import Category, Post, Comment
 from users.models import Profile
 
@@ -605,3 +605,15 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.view.object = self.post1
         self.view.get_liked_status(context)
         self.assertEqual(context['liked'], True)
+    
+    def test_get_liked_status_not_authenticated(self):
+        """
+        Test the liked status when user is nor registered
+        """
+        request = self.factory.get(reverse('post_detail', args=[self.post1.slug]))
+        request.user = AnonymousUser()
+        context = {}
+        self.view.request = request
+        self.view.object = self.post1
+        self.view.get_liked_status(context)
+        self.assertEqual(context['liked'], False)
