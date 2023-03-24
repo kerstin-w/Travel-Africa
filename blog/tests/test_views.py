@@ -530,3 +530,11 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         url = reverse("post_detail", kwargs={"slug": self.post1.slug})
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
+    
+    def test_post_detail_view_template(self):
+        """
+        Test template
+        """
+        url = reverse('post_detail', kwargs={'slug': self.post1.slug})
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, 'post_detail.html')
