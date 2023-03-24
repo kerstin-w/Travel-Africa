@@ -70,3 +70,15 @@ class SuperuserFormFieldsMixinTest(TestCase):
         # Check the featured field is in the form
         form = response.context_data["form"]
         self.assertIn("featured", form.fields)
+    
+    def test_non_super_user_cannot_access_featured_form_field(self):
+        """
+        Test that the regular user cannot  access all form fields
+        """
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.get(reverse("post_create"))
+        self.assertEqual(response.status_code, 200)
+
+        # Check the featured field is not in the form
+        form = response.context_data['form']
+        self.assertNotIn('featured', form.fields)
