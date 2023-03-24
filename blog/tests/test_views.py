@@ -435,3 +435,10 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
         Test inherites PageTitleViewMixin
         """
         self.assertIsInstance(PostCategoryListView(), PageTitleViewMixin)
+
+    def test_post_category_view_queryset(self):
+        """
+        Test Queryset
+        """
+        queryset = self.response.context['posts']
+        self.assertCountEqual(queryset, Post.objects.filter(status=1, regions=self.category))
