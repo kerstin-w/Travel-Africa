@@ -15,7 +15,7 @@ from blog.views import (
     PostFormInvalidMessageMixin,
     AboutView,
     HomeListView,
-    PostCategoryListView
+    PostCategoryListView,
 )
 
 from blog.views import PageTitleViewMixin
@@ -410,11 +410,14 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
     """
     Test cases for PostCategoryListView
     """
+
     def setUp(self):
         """
         Test Data
         """
-        self.category_url = reverse('post_category', kwargs={'slug': self.category.slug})
+        self.category_url = reverse(
+            "post_category", kwargs={"slug": self.category.slug}
+        )
         self.response = self.client.get(self.category_url)
         for i in range(1, 11):
             Post.objects.create(
@@ -439,7 +442,7 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
         """
         Test template
         """
-        self.assertTemplateUsed(self.response, 'post_list.html')
+        self.assertTemplateUsed(self.response, "post_list.html")
 
     def test_post_category_view_page_title_mixin(self):
         """
@@ -451,8 +454,10 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
         """
         Test Queryset
         """
-        queryset = self.response.context['posts']
-        self.assertCountEqual(queryset, Post.objects.filter(status=1, regions=self.category))
+        queryset = self.response.context["posts"]
+        self.assertCountEqual(
+            queryset, Post.objects.filter(status=1, regions=self.category)
+        )
 
     def test_post_category_view_pagination(self):
         """
@@ -505,3 +510,23 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
 
         self.assertEqual(posts[0].num_comments, 0)
         self.assertEqual(posts[1].num_comments, 2)
+
+
+class PostDetailViewTest(TestDataMixin, TestCase):
+    """
+    Test cases for PostDetailView
+    """
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.client = Client()
+        super().setUp()
+    
+    def test_post_detail_view_url_exists(self):
+        """
+        Test post url
+        """
+        url = reverse("post_detail", kwargs={"slug": self.post1.slug})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
