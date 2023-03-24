@@ -16,7 +16,7 @@ from blog.views import (
     PostFormInvalidMessageMixin,
     AboutView,
     HomeListView,
-    PostCategoryListView,
+    PostCategoryListView, PostDetailView
 )
 
 from blog.views import PageTitleViewMixin
@@ -532,6 +532,14 @@ class PostDetailViewTest(TestDataMixin, TestCase):
             profile=self.profile,
             approved=True,
         )
+        self.comment2 = Comment.objects.create(
+            post=self.post1,
+            name=self.user,
+            body="Test comment",
+            profile=self.profile,
+            approved=False,
+        )
+        self.view = PostDetailView()
         super().setUp()
 
     def test_post_detail_view_url_exists(self):
@@ -576,3 +584,12 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.assertEqual(
             list(response.context["comments"]), [self.comment]
         )
+    
+    def test_post_list_view_get_comments(self):
+        """
+        Test get comments method
+        """
+        context = {'object': self.post1}
+        self.view.object = self.post1
+        self.view.get_comments(context)
+        self.assertEqual(len(context['comments']), 1)
