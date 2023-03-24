@@ -1,17 +1,10 @@
-from django.test import TestCase, RequestFactory, override_settings
+from django.test import TestCase, RequestFactory
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
-from django.contrib import messages
 from django.contrib.messages import get_messages
 from django.contrib.messages.storage.fallback import FallbackStorage
-from django.test import Client
 from django.http import HttpResponse
-from unittest.mock import Mock
-from django.contrib.messages.middleware import MessageMiddleware
-from django.contrib.sessions.middleware import SessionMiddleware
 
-
-from django.http import HttpRequest, HttpResponseBadRequest
 from django.urls import reverse
 from django.views import View
 from blog.views import (
@@ -22,7 +15,7 @@ from blog.views import (
 
 from blog.views import PageTitleViewMixin
 from blog.forms import PostForm
-from blog.models import Category
+from blog.models import Category, Post
 
 
 class TestView(PageTitleViewMixin, TemplateView):
@@ -118,6 +111,13 @@ class PostFormInvalidMessageMixinTest(TestCase):
         )
         self.category = Category.objects.create(title="test category", id=1)
 
+        self.post = Post.objects.create(
+            title="Test Post",
+            content="This is a test post.",
+            country="Test Country",
+            author=self.user,
+        )
+
     def test_form_valid(self):
         """
         Test a valid form input
@@ -163,3 +163,27 @@ class PostFormInvalidMessageMixinTest(TestCase):
         self.assertEqual(str(messages[0]), expected_message)
         self.assertEqual(result, response)
         self.assertEqual(result.status_code, 200)
+
+    def test_form_existing_title(self):
+        """
+        Test a invalid form input with existing title and message response
+        """
+
+        form_data = {
+            "title": "Test Post",
+            "content": "This is a new test post.",
+            "country": "New Test Country",
+            "featured": False,
+            "regions": [self.category.id],
+        }
+        request = RequestFactory().post("/", data=form_data)
+        mixin = PostFormInvalidMessageMixin()
+        mixin.request = request
+        form = PostForm(data=form_data)
+        setattr(request, "session", "session")
+        messages = FallbackStorage(request)
+        setattr(request, "_messages", messages)
+        self.assertFalse(form.is_valid())
+        self.assertIn(
+            "Post with this Title already exists.", form.errors["title"]
+        )
