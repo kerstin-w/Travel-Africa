@@ -39,7 +39,9 @@ class Post(models.Model):
     content = models.TextField()
     country = models.CharField(max_length=100)
     featured_image = CloudinaryField("image", default="placeholder")
-    regions = models.ManyToManyField(Category)
+    regions = models.ForeignKey(
+        Category, on_delete=models.CASCADE, related_name="blog_posts"
+    )
     status = models.IntegerField(choices=STATUS, default=0)
     likes = models.ManyToManyField(
         User, related_name="blogpost_like", blank=True

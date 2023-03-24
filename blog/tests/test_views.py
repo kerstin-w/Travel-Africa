@@ -761,7 +761,7 @@ class PostCreateViewTest(TestDataMixin, TestCase):
         )
         self.assertRedirects(response, reverse("home"))
 
-    def test_post_create_viewinvalid_form(self):
+    def test_post_create_view_invalid_form(self):
         """
         Test invalid form submission
         """
