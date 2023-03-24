@@ -12,7 +12,7 @@ from django.views import View
 from blog.views import (
     SuperuserFormFieldsMixin,
     PostCreateView,
-    PostFormInvalidMessageMixin,
+    PostFormInvalidMessageMixin, AboutView, HomeListView
 )
 
 from blog.views import PageTitleViewMixin
@@ -284,3 +284,22 @@ class HomeListViewTest(TestCase):
         self.assertEqual(queryset.count(), 2)
         self.assertEqual(queryset[0], self.post4)
         self.assertEqual(queryset[1], self.post1)
+
+
+class AboutViewTest(TestCase):
+    """
+    Test cases for AboutView
+    """
+    def test_about_view_renders_correct_template(self):
+        """
+        Test the template is rendered
+        """
+        response = self.client.get(reverse('about'))
+        self.assertTemplateUsed(response, 'about.html')
+
+    def test_about_view_title(self):
+        """
+        Test the title is setup correcet
+        """
+        response = self.client.get(reverse('about'))
+        self.assertContains(response, '<title>Travel Africa | About</title>')
