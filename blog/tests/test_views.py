@@ -5,6 +5,7 @@ from django.contrib.messages import get_messages
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http import HttpResponse
 from django.utils.text import slugify
+from django.shortcuts import get_object_or_404
 from datetime import datetime
 
 from django.urls import reverse
@@ -21,6 +22,7 @@ from blog.views import (
 from blog.views import PageTitleViewMixin
 from blog.forms import PostForm
 from blog.models import Category, Post, Comment
+from users.models import Profile
 
 
 class TestDataMixin:
@@ -33,6 +35,8 @@ class TestDataMixin:
         cls.user = User.objects.create_user(
             username="testuser", password="testpass"
         )
+        cls.profile = get_object_or_404(Profile, user=cls.user)
+
         cls.category = Category.objects.create(
             title="test category", slug=slugify("test category")
         )
@@ -521,6 +525,13 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         Test Data
         """
         self.client = Client()
+        self.comment = Comment.objects.create(
+            post=self.post1,
+            name=self.user,
+            body="Test comment",
+            profile=self.profile,
+            approved=True,
+        )
         super().setUp()
 
     def test_post_detail_view_url_exists(self):
@@ -555,3 +566,13 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         url = reverse("post_detail", kwargs={"slug": self.post1.slug})
         response = self.client.get(url)
         self.assertEqual(response.context["post"], self.post1)
+    
+    def test_post_list_view_context_comments(self):
+        """
+        Test context object comments
+        """
+        url = reverse("post_detail", kwargs={"slug": self.post1.slug})
+        response = self.client.get(url)
+        self.assertEqual(
+            list(response.context["comments"]), [self.comment]
+        )
