@@ -20,6 +20,63 @@ from blog.forms import PostForm
 from blog.models import Category, Post
 
 
+class TestDataMixin:
+    """
+    Set Up Test Data for Test Classes
+    """
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(username='testuser', password='testpass')
+        cls.category = Category.objects.create(title='test category', slug=slugify('test category'))
+
+        cls.post1 = Post.objects.create(
+            title='test post',
+            slug='test-post',
+            author=cls.user,
+            content='This is a test post.',
+            country='Namibia',
+            featured=True,
+            status=1,
+            created_on=datetime.now(),
+        )
+
+        cls.post2 = Post.objects.create(
+            title='test post 2',
+            slug='test-post-2',
+            author=cls.user,
+            content='This is a test post.',
+            country='Morroco',
+            featured=False,
+            status=1,
+            created_on=datetime.now(),
+        )
+
+        cls.post3 = Post.objects.create(
+            title='test post 3',
+            slug='test-post-3',
+            author=cls.user,
+            content='This is a test post.',
+            country='Ghana',
+            featured=True,
+            status=0,
+            created_on=datetime.now(),
+        )
+
+        cls.post4 = Post.objects.create(
+            title='test post 4',
+            slug='test-post-4',
+            author=cls.user,
+            content='This is a test post.',
+            country='South Africa',
+            featured=True,
+            status=1,
+            created_on=datetime.now(),
+        )
+
+    def get_posts(self):
+        return [self.post1, self.post2, self.post3, self.post4]
+
+
 class TestView(PageTitleViewMixin, TemplateView):
     """
     Test View to test PageTitleViewMixin
@@ -54,7 +111,7 @@ class PageTitleViewMixinTest(TestCase):
         self.assertEqual(response.context_data["title"], "Test Page")
 
 
-class SuperuserFormFieldsMixinTest(TestCase):
+class SuperuserFormFieldsMixinTest(TestDataMixin, TestCase):
     """
     Test cases for SuperuserFormFieldsMixin
     """
@@ -64,12 +121,10 @@ class SuperuserFormFieldsMixinTest(TestCase):
         Test Data
         """
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username="testuser", password="testpass"
-        )
         self.superuser = User.objects.create_superuser(
             username="superuser", password="superpass"
         )
+        super().setUp()
 
     def test_super_user_can_access_all_form_fields(self):
         """
@@ -96,7 +151,7 @@ class SuperuserFormFieldsMixinTest(TestCase):
         self.assertNotIn("featured", form.fields)
 
 
-class PostFormInvalidMessageMixinTest(TestCase):
+class PostFormInvalidMessageMixinTest(TestDataMixin, TestCase):
     """
     Test cases for PostFormInvalidMessageMixin
     """
@@ -106,19 +161,7 @@ class PostFormInvalidMessageMixinTest(TestCase):
         Test Data
         """
         self.factory = RequestFactory()
-        self.user = User.objects.create_user(
-            username="testuser",
-            email="testuser@test.com",
-            password="testpass",
-        )
-        self.category = Category.objects.create(title="test category", id=1)
-
-        self.post = Post.objects.create(
-            title="Test Post",
-            content="This is a test post.",
-            country="Test Country",
-            author=self.user,
-        )
+        super().setUp()
 
     def test_form_valid(self):
         """
@@ -191,67 +234,14 @@ class PostFormInvalidMessageMixinTest(TestCase):
         )
 
 
-class HomeListViewTest(TestCase):
+class HomeListViewTest(TestDataMixin, TestCase):
     """
     Test cases for HomeListView
     """
 
     def setUp(self):
-        """
-        Test Data
-        """
         self.client = Client()
-        self.user = User.objects.create_user(
-            username="testuser", password="testpass"
-        )
-        self.user.save()
-        self.category = Category.objects.create(
-            title="test category", slug=slugify("test category")
-        )
-        self.category.save()
-        self.post1 = Post.objects.create(
-            title="test post",
-            slug="test-post",
-            author=self.user,
-            content="This is a test post.",
-            country="Namibia",
-            featured=True,
-            status=1,
-            created_on=datetime.now(),
-        )
-
-        self.post2 = Post.objects.create(
-            title="test post 2",
-            slug="test-post-2",
-            author=self.user,
-            content="This is a test post.",
-            country="Morroco",
-            featured=False,
-            status=1,
-            created_on=datetime.now(),
-        )
-
-        self.post3 = Post.objects.create(
-            title="test post 3",
-            slug="test-post-3",
-            author=self.user,
-            content="This is a test post.",
-            country="Ghana",
-            featured=True,
-            status=0,
-            created_on=datetime.now(),
-        )
-
-        self.post4 = Post.objects.create(
-            title="test post 4",
-            slug="test-post-4",
-            author=self.user,
-            content="This is a test post.",
-            country="South Africa",
-            featured=True,
-            status=1,
-            created_on=datetime.now(),
-        )
+        super().setUp()
 
     def test_home_list_view_status_code(self):
         """
