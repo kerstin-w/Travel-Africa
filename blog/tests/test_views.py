@@ -12,62 +12,69 @@ from django.views import View
 from blog.views import (
     SuperuserFormFieldsMixin,
     PostCreateView,
-    PostFormInvalidMessageMixin, AboutView, HomeListView
+    PostFormInvalidMessageMixin,
+    AboutView,
+    HomeListView,
 )
 
 from blog.views import PageTitleViewMixin
 from blog.forms import PostForm
-from blog.models import Category, Post
+from blog.models import Category, Post, Comment
 
 
 class TestDataMixin:
     """
     Set Up Test Data for Test Classes
     """
+
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create_user(username='testuser', password='testpass')
-        cls.category = Category.objects.create(title='test category', slug=slugify('test category'))
+        cls.user = User.objects.create_user(
+            username="testuser", password="testpass"
+        )
+        cls.category = Category.objects.create(
+            title="test category", slug=slugify("test category")
+        )
 
         cls.post1 = Post.objects.create(
-            title='test post',
-            slug='test-post',
+            title="test post",
+            slug="test-post",
             author=cls.user,
-            content='This is a test post.',
-            country='Namibia',
+            content="This is a test post.",
+            country="Namibia",
             featured=True,
             status=1,
             created_on=datetime.now(),
         )
 
         cls.post2 = Post.objects.create(
-            title='test post 2',
-            slug='test-post-2',
+            title="test post 2",
+            slug="test-post-2",
             author=cls.user,
-            content='This is a test post.',
-            country='Morroco',
+            content="This is a test post.",
+            country="Morroco",
             featured=False,
             status=1,
             created_on=datetime.now(),
         )
 
         cls.post3 = Post.objects.create(
-            title='test post 3',
-            slug='test-post-3',
+            title="test post 3",
+            slug="test-post-3",
             author=cls.user,
-            content='This is a test post.',
-            country='Ghana',
+            content="This is a test post.",
+            country="Ghana",
             featured=True,
             status=0,
             created_on=datetime.now(),
         )
 
         cls.post4 = Post.objects.create(
-            title='test post 4',
-            slug='test-post-4',
+            title="test post 4",
+            slug="test-post-4",
             author=cls.user,
-            content='This is a test post.',
-            country='South Africa',
+            content="This is a test post.",
+            country="South Africa",
             featured=True,
             status=1,
             created_on=datetime.now(),
@@ -280,19 +287,20 @@ class AboutViewTest(TestCase):
     """
     Test cases for AboutView
     """
+
     def test_about_view_renders_correct_template(self):
         """
         Test the template is rendered
         """
-        response = self.client.get(reverse('about'))
-        self.assertTemplateUsed(response, 'about.html')
+        response = self.client.get(reverse("about"))
+        self.assertTemplateUsed(response, "about.html")
 
     def test_about_view_title(self):
         """
         Test the title is setup correcet
         """
-        response = self.client.get(reverse('about'))
-        self.assertContains(response, '<title>Travel Africa | About</title>')
+        response = self.client.get(reverse("about"))
+        self.assertContains(response, "<title>Travel Africa | About</title>")
 
 
 class PostListViewTest(TestDataMixin, TestCase):
@@ -353,5 +361,45 @@ class PostListViewTest(TestDataMixin, TestCase):
         """
         response = self.client.get(reverse("post_list"))
         posts = response.context["posts"]
-        expected_order = Post.objects.filter(status=1).order_by("-created_on")[:8]
+        expected_order = Post.objects.filter(status=1).order_by("-created_on")[
+            :8
+        ]
         self.assertQuerysetEqual(posts, expected_order, transform=lambda x: x)
+
+    def test_post_list_view_comments_count(self):
+        """
+        Test view annotates the number of approved comments for each post
+        """
+        post_comment1 = Post.objects.create(
+            title="Post Comment 1",
+            content="Content 1",
+            slug="post-comment-1",
+            author=self.user,
+            status=1,
+        )
+        Comment.objects.create(
+            post=post_comment1, name=self.user, body="Comment 1", approved=True
+        )
+        Comment.objects.create(
+            post=post_comment1, name=self.user, body="Comment 2", approved=True
+        )
+        post_comment2 = Post.objects.create(
+            title="Post Comment 2",
+            content="Content 2",
+            slug="post-comment-2",
+            author=self.user,
+            status=1,
+        )
+        Comment.objects.create(
+            post=post_comment2,
+            name=self.user,
+            body="Comment 3",
+            approved=False,
+        )
+
+        response = self.client.get(reverse("post_list"))
+        posts = response.context["posts"]
+        self.assertEqual(posts.count(), 8)
+
+        self.assertEqual(posts[0].num_comments, 0)
+        self.assertEqual(posts[1].num_comments, 2)
