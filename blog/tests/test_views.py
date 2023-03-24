@@ -346,3 +346,12 @@ class PostListViewTest(TestDataMixin, TestCase):
         response = self.client.get(reverse("post_list") + "?page=2")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["posts"]), 5)
+
+    def test_post_list_view_ordering(self):
+        """
+        Test order of posts
+        """
+        response = self.client.get(reverse("post_list"))
+        posts = response.context["posts"]
+        expected_order = Post.objects.filter(status=1).order_by("-created_on")[:8]
+        self.assertQuerysetEqual(posts, expected_order, transform=lambda x: x)
