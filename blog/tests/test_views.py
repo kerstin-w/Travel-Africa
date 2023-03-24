@@ -305,6 +305,17 @@ class PostListViewTest(TestDataMixin, TestCase):
         Test Data
         """
         self.client = Client()
+        for i in range(1, 11):
+            Post.objects.create(
+                title=f"new post {i}",
+                slug=f"new-post-{i}",
+                author=self.user,
+                content="This is a test post.",
+                country="Namibia",
+                featured=True,
+                status=1,
+                created_on=datetime.now(),
+            )
         super().setUp()
 
     def test_post_list_view_status_code(self):
@@ -320,7 +331,18 @@ class PostListViewTest(TestDataMixin, TestCase):
         """
         response = self.client.get(reverse("post_list"))
         posts = response.context["posts"]
-        self.assertEqual(len(posts), 3)
-        self.assertIn(self.post1, posts)
-        self.assertIn(self.post2, posts)
-        self.assertIn(self.post4, posts)
+        self.assertEqual(len(posts), 8)
+
+    def test_post_list_view_pagination(self):
+        """
+        Test that paginates the posts
+        """
+        # test first page results
+        response = self.client.get(reverse("post_list") + "?page=1")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["posts"]), 8)
+
+        # test second page results
+        response = self.client.get(reverse("post_list") + "?page=2")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(len(response.context["posts"]), 5)
