@@ -5,6 +5,7 @@ from django.contrib.messages import get_messages
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http import HttpResponse
 from django.utils.text import slugify
+from datetime import datetime
 
 from django.urls import reverse
 from django.views import View
@@ -215,7 +216,10 @@ class HomeListViewTest(TestCase):
             content="This is a test post.",
             country="Namibia",
             featured=True,
+            status=1,
+            created_on=datetime.now(),
         )
+
         self.post2 = Post.objects.create(
             title="test post 2",
             slug="test-post-2",
@@ -223,7 +227,10 @@ class HomeListViewTest(TestCase):
             content="This is a test post.",
             country="Morroco",
             featured=False,
+            status=1,
+            created_on=datetime.now(),
         )
+
         self.post3 = Post.objects.create(
             title="test post 3",
             slug="test-post-3",
@@ -231,6 +238,19 @@ class HomeListViewTest(TestCase):
             content="This is a test post.",
             country="Ghana",
             featured=True,
+            status=0,
+            created_on=datetime.now(),
+        )
+
+        self.post4 = Post.objects.create(
+            title="test post 4",
+            slug="test-post-4",
+            author=self.user,
+            content="This is a test post.",
+            country="South Africa",
+            featured=True,
+            status=1,
+            created_on=datetime.now(),
         )
 
     def test_home_list_view_status_code(self):
@@ -246,3 +266,21 @@ class HomeListViewTest(TestCase):
         """
         response = self.client.get(reverse("home"))
         self.assertTemplateUsed(response, "index.html")
+
+    def test_home_list_view_queryset(self):
+        """
+        Test queryset to only display featured true an status 1
+        """
+        response = self.client.get(reverse("home"))
+        queryset = response.context["object_list"]
+        self.assertEqual(queryset.count(), 2)
+
+    def test_home_list_view_queryset_order(self):
+        """
+        Test queryset to only display in order
+        """
+        response = self.client.get(reverse("home"))
+        queryset = response.context["object_list"]
+        self.assertEqual(queryset.count(), 2)
+        self.assertEqual(queryset[0], self.post4)
+        self.assertEqual(queryset[1], self.post1)
