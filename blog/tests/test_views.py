@@ -403,3 +403,22 @@ class PostListViewTest(TestDataMixin, TestCase):
 
         self.assertEqual(posts[0].num_comments, 0)
         self.assertEqual(posts[1].num_comments, 2)
+
+
+class PostCategoryListViewTest(TestDataMixin, TestCase):
+     """
+    Test cases for PostCategoryListView
+    """
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.category_url = reverse('post_category', kwargs={'slug': self.category.slug})
+        self.response = self.client.get(self.category_url)
+        super().setUp()
+
+    def test_post_category_view_status_code(self):
+        """
+        Test Status code
+        """
+        self.assertEqual(self.response.status_code, 200)
