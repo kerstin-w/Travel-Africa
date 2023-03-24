@@ -538,3 +538,12 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         url = reverse('post_detail', kwargs={'slug': self.post1.slug})
         response = self.client.get(url)
         self.assertTemplateUsed(response, 'post_detail.html')
+    
+    def test_post_list_view_contains_post(self):
+        """
+        Test that view contains post
+        """
+        url = reverse('post_detail', kwargs={'slug': self.post1.slug})
+        response = self.client.get(url)
+        self.assertContains(response, self.post1.title)
+        self.assertContains(response, self.post1.content)
