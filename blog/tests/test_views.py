@@ -635,3 +635,19 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         view_instance.object = self.post1
         view_instance.get_user_profile(context)
         self.assertNotIn("profile", context)
+
+    def test_post_list_view_get_user_profile_authenticated_user(self):
+        """
+        Test get user profile when user is registered
+        """
+        request = self.factory.get("/")
+        request.user = self.user
+        self.view = PostDetailView()
+        self.view.setup(request, slug=self.post1.slug)
+        response = self.view.get(request, slug=self.post1.slug)
+        self.assertEqual(response.status_code, 200)
+        context = response.context_data
+        self.view.object = self.post1
+        self.view.get_user_profile(context)
+        self.assertIn("profile", context)
+        self.assertEqual(context["profile"], self.user.profile)
