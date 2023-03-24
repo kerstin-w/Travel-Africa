@@ -677,7 +677,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
             str(messages[0]),
             "Your comment has been successfully created and is waiting for approval..",
         )
-    
+
     def test_post_list_comment_submission_redirect(self):
         """
         Test submission redirect
@@ -692,3 +692,23 @@ class PostDetailViewTest(TestDataMixin, TestCase):
 
         self.assertRedirects(response, reverse('post_detail', kwargs={'slug': self.post1.slug}))
 
+class PostCreateViewTest(TestDataMixin, TestCase):
+    """
+    Test cases for PostCreateView
+    """
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.client.login(username='testuser', password='testpass')
+        self.url = reverse('post_create')
+        super().setUp()
+
+    def test_post_create_view_user_passes_test(self):
+        """
+        Test that a logged in user can access create post
+        """
+        request = self.factory.get(reverse("post_create"))
+        request.user = self.user
+        response = PostCreateView.as_view()(request)
+        self.assertEqual(response.status_code, 200)
