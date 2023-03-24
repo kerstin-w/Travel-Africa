@@ -1,9 +1,10 @@
-from django.test import TestCase, RequestFactory
+from django.test import TestCase, RequestFactory, Client
 from django.views.generic import TemplateView
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http import HttpResponse
+from django.utils.text import slugify
 
 from django.urls import reverse
 from django.views import View
@@ -187,3 +188,54 @@ class PostFormInvalidMessageMixinTest(TestCase):
         self.assertIn(
             "Post with this Title already exists.", form.errors["title"]
         )
+
+
+class HomeListViewTest(TestCase):
+    """
+    Test cases for HomeListView
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.client = Client()
+        self.user = User.objects.create_user(
+            username="testuser", password="testpass"
+        )
+        self.user.save()
+        self.category = Category.objects.create(
+            title="test category", slug=slugify("test category")
+        )
+        self.category.save()
+        self.post1 = Post.objects.create(
+            title="test post",
+            slug="test-post",
+            author=self.user,
+            content="This is a test post.",
+            country="Namibia",
+            featured=True,
+        )
+        self.post2 = Post.objects.create(
+            title="test post 2",
+            slug="test-post-2",
+            author=self.user,
+            content="This is a test post.",
+            country="Morroco",
+            featured=False,
+        )
+        self.post3 = Post.objects.create(
+            title="test post 3",
+            slug="test-post-3",
+            author=self.user,
+            content="This is a test post.",
+            country="Ghana",
+            featured=True,
+        )
+
+    def test_home_list_view_status_code(self):
+        """
+        Test the status code
+        """
+        response = self.client.get(reverse("home"))
+        self.assertEqual(response.status_code, 200)
