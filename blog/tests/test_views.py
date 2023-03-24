@@ -15,6 +15,7 @@ from blog.views import (
     PostFormInvalidMessageMixin,
     AboutView,
     HomeListView,
+    PostCategoryListView
 )
 
 from blog.views import PageTitleViewMixin
@@ -428,3 +429,9 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
         Test template
         """
         self.assertTemplateUsed(self.response, 'post_list.html')
+
+    def test_post_category_view_page_title_mixin(self):
+        """
+        Test inherites PageTitleViewMixin
+        """
+        self.assertIsInstance(PostCategoryListView(), PageTitleViewMixin)
