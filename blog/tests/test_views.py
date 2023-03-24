@@ -328,7 +328,7 @@ class PostListViewTest(TestDataMixin, TestCase):
 
     def test_post_list_view_status_code(self):
         """
-        Test that the PostListView returns a 200 response
+        Test status code
         """
         response = self.client.get(reverse("post_list"))
         self.assertEqual(response.status_code, 200)
@@ -406,7 +406,7 @@ class PostListViewTest(TestDataMixin, TestCase):
 
 
 class PostCategoryListViewTest(TestDataMixin, TestCase):
-     """
+    """
     Test cases for PostCategoryListView
     """
     def setUp(self):
@@ -422,3 +422,9 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
         Test Status code
         """
         self.assertEqual(self.response.status_code, 200)
+
+    def test_post_category_view_template(self):
+        """
+        Test template
+        """
+        self.assertTemplateUsed(self.response, 'post_list.html')
