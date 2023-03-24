@@ -467,3 +467,41 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
         response = self.client.get(reverse("post_list") + "?page=2")
         self.assertEqual(response.status_code, 200)
         self.assertEqual(len(response.context["posts"]), 5)
+
+    def test_post_category_view_comments_count(self):
+        """
+        Test view annotates the number of approved comments for each post
+        """
+        post_comment1 = Post.objects.create(
+            title="Post Comment 1",
+            content="Content 1",
+            slug="post-comment-1",
+            author=self.user,
+            status=1,
+        )
+        Comment.objects.create(
+            post=post_comment1, name=self.user, body="Comment 1", approved=True
+        )
+        Comment.objects.create(
+            post=post_comment1, name=self.user, body="Comment 2", approved=True
+        )
+        post_comment2 = Post.objects.create(
+            title="Post Comment 2",
+            content="Content 2",
+            slug="post-comment-2",
+            author=self.user,
+            status=1,
+        )
+        Comment.objects.create(
+            post=post_comment2,
+            name=self.user,
+            body="Comment 3",
+            approved=False,
+        )
+
+        response = self.client.get(reverse("post_list"))
+        posts = response.context["posts"]
+        self.assertEqual(posts.count(), 8)
+
+        self.assertEqual(posts[0].num_comments, 0)
+        self.assertEqual(posts[1].num_comments, 2)
