@@ -293,3 +293,23 @@ class AboutViewTest(TestCase):
         """
         response = self.client.get(reverse('about'))
         self.assertContains(response, '<title>Travel Africa | About</title>')
+
+
+class PostListViewTest(TestDataMixin, TestCase):
+    """
+    Test cases for PostListView
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.client = Client()
+        super().setUp()
+
+    def test_post_list_view_status_code(self):
+        """
+        Test that the PostListView returns a 200 response
+        """
+        response = self.client.get(reverse("post_list"))
+        self.assertEqual(response.status_code, 200)
