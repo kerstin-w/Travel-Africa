@@ -879,10 +879,21 @@ class PostDeleteViewTest(TestDataMixin, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Post.objects.filter(title=self.post1).exists())
     
-    def test_unauthenticated_user_cannot_delete_post(self):
+    def test_post_delete_unauthenticated_user_cannot_delete_post(self):
         """
         Test that an unauthenticated user cannot delete a post.
         """
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 302)
+        self.assertTrue(Post.objects.filter(title=self.post1).exists())
+
+    def test_post_delete_other_user_cannot_delete_post(self):
+        """
+        Test that another user cannot delete a post.
+        """
+        user2 = User.objects.create_user(username='testuser2', password='testpass')
+        self.client.force_login(user2)
+
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 405)
         self.assertTrue(Post.objects.filter(title=self.post1).exists())
