@@ -23,7 +23,7 @@ from blog.views import (
 
 from blog.views import PageTitleViewMixin
 from blog.forms import PostForm, CommentForm
-from blog.models import Category, Post, Comment
+from blog.models import Category, Post, Comment, BucketList
 from users.models import Profile
 
 
@@ -1017,3 +1017,12 @@ class AddToBucketListViewTest(TestDataMixin, TestCase):
             status_code=302,
             target_status_code=200,
         )
+
+    def test_add_to_bucketlist_view_add_post_to_bucketlist(self):
+        """
+        Test adding post to bucket list
+        """
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(BucketList.objects.filter(post=self.post1).exists())
