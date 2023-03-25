@@ -910,7 +910,7 @@ class PostDeleteViewTest(TestDataMixin, TestCase):
         self.assertTrue(Post.objects.filter(title=self.post1).exists())
 
 
-class PostSearchResultsViewTest(TestCase):
+class PostSearchResultsViewTest(TestDataMixin, TestCase):
     """
     Test cases for ostSearchResultsView
     """
@@ -923,6 +923,20 @@ class PostSearchResultsViewTest(TestCase):
         self.url = reverse("search_results")
         super().setUp()
 
-    def test_view_url_exists(self):
-        response = self.client.get("/search/", {"q": "Namibia"})
+    def test_search_view_template(self):
+        """
+        Test template
+        """
+        response = self.client.get(self.url, {'q': 'test'})
         self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'search_results.html')
+
+    def test_search_view_country(self):
+        """
+        Test to search for country
+        """
+        response = self.client.get(self.url, {'q': 'Namibia'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.post1)
+    
+
