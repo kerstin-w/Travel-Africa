@@ -1111,16 +1111,19 @@ class CommentDeleteViewTest(TestDataMixin, TestCase):
         """
         Test Data
         """
+        self.user1 = User.objects.create_user(
+            username="testuser1", password="testpass"
+        )
         self.comment6 = Comment.objects.create(
-            post=self.post1, name=self.user, body="Test comment", approved=1
+            post=self.post1, name=self.user1, body="Test comment", approved=1
         )
         super().setUp()
 
-    def test_comment_delete_view(self):
+    def test_comment_delete_view_comment_author(self):
         """
-        Test deleting a comment
+        Test deleting a comment as comment author
         """
-        self.client.login(username='testuser', password='testpass')
+        self.client.login(username='testuser1', password='testpass')
         response = self.client.post(reverse('comment_delete', kwargs={'pk': self.comment6.pk}))
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Comment.objects.filter(pk=self.comment6.pk).exists())
@@ -1128,3 +1131,21 @@ class CommentDeleteViewTest(TestDataMixin, TestCase):
         self.assertEqual(response.url, expected_url)
         response = self.client.get(response.url)
         self.assertEqual(response.status_code, 200)
+
+    def test_comment_delete_view_superuser(self):
+        """
+        Test deleting a comment as super user
+        """
+        self.client.login(username='admin', password='testpass')
+        response = self.client.post(reverse('comment_delete', kwargs={'pk': self.comment6.pk}))
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Comment.objects.filter(pk=self.comment6.pk).exists())
+        
+    def test_comment_delete_view_post_author(self):
+        """
+        Test deleting a comment as post author
+        """
+        self.client.login(username='testuser', password='testpass')
+        response = self.client.post(reverse('comment_delete', kwargs={'pk': self.comment6.pk}))
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Comment.objects.filter(pk=self.comment6.pk).exists())
