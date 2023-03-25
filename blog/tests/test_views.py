@@ -804,3 +804,17 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'post_create.html')
+    
+    def test_post_update_view_invalid_form_submission(self):
+        """
+        Test invalid form submission
+        """
+        self.client.force_login(self.user)
+        response = self.client.post(self.url, data={})
+        self.assertEqual(response.status_code, 200)
+        self.assertFormError(
+            response, 'form', 'title', 'This field is required.')
+        self.assertFormError(
+            response, 'form', 'content', 'This field is required.')
+        self.assertFormError(
+            response, 'form', 'regions', 'This field is required.')
