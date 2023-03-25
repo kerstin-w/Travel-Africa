@@ -270,7 +270,6 @@ class PostDeleteView(
 
     def test_func(self):
         post = self.get_object()
-        print(self.success_message)
         return (
             self.request.user.is_superuser or self.request.user == post.author
         )

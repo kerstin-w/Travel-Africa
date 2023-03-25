@@ -37,6 +37,9 @@ class TestDataMixin:
         cls.user = User.objects.create_user(
             username="testuser", password="testpass"
         )
+        cls.superuser = User.objects.create_superuser(
+            username="admin", password="testpass"
+        )
         cls.profile = get_object_or_404(Profile, user=cls.user)
 
         cls.category = Category.objects.create(
@@ -830,7 +833,7 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
             'title': 'Updated Test Post',
             'content': 'This is an updated test post.',
             'country': 'Namibia',
-            'regions': new_category,
+            'regions': new_category.pk,
         }
         
         form = PostForm(data=form_data)
@@ -842,7 +845,36 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
         self.assertEqual(self.post1.title, form_data['title'].lower())
         self.assertEqual(self.post1.content, form_data['content'])
         self.assertEqual(self.post1.country, form_data['country'])
-        self.assertEqual(self.post1.regions, form_data['regions'])
+        self.assertEqual(self.post1.regions.pk, form_data['regions'])
         self.assertEqual(self.post1.author, self.user)
         self.assertEqual(self.post1.status, 0)
         self.assertEqual(self.post1.slug, slugify(form_data['title']))
+    
+class PostDeleteViewTest(TestDataMixin, TestCase):
+    """
+    Test cases for PostDeleteView
+    """
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.url = reverse('post_delete', kwargs={'slug': self.post1.slug})
+        super().setUp()
+        
+    def test_post_delete_user_can_delete_own_post(self):
+        """
+        Test that an author of a post can delete it.
+        """
+        self.client.force_login(self.user)
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Post.objects.filter(title=self.post1).exists())
+    
+    def test_post_delete_superuser_can_delete_post(self):
+        """
+        Test that a superuser can delete any post.
+        """
+        self.client.force_login(self.superuser)
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Post.objects.filter(title=self.post1).exists())
