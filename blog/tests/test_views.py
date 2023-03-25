@@ -1070,3 +1070,13 @@ class BucketListViewTestCase(TestDataMixin, TestCase):
         context = response.context
         self.assertIn('bucketlist', context)
         self.assertEqual(context['bucketlist'], self.bucketlist)
+    
+    def test_bucket_list_remove_post_from_bucketlist(self):
+        """
+        Test removing post
+        """
+        post_id = self.post1.id
+        response = self.client.post(self.url, {'post_id': post_id})
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, self.url)
+        self.assertFalse(self.bucketlist.post.filter(id=post_id).exists())
