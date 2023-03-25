@@ -994,3 +994,26 @@ class PostLikeViewTest(TestDataMixin, TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertNotIn(self.user, self.post1.likes.all())
+
+class AddToBucketListViewTest(TestDataMixin, TestCase):
+    """
+    Test cases for BucketListView
+    """
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.url = reverse("add_to_bucketlist", args=[self.post1.slug])
+        super().setUp()
+
+    def test_add_to_bucketlist_view_not_logged_in(self):
+        """
+        Test redirect if user is not logged in
+        """
+        response = self.client.post(self.url)
+        self.assertRedirects(
+            response,
+            f"{reverse('account_login')}?next={self.url}",
+            status_code=302,
+            target_status_code=200,
+        )
