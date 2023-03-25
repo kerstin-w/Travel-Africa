@@ -38,13 +38,13 @@ class PostAdminTest(BaseAdminTest):
         Test Data
         """
         super().setUp()
-        category1 = Category.objects.create(title="Category 1")
+        self.category1 = Category.objects.create(title="Test Category")
         self.post = Post.objects.create(
             title="Test Post",
             content="Lorem ipsum dolor sit amet",
             author=self.user,
+            regions=self.category1,
         )
-        self.post.regions.add(category1)
 
     def test_approve_posts(self):
         """
@@ -215,6 +215,7 @@ class CommentAdminTest(BaseAdminTest):
         Test Data
         """
         super().setUp()
+        self.category1 = Category.objects.create(title="Test Category")
         self.user1 = User.objects.create_user(
             username="testuser",
             email="testuser@example.com",
@@ -224,6 +225,7 @@ class CommentAdminTest(BaseAdminTest):
             title="Test Post",
             content="This is a test post.",
             author=self.user1,
+            regions=self.category1,
         )
         self.profile = get_object_or_404(Profile, user=self.user)
         self.comment = Comment.objects.create(
@@ -361,10 +363,12 @@ class BucketListAdminTest(BaseAdminTest):
             created_on=datetime.now(),
         )
         # create a new post to test
+        category = Category.objects.create(title="Test Category")
         post = Post.objects.create(
             author=self.user,
             title="Test Post",
             content="Test Post Content",
+            regions=category,
         )
         # add the post and save bucket list
         bucket_list.post.add(post)

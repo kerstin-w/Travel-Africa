@@ -111,10 +111,10 @@ class PostModelTest(TestCase):
             slug="test-post",
             author=self.user,
             content="This is a test post.",
+            regions=self.category,
             country="Namibia",
             featured_image="test.jpg",
         )
-        self.post.regions.add(self.category)
         self.post.save()
 
         self.new_post = Post.objects.create(
@@ -123,6 +123,7 @@ class PostModelTest(TestCase):
             author=self.user,
             content="This is a test post 2.",
             country="Kongo",
+            regions=self.category,
         )
 
     def test_post_title_label(self):
@@ -245,8 +246,7 @@ class PostModelTest(TestCase):
         Test the regions
         """
         category = Category.objects.get(id=1)
-        self.assertEqual(self.post.regions.count(), 1)
-        self.assertEqual(self.post.regions.first(), self.category)
+        self.assertEqual(self.post.regions, category)
 
     def test_post_status_label(self):
         """
@@ -340,12 +340,14 @@ class CommentModelTest(TestCase):
         self.profile = get_object_or_404(Profile, user=self.user)
         self.profile.pk = 1
         self.profile.save()
+        self.category = Category.objects.create(title="Test Category", slug="test-category")
         self.post = Post.objects.create(
             title="Test Post",
             slug="test-post",
             author=self.user,
             content="This is a test post",
             country="Botswana",
+            regions=self.category,
         )
 
         self.comment = Comment.objects.create(
@@ -483,12 +485,14 @@ class BucketListModelTest(TestCase):
         )
         self.user.save()
         self.bucket_list = BucketList.objects.create(user=self.user)
+        self.category = Category.objects.create(title="Test Category", slug="test-category")
         self.post1 = Post.objects.create(
             title="Test Post 1",
             slug="test-post-1",
             author=self.user,
             content="This is a test post 1",
             country="Lesotho",
+            regions=self.category,
         )
         self.post2 = Post.objects.create(
             title="Test Post 2",
@@ -496,6 +500,7 @@ class BucketListModelTest(TestCase):
             author=self.user,
             content="This is a test post 2",
             country="Kenya",
+            regions=self.category,
         )
 
     def test_bucket_list_user_label(self):
