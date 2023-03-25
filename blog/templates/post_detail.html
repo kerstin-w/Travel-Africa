@@ -227,7 +227,7 @@
             <div class="modal-footer">
                 <form method="post" action="{% url 'comment_delete'  pk=comment.pk %}">
                     {% csrf_token %} {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    <input type="hidden" name="next" value="{{ request.path }}" />
                     {% endif %}
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

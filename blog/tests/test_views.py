@@ -18,7 +18,8 @@ from blog.views import (
     AboutView,
     HomeListView,
     PostCategoryListView,
-    PostDetailView, BucketListView
+    PostDetailView,
+    BucketListView,
 )
 
 from blog.views import PageTitleViewMixin
@@ -995,10 +996,12 @@ class PostLikeViewTest(TestDataMixin, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotIn(self.user, self.post1.likes.all())
 
+
 class AddToBucketListViewTest(TestDataMixin, TestCase):
     """
     Test cases for AddToBucketListView
     """
+
     def setUp(self):
         """
         Test Data
@@ -1034,21 +1037,24 @@ class AddToBucketListViewTest(TestDataMixin, TestCase):
         self.client.login(username="testuser", password="testpass")
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertJSONEqual(str(response.content, encoding="utf8"), {"success": True})
+        self.assertJSONEqual(
+            str(response.content, encoding="utf8"), {"success": True}
+        )
 
 
-class BucketListViewTestCase(TestDataMixin, TestCase):
+class BucketListViewTest(TestDataMixin, TestCase):
     """
     Test cases for BucketListView
     """
+
     def setUp(self):
         """
         Test Data
         """
         self.bucketlist = BucketList.objects.create(user=self.user)
         self.bucketlist.post.add(self.post1)
-        self.url = reverse('bucketlist')
-        self.client.login(username='testuser', password='testpass')
+        self.url = reverse("bucketlist")
+        self.client.login(username="testuser", password="testpass")
         super().setUp()
 
     def test_bucket_list_get_queryset(self):
@@ -1060,33 +1066,71 @@ class BucketListViewTestCase(TestDataMixin, TestCase):
         view.request = response.wsgi_request
         queryset = view.get_queryset()
         expected_queryset = BucketList.objects.filter(user=self.user)
-        self.assertQuerysetEqual(queryset, expected_queryset, transform=lambda x: x)
-    
+        self.assertQuerysetEqual(
+            queryset, expected_queryset, transform=lambda x: x
+        )
+
     def test_bucket_list_context_data(self):
         """
         Test context data
         """
         response = self.client.get(self.url)
         context = response.context
-        self.assertIn('bucketlist', context)
-        self.assertEqual(context['bucketlist'], self.bucketlist)
-    
+        self.assertIn("bucketlist", context)
+        self.assertEqual(context["bucketlist"], self.bucketlist)
+
     def test_bucket_list_remove_post_from_bucketlist(self):
         """
         Test removing post
         """
         post_id = self.post1.id
-        response = self.client.post(self.url, {'post_id': post_id})
+        response = self.client.post(self.url, {"post_id": post_id})
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, self.url)
         self.assertFalse(self.bucketlist.post.filter(id=post_id).exists())
-    
+
     def test_bucket_list_success_message(self):
         """
         Test success message
         """
         post_id = self.post1.id
-        response = self.client.post(self.url, {'post_id': post_id})
+        response = self.client.post(self.url, {"post_id": post_id})
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'Post successfully removed from your bucket list.')
+        self.assertEqual(
+            str(messages[0]),
+            "Post successfully removed from your bucket list.",
+        )
+
+class CommentDeleteViewTest(TestDataMixin, TestCase):
+    """
+    Test cases for CommentDeleteView
+    """
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.user4 = User.objects.create_user(username='testuser4', password='testpass')
+        self.comment4 = Comment.objects.create(
+            post=self.post1,
+            name=self.user,
+            body="This is a test comment.",
+            approved="True",
+        )
+        self.url = reverse('comment_delete', kwargs={'pk': self.comment4.pk})
+        self.client.login(username='testuser4', password='testpass')
+        self.user4.username = 'testuser4'
+        self.user4.save()
+        super().setUp()
+
+    def test_view_exists_at_desired_location(self):
+        self.client.login(username='testuser4', password='testpass')
+        print(self.url)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_delete_comment(self):
+        self.client.login(username='testuser4', password='testpass')
+        response = self.client.post(self.url)
+        self.assertRedirects(response, self.post1.get_absolute_url())
+        self.assertFalse(Comment.objects.filter(pk=self.comment4.pk).exists())
