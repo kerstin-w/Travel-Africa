@@ -429,7 +429,7 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
         """
         Test Data
         """
-        
+
         self.category_url = reverse(
             "post_category", kwargs={"slug": self.category.slug}
         )
@@ -472,7 +472,9 @@ class PostCategoryListViewTest(TestDataMixin, TestCase):
         """
         view = PostCategoryListView()
         view.kwargs = {"slug": self.category.slug}
-        expected_queryset = Post.objects.filter(status=1, regions=self.category)
+        expected_queryset = Post.objects.filter(
+            status=1, regions=self.category
+        )
         queryset = view.get_queryset()
         self.assertQuerysetEqual(
             queryset, expected_queryset, transform=lambda x: x
@@ -750,10 +752,10 @@ class PostCreateViewTest(TestDataMixin, TestCase):
         """
         Test valid form submission
         """
-        self.client.login(username='testuser', password='testpass')
-        response = self.client.get(reverse('post_create'))
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.get(reverse("post_create"))
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'post_create.html')
+        self.assertTemplateUsed(response, "post_create.html")
 
     def test_post_create_view_invalid_form(self):
         """
@@ -766,3 +768,30 @@ class PostCreateViewTest(TestDataMixin, TestCase):
         form = response.context["form"]
         self.assertTrue(form.errors)
         self.assertContains(response, "This field is required.")
+
+
+class PostUpdateViewTest(TestDataMixin, TestCase):
+    """
+    Test cases for PostUpdateView
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.client = Client()
+        self.url = reverse("post_update", kwargs={"slug": self.post1.slug})
+        self.login_url = reverse("account_login")
+        super().setUp()
+
+    def test_post_update_view_unauthenticated_user(self):
+        """
+        Test that unauthenticated user cannot access PostUpdateView
+        """
+        response = self.client.get(self.url)
+        self.assertRedirects(
+            response,
+            f"{self.login_url}?next={self.url}",
+            status_code=302,
+            target_status_code=200,
+        )
