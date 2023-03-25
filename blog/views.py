@@ -362,17 +362,27 @@ class BucketListView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
         return redirect(self.success_url)
 
 
-class CommentDeleteView(DeleteView):
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
     Display Bucket List and allow user to remove post from bucket list
     """
     model = Comment
     template_name = "post_detail.html"
+    context_object_name = 'comment'
     success_message = "Comment successfully removed."
 
+    def test_func(self):
+        comment = self.get_object()
+        user = self.request.user
+        return (
+            user.is_superuser or
+            comment.name == user or
+            comment.post.author == user
+        )
+
     def get_success_url(self):
-        comment = self.object
-        return reverse_lazy('post_detail', kwargs={'slug': comment.post.slug})
+        post_slug = self.object.post.slug
+        return reverse_lazy('post_detail', kwargs={'slug': post_slug})
 
 
 class Error403View(TemplateView):
