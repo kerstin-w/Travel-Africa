@@ -4,6 +4,7 @@ from django.contrib.auth.models import User, AnonymousUser
 from django.contrib.messages import get_messages
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http import HttpResponse
+from django.contrib.auth import get_user_model
 from django.utils.text import slugify
 from django.shortcuts import get_object_or_404
 
@@ -1110,27 +1111,20 @@ class CommentDeleteViewTest(TestDataMixin, TestCase):
         """
         Test Data
         """
-        self.user4 = User.objects.create_user(username='testuser4', password='testpass')
-        self.comment4 = Comment.objects.create(
-            post=self.post1,
-            name=self.user,
-            body="This is a test comment.",
-            approved="True",
+        self.comment6 = Comment.objects.create(
+            post=self.post1, name=self.user, body="Test comment", approved=1
         )
-        self.url = reverse('comment_delete', kwargs={'pk': self.comment4.pk})
-        self.client.login(username='testuser4', password='testpass')
-        self.user4.username = 'testuser4'
-        self.user4.save()
         super().setUp()
 
-    def test_view_exists_at_desired_location(self):
-        self.client.login(username='testuser4', password='testpass')
-        print(self.url)
-        response = self.client.get(self.url)
+    def test_comment_delete_view(self):
+        """
+        Test deleting a comment
+        """
+        self.client.login(username='testuser', password='testpass')
+        response = self.client.post(reverse('comment_delete', kwargs={'pk': self.comment6.pk}))
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Comment.objects.filter(pk=self.comment6.pk).exists())
+        expected_url = reverse('post_detail', kwargs={'slug': self.comment6.post.slug})
+        self.assertEqual(response.url, expected_url)
+        response = self.client.get(response.url)
         self.assertEqual(response.status_code, 200)
-
-    def test_view_delete_comment(self):
-        self.client.login(username='testuser4', password='testpass')
-        response = self.client.post(self.url)
-        self.assertRedirects(response, self.post1.get_absolute_url())
-        self.assertFalse(Comment.objects.filter(pk=self.comment4.pk).exists())
