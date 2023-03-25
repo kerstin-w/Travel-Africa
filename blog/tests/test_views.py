@@ -798,7 +798,7 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
             status_code=302,
             target_status_code=200,
         )
-    
+
     def test_post_update_view_authorized_user(self):
         """
         Test that authorized user can access PostUpdateView
@@ -806,8 +806,8 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
         self.client.force_login(self.user)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'post_create.html')
-    
+        self.assertTemplateUsed(response, "post_create.html")
+
     def test_post_update_view_invalid_form_submission(self):
         """
         Test invalid form submission
@@ -816,51 +816,60 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.url, data={})
         self.assertEqual(response.status_code, 200)
         self.assertFormError(
-            response, 'form', 'title', 'This field is required.')
+            response, "form", "title", "This field is required."
+        )
         self.assertFormError(
-            response, 'form', 'content', 'This field is required.')
+            response, "form", "content", "This field is required."
+        )
         self.assertFormError(
-            response, 'form', 'regions', 'This field is required.')
+            response, "form", "regions", "This field is required."
+        )
 
     def test_post_update_view_valid_form_submission(self):
         """
         Test valid form submission
         """
         self.client.force_login(self.user)
-        new_category = Category.objects.create(title='New Category', slug='new-category')
-        new_category.save() 
+        new_category = Category.objects.create(
+            title="New Category", slug="new-category"
+        )
+        new_category.save()
         form_data = {
-            'title': 'Updated Test Post',
-            'content': 'This is an updated test post.',
-            'country': 'Namibia',
-            'regions': new_category.pk,
+            "title": "Updated Test Post",
+            "content": "This is an updated test post.",
+            "country": "Namibia",
+            "regions": new_category.pk,
         }
-        
+
         form = PostForm(data=form_data)
         self.assertTrue(form.is_valid())
-        response = self.client.post(self.url.format(self.post1.pk), data=form_data)
+        response = self.client.post(
+            self.url.format(self.post1.pk), data=form_data
+        )
 
         self.assertEqual(response.status_code, 302)
         self.post1.refresh_from_db()
-        self.assertEqual(self.post1.title, form_data['title'].lower())
-        self.assertEqual(self.post1.content, form_data['content'])
-        self.assertEqual(self.post1.country, form_data['country'])
-        self.assertEqual(self.post1.regions.pk, form_data['regions'])
+        self.assertEqual(self.post1.title, form_data["title"].lower())
+        self.assertEqual(self.post1.content, form_data["content"])
+        self.assertEqual(self.post1.country, form_data["country"])
+        self.assertEqual(self.post1.regions.pk, form_data["regions"])
         self.assertEqual(self.post1.author, self.user)
         self.assertEqual(self.post1.status, 0)
-        self.assertEqual(self.post1.slug, slugify(form_data['title']))
-    
+        self.assertEqual(self.post1.slug, slugify(form_data["title"]))
+
+
 class PostDeleteViewTest(TestDataMixin, TestCase):
     """
     Test cases for PostDeleteView
     """
+
     def setUp(self):
         """
         Test Data
         """
-        self.url = reverse('post_delete', kwargs={'slug': self.post1.slug})
+        self.url = reverse("post_delete", kwargs={"slug": self.post1.slug})
         super().setUp()
-        
+
     def test_post_delete_user_can_delete_own_post(self):
         """
         Test that an author of a post can delete it.
@@ -869,7 +878,7 @@ class PostDeleteViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Post.objects.filter(title=self.post1).exists())
-    
+
     def test_post_delete_superuser_can_delete_post(self):
         """
         Test that a superuser can delete any post.
@@ -878,7 +887,7 @@ class PostDeleteViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Post.objects.filter(title=self.post1).exists())
-    
+
     def test_post_delete_unauthenticated_user_cannot_delete_post(self):
         """
         Test that an unauthenticated user cannot delete a post.
@@ -891,9 +900,29 @@ class PostDeleteViewTest(TestDataMixin, TestCase):
         """
         Test that another user cannot delete a post.
         """
-        user2 = User.objects.create_user(username='testuser2', password='testpass')
+        user2 = User.objects.create_user(
+            username="testuser2", password="testpass"
+        )
         self.client.force_login(user2)
 
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 405)
         self.assertTrue(Post.objects.filter(title=self.post1).exists())
+
+
+class PostSearchResultsViewTest(TestCase):
+    """
+    Test cases for ostSearchResultsView
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.client = Client()
+        self.url = reverse("search_results")
+        super().setUp()
+
+    def test_view_url_exists(self):
+        response = self.client.get("/search/", {"q": "Namibia"})
+        self.assertEqual(response.status_code, 200)
