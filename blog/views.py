@@ -134,13 +134,13 @@ class PostDetailView(DetailView):
     context_object_name = "post"
 
     def get_context_data(self, **kwargs):
+        self.object = self.get_object()
         context = super().get_context_data(**kwargs)
         self.get_comments(context)
         self.get_liked_status(context)
         self.get_user_profile(context)
         context["title"] = self.object.title.title()
         context["comment_form"] = CommentForm()
-        self.object = self.get_object()
         return context
 
     def get_comments(self, context):

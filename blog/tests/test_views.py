@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from django.utils.text import slugify
 from django.shortcuts import get_object_or_404
 
+
 from datetime import datetime
 
 from django.urls import reverse
@@ -946,3 +947,28 @@ class PostSearchResultsViewTest(TestDataMixin, TestCase):
         response = self.client.get(self.url, {'q': 'test post'})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.post1)
+
+
+class PostLikeViewTest(TestDataMixin, TestCase):
+    """
+    Test cases for PostLikeViewView
+    """
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('post_detail', kwargs={'slug': self.post1.slug})
+        self.client.login(username='testuser', password='testpass')
+        super().setUp()
+    
+    def test_post_liked_status(self):
+        """
+        Test liked status
+        """
+        response = self.client.get(reverse("post_detail", args=[self.post1.slug]))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn("liked", response.context)
+        self.assertIsInstance(response.context["liked"], bool)
+        if self.user in self.post1.likes.all():
+            self.assertTrue(response.context["liked"])
+        else:
+            self.assertFalse(response.context["liked"])
+    
