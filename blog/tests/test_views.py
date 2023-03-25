@@ -1026,3 +1026,9 @@ class AddToBucketListViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(BucketList.objects.filter(post=self.post1).exists())
+    
+    def test_add_to_bucketlist_view_response(self):
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.post(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertJSONEqual(str(response.content, encoding="utf8"), {"success": True})
