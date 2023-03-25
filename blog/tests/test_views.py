@@ -1052,9 +1052,21 @@ class BucketListViewTestCase(TestDataMixin, TestCase):
         super().setUp()
 
     def test_bucket_list_get_queryset(self):
+        """
+        Test query set
+        """
         response = self.client.get(self.url)
         view = BucketListView()
         view.request = response.wsgi_request
         queryset = view.get_queryset()
         expected_queryset = BucketList.objects.filter(user=self.user)
         self.assertQuerysetEqual(queryset, expected_queryset, transform=lambda x: x)
+    
+    def test_bucket_list_context_data(self):
+        """
+        Test context data
+        """
+        response = self.client.get(self.url)
+        context = response.context
+        self.assertIn('bucketlist', context)
+        self.assertEqual(context['bucketlist'], self.bucketlist)
