@@ -818,3 +818,31 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
             response, 'form', 'content', 'This field is required.')
         self.assertFormError(
             response, 'form', 'regions', 'This field is required.')
+
+    def test_post_update_view_valid_form_submission(self):
+        """
+        Test valid form submission
+        """
+        self.client.force_login(self.user)
+        new_category = Category.objects.create(title='New Category', slug='new-category')
+        new_category.save() 
+        form_data = {
+            'title': 'Updated Test Post',
+            'content': 'This is an updated test post.',
+            'country': 'Namibia',
+            'regions': new_category,
+        }
+        
+        form = PostForm(data=form_data)
+        self.assertTrue(form.is_valid())
+        response = self.client.post(self.url.format(self.post1.pk), data=form_data)
+
+        self.assertEqual(response.status_code, 302)
+        self.post1.refresh_from_db()
+        self.assertEqual(self.post1.title, form_data['title'].lower())
+        self.assertEqual(self.post1.content, form_data['content'])
+        self.assertEqual(self.post1.country, form_data['country'])
+        self.assertEqual(self.post1.regions, form_data['regions'])
+        self.assertEqual(self.post1.author, self.user)
+        self.assertEqual(self.post1.status, 0)
+        self.assertEqual(self.post1.slug, slugify(form_data['title']))
