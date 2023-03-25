@@ -1080,3 +1080,13 @@ class BucketListViewTestCase(TestDataMixin, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, self.url)
         self.assertFalse(self.bucketlist.post.filter(id=post_id).exists())
+    
+    def test_bucket_list_success_message(self):
+        """
+        Test success message
+        """
+        post_id = self.post1.id
+        response = self.client.post(self.url, {'post_id': post_id})
+        messages = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(messages), 1)
+        self.assertEqual(str(messages[0]), 'Post successfully removed from your bucket list.')
