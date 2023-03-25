@@ -754,3 +754,15 @@ class PostCreateViewTest(TestDataMixin, TestCase):
         response = self.client.get(reverse('post_create'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'post_create.html')
+
+    def test_post_create_view_invalid_form(self):
+        """
+        Test invalid form submission
+        """
+        self.client.login(username="testuser", password="testpass")
+        form_data = {}
+        response = self.client.post(reverse("post_create"), data=form_data)
+
+        form = response.context["form"]
+        self.assertTrue(form.errors)
+        self.assertContains(response, "This field is required.")
