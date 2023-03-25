@@ -939,4 +939,10 @@ class PostSearchResultsViewTest(TestDataMixin, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.post1)
     
-
+    def test_search_view_title(self):
+        """
+        Test to search for title
+        """
+        response = self.client.get(self.url, {'q': 'test post'})
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.post1)
