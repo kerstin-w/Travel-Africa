@@ -7,7 +7,6 @@ from django.http import HttpResponse
 from django.utils.text import slugify
 from django.shortcuts import get_object_or_404
 
-
 from datetime import datetime
 
 from django.urls import reverse
@@ -928,23 +927,23 @@ class PostSearchResultsViewTest(TestDataMixin, TestCase):
         """
         Test template
         """
-        response = self.client.get(self.url, {'q': 'test'})
+        response = self.client.get(self.url, {"q": "test"})
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'search_results.html')
+        self.assertTemplateUsed(response, "search_results.html")
 
     def test_search_view_country(self):
         """
         Test to search for country
         """
-        response = self.client.get(self.url, {'q': 'Namibia'})
+        response = self.client.get(self.url, {"q": "Namibia"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.post1)
-    
+
     def test_search_view_title(self):
         """
         Test to search for title
         """
-        response = self.client.get(self.url, {'q': 'test post'})
+        response = self.client.get(self.url, {"q": "test post"})
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.post1)
 
@@ -953,17 +952,20 @@ class PostLikeViewTest(TestDataMixin, TestCase):
     """
     Test cases for PostLikeViewView
     """
+
     def setUp(self):
         self.client = Client()
-        self.url = reverse('post_detail', kwargs={'slug': self.post1.slug})
-        self.client.login(username='testuser', password='testpass')
+        self.url = reverse("post_detail", kwargs={"slug": self.post1.slug})
+        self.client.login(username="testuser", password="testpass")
         super().setUp()
-    
+
     def test_post_liked_status(self):
         """
         Test liked status
         """
-        response = self.client.get(reverse("post_detail", args=[self.post1.slug]))
+        response = self.client.get(
+            reverse("post_detail", args=[self.post1.slug])
+        )
         self.assertEqual(response.status_code, 200)
         self.assertIn("liked", response.context)
         self.assertIsInstance(response.context["liked"], bool)
@@ -971,4 +973,24 @@ class PostLikeViewTest(TestDataMixin, TestCase):
             self.assertTrue(response.context["liked"])
         else:
             self.assertFalse(response.context["liked"])
-    
+
+    def test_post_liked_user_can_like_and_unlike_post(self):
+        """
+        Test that user can like and unlike post
+        """
+        self.client.force_login(self.user)
+        self.assertNotIn(self.user, self.post1.likes.all())
+
+        # Like the post
+        response = self.client.post(
+            reverse("post_detail", args=[self.post1.slug]) + "like/"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(self.user, self.post1.likes.all())
+
+        # Unlike the post
+        response = self.client.post(
+            reverse("post_detail", args=[self.post1.slug]) + "like/"
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotIn(self.user, self.post1.likes.all())
