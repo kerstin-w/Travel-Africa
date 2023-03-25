@@ -4,7 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.db import models
 from django.db.models import Count, Q
 from django.http import JsonResponse
-from django.shortcuts import redirect, get_object_or_404, render
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
 from django.views import generic
@@ -114,13 +114,15 @@ class PostCategoryListView(PageTitleViewMixin, ListView):
 
     def get_queryset(self):
         self.category = get_object_or_404(Category, slug=self.kwargs["slug"])
-        queryset = Post.objects.filter(
-            status=1, regions=self.category
-        ).annotate(
-            num_comments=Count(
-                "comments", filter=models.Q(comments__approved=True)
+        queryset = (
+            Post.objects.filter(status=1, regions=self.category)
+            .annotate(
+                num_comments=Count(
+                    "comments", filter=models.Q(comments__approved=True)
+                )
             )
-        ).order_by("-created_on")
+            .order_by("-created_on")
+        )
         return queryset
 
 
@@ -366,23 +368,24 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
     Display Bucket List and allow user to remove post from bucket list
     """
+
     model = Comment
     template_name = "post_detail.html"
-    context_object_name = 'comment'
+    context_object_name = "comment"
     success_message = "Comment successfully removed."
 
     def test_func(self):
         comment = self.get_object()
         user = self.request.user
         return (
-            user.is_superuser or
-            comment.name == user or
-            comment.post.author == user
+            user.is_superuser
+            or comment.name == user
+            or comment.post.author == user
         )
 
     def get_success_url(self):
         post_slug = self.object.post.slug
-        return reverse_lazy('post_detail', kwargs={'slug': post_slug})
+        return reverse_lazy("post_detail", kwargs={"slug": post_slug})
 
 
 class Error403View(TemplateView):
@@ -391,4 +394,3 @@ class Error403View(TemplateView):
 
 class Error404View(TemplateView):
     template_name = "errors/404.html"
-
