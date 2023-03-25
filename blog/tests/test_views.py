@@ -795,3 +795,12 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
             status_code=302,
             target_status_code=200,
         )
+    
+    def test_post_update_view_authorized_user(self):
+        """
+        Test that authorized user can access PostUpdateView
+        """
+        self.client.force_login(self.user)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'post_create.html')
