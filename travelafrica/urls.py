@@ -19,14 +19,17 @@ from users import urls as user_urls
 from django.conf.urls import handler404, handler500
 from blog.views import Error403View, Error404View
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('summernote/', include('django_summernote.urls')),
-    path("", include("blog.urls"), name="blog-urls"),
-    path('accounts/', include('allauth.urls')),
-    path('', include(user_urls, namespace='users')),
-]
-
 # Custom Error Page Handlers
 handler403 = Error403View.as_view()
 handler404 = Error404View.as_view()
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("summernote/", include("django_summernote.urls")),
+    path("", include("blog.urls"), name="blog-urls"),
+    path("accounts/", include("allauth.urls")),
+    path("", include(user_urls, namespace="users")),
+    # Custom Error Page Handlers
+    path("403/", handler403, name="handler403"),
+    path("404/", handler404, name="handler404"),
+]
