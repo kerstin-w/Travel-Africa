@@ -21,6 +21,7 @@ from blog.views import (
     PostCategoryListView,
     PostDetailView,
     BucketListView,
+    Error403View,
 )
 
 from blog.views import PageTitleViewMixin
@@ -1103,10 +1104,12 @@ class BucketListViewTest(TestDataMixin, TestCase):
             "Post successfully removed from your bucket list.",
         )
 
+
 class CommentDeleteViewTest(TestDataMixin, TestCase):
     """
     Test cases for CommentDeleteView
     """
+
     def setUp(self):
         """
         Test Data
@@ -1123,11 +1126,15 @@ class CommentDeleteViewTest(TestDataMixin, TestCase):
         """
         Test deleting a comment as comment author
         """
-        self.client.login(username='testuser1', password='testpass')
-        response = self.client.post(reverse('comment_delete', kwargs={'pk': self.comment6.pk}))
+        self.client.login(username="testuser1", password="testpass")
+        response = self.client.post(
+            reverse("comment_delete", kwargs={"pk": self.comment6.pk})
+        )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Comment.objects.filter(pk=self.comment6.pk).exists())
-        expected_url = reverse('post_detail', kwargs={'slug': self.comment6.post.slug})
+        expected_url = reverse(
+            "post_detail", kwargs={"slug": self.comment6.post.slug}
+        )
         self.assertEqual(response.url, expected_url)
         response = self.client.get(response.url)
         self.assertEqual(response.status_code, 200)
@@ -1136,16 +1143,48 @@ class CommentDeleteViewTest(TestDataMixin, TestCase):
         """
         Test deleting a comment as super user
         """
-        self.client.login(username='admin', password='testpass')
-        response = self.client.post(reverse('comment_delete', kwargs={'pk': self.comment6.pk}))
+        self.client.login(username="admin", password="testpass")
+        response = self.client.post(
+            reverse("comment_delete", kwargs={"pk": self.comment6.pk})
+        )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Comment.objects.filter(pk=self.comment6.pk).exists())
-        
+
     def test_comment_delete_view_post_author(self):
         """
         Test deleting a comment as post author
         """
-        self.client.login(username='testuser', password='testpass')
-        response = self.client.post(reverse('comment_delete', kwargs={'pk': self.comment6.pk}))
+        self.client.login(username="testuser", password="testpass")
+        response = self.client.post(
+            reverse("comment_delete", kwargs={"pk": self.comment6.pk})
+        )
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Comment.objects.filter(pk=self.comment6.pk).exists())
+
+
+class ErrorPageTests(TestDataMixin, TestCase):
+    """
+    Test Error Pages
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.client = Client()
+
+    def test_404_page(self):
+        """
+        Test 404 page
+        """
+        url = "non-existent-url/"
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, "errors/404.html")
+
+    def test_403_page(self):
+        """
+        Test 403 page
+        """
+        url = reverse("handler403")
+        response = self.client.get(url)
+        self.assertTemplateUsed(response, "errors/403.html")
