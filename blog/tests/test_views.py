@@ -18,7 +18,7 @@ from blog.views import (
     AboutView,
     HomeListView,
     PostCategoryListView,
-    PostDetailView,
+    PostDetailView, BucketListView
 )
 
 from blog.views import PageTitleViewMixin
@@ -997,7 +997,7 @@ class PostLikeViewTest(TestDataMixin, TestCase):
 
 class AddToBucketListViewTest(TestDataMixin, TestCase):
     """
-    Test cases for BucketListView
+    Test cases for AddToBucketListView
     """
     def setUp(self):
         """
@@ -1026,9 +1026,35 @@ class AddToBucketListViewTest(TestDataMixin, TestCase):
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTrue(BucketList.objects.filter(post=self.post1).exists())
-    
+
     def test_add_to_bucketlist_view_response(self):
+        """
+        Test json response
+        """
         self.client.login(username="testuser", password="testpass")
         response = self.client.post(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertJSONEqual(str(response.content, encoding="utf8"), {"success": True})
+
+
+class BucketListViewTestCase(TestDataMixin, TestCase):
+    """
+    Test cases for BucketListView
+    """
+    def setUp(self):
+        """
+        Test Data
+        """
+        self.bucketlist = BucketList.objects.create(user=self.user)
+        self.bucketlist.post.add(self.post1)
+        self.url = reverse('bucketlist')
+        self.client.login(username='testuser', password='testpass')
+        super().setUp()
+
+    def test_bucket_list_get_queryset(self):
+        response = self.client.get(self.url)
+        view = BucketListView()
+        view.request = response.wsgi_request
+        queryset = view.get_queryset()
+        expected_queryset = BucketList.objects.filter(user=self.user)
+        self.assertQuerysetEqual(queryset, expected_queryset, transform=lambda x: x)
