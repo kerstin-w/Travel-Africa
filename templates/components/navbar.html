@@ -45,7 +45,7 @@
                                 <form action="{% url 'search_results' %}" method="get"
                                     class="d-flex input-group w-auto">
                                     <input type="search" name="q" class="form-control form-control-dark"
-                                        placeholder="Search..." aria-label="Search" />
+                                        placeholder="Search..." aria-label="Search">
                                 </form>
                             </li>
                             {% if user.is_authenticated %}
@@ -59,7 +59,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-bs-toggle="modal" href="#signOutModal"><i
-                                        class="fa-solid fa-arrow-right-from-bracket nav-icon" ></i></a>
+                                        class="fa-solid fa-arrow-right-from-bracket nav-icon"></i></a>
                             </li>
                             <li class="nav-item">
                                 {% with profile=request.user.profile %} {% if "placeholder" in profile.image.url %}
@@ -70,7 +70,7 @@
                                 {% else %}
                                 <a href="{% url 'users:profile_home' username=request.user.username %}">
                                     <img src="{{ profile.image.url }}" class="profile-img profile-img-small"
-                                        alt="{{ profile.user.username }}" />
+                                        alt="{{ profile.user.username }}">
                                 </a>
 
                                 {% endif %} {% endwith %}
