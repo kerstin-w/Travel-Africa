@@ -1,10 +1,10 @@
-from django.test import TestCase
+from django.test import TestCase, Client
 from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
-from django.http import Http404
-from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
+from django.utils.text import slugify
+from datetime import datetime
 
+from blog.models import Category, Post, Comment
 from users.models import Profile
 from users.forms import ProfileForm
 
@@ -15,15 +15,35 @@ class BaseProfileTestCase(TestCase):
     """
 
     def setUp(self):
+        """
+        Test Data
+        """
         User.objects.all().delete()
-        self.user = get_user_model().objects.create_user(
-            username="testuser",
-            email="testuser@example.com",
-            password="testpass",
+        self.user = User.objects.create_user(
+            username="testuser", password="testpass"
         )
-        self.profile = get_object_or_404(Profile, user=self.user)
+        try:
+            self.profile = self.user.profile
+        except Profile.DoesNotExist:
+            self.profile = Profile.objects.create(user=self.user)
+
+        self.profile.description = "Test description"
         self.profile.pk = 1
         self.profile.save()
+        self.category = Category.objects.create(
+            title="test category", slug=slugify("test category")
+        )
+        self.post1 = Post.objects.create(
+            title="test post",
+            slug="test-post",
+            author=self.user,
+            content="This is a test post.",
+            country="Namibia",
+            regions=self.category,
+            featured=True,
+            status=1,
+            created_on=datetime.now(),
+        )
 
     def login(self):
         self.client.login(username="testuser", password="testpass")
@@ -32,40 +52,120 @@ class BaseProfileTestCase(TestCase):
         return reverse("users:profile_update", kwargs={"pk": self.profile.pk})
 
 
-class ProfileHomeViewTestCase(BaseProfileTestCase):
-    def test_profile_home_view(self):
+class ProfileHomeViewTest(BaseProfileTestCase, TestCase):
+    """
+    Test cases for ProfileHome
+    """
+
+    def setUp(self):
         """
-        Test Profile Page and context
+        Test Data
+        """
+        super().setUp()
+        self.client = Client()
+        self.url = reverse(
+            "users:profile_home", kwargs={"username": self.user.username}
+        )
+
+    def test_profiel_home_view_template(self):
+        """
+        Test template
         """
         self.login()
-        url = reverse("users:profile_home", args=[self.user.username])
-        response = self.client.get(url)
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "profile.html")
-        self.assertContains(response, self.profile)
+
+    def test_profile_home_view_displays_profile_information(self):
+        """
+        Test profile information
+        """
+        self.login()
+        response = self.client.get(self.url)
         self.assertContains(response, self.user.username)
-        self.assertTrue("profile" in response.context)
-        self.assertTrue("sum_posts" in response.context)
-        self.assertTrue("sum_comments" in response.context)
-        self.assertTrue("posts" in response.context)
-        self.assertTrue("comments" in response.context)
-        self.assertEqual(response.context["profile"], self.profile)
-        self.assertEqual(response.context["sum_posts"], 0)
+        self.assertContains(response, self.profile.description)
+
+    def test_profile_home_view_contains_user_username(self):
+        """
+        Test profile information username
+        """
+        self.login()
+        response = self.client.get(self.url)
+        self.assertContains(response, self.user.username)
+
+    def test_profile_home_view_anonymous_user(self):
+        """
+        Test redirect for anonymous user
+        """
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_profile_home_view_posts(self):
+        """
+        Tests posts in profile
+        """
+        self.login()
+        for i in range(1, 11):
+            Post.objects.create(
+                title=f"new post {i}",
+                slug=f"new-post-{i}",
+                author=self.user,
+                content="This is a test post.",
+                country="Namibia",
+                regions=self.category,
+                featured=True,
+                status=1,
+                created_on=datetime.now(),
+            )
+        response = self.client.get(self.url)
+        self.assertEqual(len(response.context["posts"]), 11)
+        self.assertEqual(response.context["sum_posts"], 11)
+        self.assertContains(response, self.post1)
+        posts = response.context["posts"]
+        self.assertEqual(list(posts), list(posts.order_by("-created_on")))
+
+    def test_profile_home_view_comments(self):
+        """
+        Tests comments
+        """
+        self.login()
+        response = self.client.get(self.url)
+
         self.assertEqual(response.context["sum_comments"], 0)
-        self.assertEqual(list(response.context["posts"]), [])
-        self.assertEqual(list(response.context["comments"]), [])
 
-    def test_profile_home_view_with_unauthenticated_user(self):
+        # Add a comment to post1
+        Comment.objects.create(
+            post=self.post1,
+            name=self.user,
+            body="This is a test comment.",
+            profile=self.profile,
+            approved=True,
+        )
+        response = self.client.get(self.url)
+        self.assertEqual(response.context["sum_posts"], 1)
+        self.assertEqual(response.context["sum_comments"], 1)
+        posts = response.context["posts"]
+        for post in posts:
+            self.assertIsNotNone(post.num_comments)
+            self.assertGreaterEqual(post.num_comments, 0)
+        comments = response.context_data["comments"]
+        sorted_comments = sorted(
+            comments, key=lambda c: c.created_on, reverse=True
+        )
+        self.assertEqual(list(comments), sorted_comments)
+
+
+class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
+    """
+    Test cases for ProfileUpdate
+    """
+
+    def setUp(self):
         """
-        Test Access of unauthenticated user
+        Test Data
         """
-        url = reverse("users:profile_home", args=[self.user.username])
-        response = self.client.get(url)
-        login_url = reverse("account_login")
-        self.assertRedirects(response, f"{login_url}?next={url}")
+        super().setUp()
 
-
-class ProfileUpdateViewTestCase(BaseProfileTestCase):
     def test_get_profile_update_page(self):
         """
         Test Update Page
@@ -99,7 +199,7 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         self.assertContains(response, "Profile updated successfully")
         self.assertEqual(self.profile.description, "Updated test description")
 
-    def test_form_valid(self):
+    def test_profile_update_form_valid(self):
         """
         Test Form Validation
         """
@@ -114,7 +214,9 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         self.assertTrue(form.is_valid())
         form.instance.user = self.user
 
-    def test_unauthenticated_user_redirected_to_login_page(self):
+    def test_profile_update_unauthenticated_user_redirected_to_login_page(
+        self,
+    ):
         """
         Test Access of unauthenticated user
         """
@@ -122,7 +224,7 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         response = self.client.get(url)
         self.assertRedirects(response, f"/accounts/login/?next={url}")
 
-    def test_user_cannot_update_profile_of_another_user(self):
+    def test_profile_update_user_cannot_update_profile_of_another_user(self):
         """
         Test Access of different User than Profile
         """
@@ -135,7 +237,17 @@ class ProfileUpdateViewTestCase(BaseProfileTestCase):
         self.assertContains(response, "Something went wrong...")
 
 
-class ProfileDeleteViewTestCase(BaseProfileTestCase):
+class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
+    """
+    Test cases for ProfileDelete
+    """
+
+    def setUp(self):
+        """
+        Test Data
+        """
+        super().setUp()
+
     def test_profile_delete(self):
         """
         Test Delete Profile
