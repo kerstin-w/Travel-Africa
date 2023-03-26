@@ -1,85 +1,90 @@
 <body>
-    <header class="mb-10">
-        <!-- Navbar -->
-        <nav id="navbar" class="navbar navbar-expand-md fixed-top navbar-before-scroll shadow-0">
-            <!-- Container wrapper -->
-            <div class="container-fluid">
-                <!-- Toggle button -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <a class="navbar-brand logo d-flex align-items-center" id="logo" href="{% url 'home' %}"><i
-                        class="fa-solid fa-earth-africa africa-icon"> </i>TRAVELAFRICA</a>
-                <!-- Collapsible wrapper -->
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'about' %}">About</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Regions
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="nav-item dropdown-item" href="{% url 'post_list' %}"
-                                        aria-label="Go to all posts">See all</a></li>
-                                <hr class="break-nav" />
-                                {% for category in categories %}
-                                <li><a class="dropdown-item" href="{% url 'post_category' slug=category.slug %}"
-                                        aria-label="Go to the each category page">{{ category.title }}</a></li>
-                                {% endfor%}
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav mb-2 d-flex justify-content-end align-items-center login">
-                        <li class="nav-item search-box">
-                            <form action="{% url 'search_results' %}" method="get" class="d-flex input-group w-auto">
-                                <input type="search" name="q" class="form-control form-control-dark"
-                                    placeholder="Search..." aria-label="Search" />
-                            </form>
-                        </li>
-                        {% if user.is_authenticated %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'bucketlist' %}"><i
-                                    class="fa-solid fa-list nav-icon"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'post_create' %}"><i
-                                    class="fa-solid fa-pen-to-square nav-icon"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-bs-toggle="modal" href="#signOutModal"><i
-                                    class="fa-solid fa-arrow-right-from-bracket nav-icon"></i></a>
-                        </li>
-                        <li class="nav-item">
-                            {% with profile=request.user.profile %} {% if "placeholder" in profile.image.url %}
-                            <a class="nav-link" href="{% url 'users:profile_home' username=request.user.username %}">
-                                <i class="fa-solid fa-user nav-icon"></i>
-                            </a>
-                            {% else %}
-                            <a href="{% url 'users:profile_home' username=request.user.username %}">
-                                <img src="{{ profile.image.url }}" class="profile-img profile-img-small"
-                                    alt="{{ profile.user.username }}" />
-                            </a>
+    <div class="page-container">
+        <header class="mb-10">
+            <!-- Navbar -->
+            <nav id="navbar" class="navbar navbar-expand-md fixed-top navbar-before-scroll shadow-0">
+                <!-- Container wrapper -->
+                <div class="container-fluid">
+                    <!-- Toggle button -->
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand logo d-flex align-items-center" id="logo" href="{% url 'home' %}"><i
+                            class="fa-solid fa-earth-africa africa-icon"> </i>TRAVELAFRICA</a>
+                    <!-- Collapsible wrapper -->
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'home' %}">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'about' %}">About</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    Regions
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="nav-item dropdown-item" href="{% url 'post_list' %}"
+                                            aria-label="Go to all posts">See all</a></li>
+                                    <li>
+                                        <hr class="break-nav">
+                                    </li>
+                                    {% for category in categories %}
+                                    <li><a class="dropdown-item" href="{% url 'post_category' slug=category.slug %}"
+                                            aria-label="Go to the each category page">{{ category.title }}</a></li>
+                                    {% endfor%}
+                                </ul>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav mb-2 d-flex justify-content-end align-items-center login">
+                            <li class="nav-item search-box">
+                                <form action="{% url 'search_results' %}" method="get"
+                                    class="d-flex input-group w-auto">
+                                    <input type="search" name="q" class="form-control form-control-dark"
+                                        placeholder="Search..." aria-label="Search" />
+                                </form>
+                            </li>
+                            {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'bucketlist' %}"><i
+                                        class="fa-solid fa-list nav-icon"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'post_create' %}"><i
+                                        class="fa-solid fa-pen-to-square nav-icon"></i></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="modal" href="#signOutModal"><i
+                                        class="fa-solid fa-arrow-right-from-bracket nav-icon" ></i></a>
+                            </li>
+                            <li class="nav-item">
+                                {% with profile=request.user.profile %} {% if "placeholder" in profile.image.url %}
+                                <a class="nav-link"
+                                    href="{% url 'users:profile_home' username=request.user.username %}">
+                                    <i class="fa-solid fa-user nav-icon"></i>
+                                </a>
+                                {% else %}
+                                <a href="{% url 'users:profile_home' username=request.user.username %}">
+                                    <img src="{{ profile.image.url }}" class="profile-img profile-img-small"
+                                        alt="{{ profile.user.username }}" />
+                                </a>
 
-                            {% endif %} {% endwith %}
-                        </li>
-                        {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
-                        {% endif %}
-                    </ul>
+                                {% endif %} {% endwith %}
+                            </li>
+                            {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'account_signup' %}">Register</a></li>
+                            <li class="nav-item"><a class="nav-link" href="{% url 'account_login' %}">Login</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                    <!-- Collapsible wrapper -->
                 </div>
-                <!-- Collapsible wrapper -->
-            </div>
-            <!-- Container wrapper -->
-        </nav>
-        <!-- Navbar -->
-    </header>
-    {% include 'components/alert_message.html' %}
+                <!-- Container wrapper -->
+            </nav>
+            <!-- Navbar -->
+        </header>
+        {% include 'components/alert_message.html' %}
