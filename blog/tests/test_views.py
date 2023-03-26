@@ -90,9 +90,6 @@ class TestDataMixin:
         )
         cls.factory = RequestFactory()
 
-    def get_posts(self):
-        return [self.post1, self.post2, self.post3, self.post4]
-
 
 class TestView(PageTitleViewMixin, TemplateView):
     """

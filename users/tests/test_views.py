@@ -29,10 +29,7 @@ class BaseProfileTestCase(TestCase):
             email="testuser1@example.com",
             password="testpassword",
         )
-        try:
-            self.profile = self.user.profile
-        except Profile.DoesNotExist:
-            self.profile = Profile.objects.create(user=self.user)
+        self.profile = self.user.profile
 
         self.profile.description = "Test description"
         self.profile.pk = 1
@@ -226,8 +223,6 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         Test email update when email has not changed
         """
         self.login()
-        print(self.user.username)
-        print(self.profile.user.email)
         form_data = {
             "username": "testuser",
             "email": self.profile.user.email,
