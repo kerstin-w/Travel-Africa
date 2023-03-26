@@ -350,9 +350,6 @@ class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
         """
         Test Access of different User than Profile owner
         """
-        user2 = User.objects.create_user(
-            username="user2", password="testpass123"
-        )
         self.client.login(
             username=self.user1.username, password="testpassword"
         )
