@@ -177,7 +177,10 @@ class PostDetailView(DetailView):
         comment.save()
         messages.success(
             self.request,
-            "Your comment has been successfully created and is waiting for approval..",
+            (
+                "Your comment has been successfully created "
+                "and is waiting for approval.."
+            ),
         )
         return redirect("post_detail", slug=self.get_object().slug)
 
