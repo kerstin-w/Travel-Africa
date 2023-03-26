@@ -22,7 +22,8 @@ class TestProfileModel(TestCase):
         Test Profile string method
         """
         profile = get_object_or_404(Profile, user=self.test_user)
-        self.assertEqual(str(profile), "testuser")
+        expected_str = profile.user.username
+        self.assertEqual(expected_str, str(profile))
 
     def test_create_profile_receiver(self):
         """
@@ -39,8 +40,9 @@ class TestProfileModel(TestCase):
         self.assertEqual(profile.user.username, "newuser")
 
     def test_update_profile_receiver(self):
-        """Test Profile update receiver"""
-        # Get test user
+        """
+        Test Profile update receiver
+        """
         profile = get_object_or_404(Profile, user=self.test_user)
         # Update description
         profile.description = "Test description"
