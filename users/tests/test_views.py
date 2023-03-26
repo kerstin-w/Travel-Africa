@@ -20,7 +20,9 @@ class BaseProfileTestCase(TestCase):
         """
         User.objects.all().delete()
         self.user = User.objects.create_user(
-            username="testuser", password="testpass"
+            username="testuser",
+            email="testuser@example.com",
+            password="testpass",
         )
         self.user1 = User.objects.create_user(
             username="testuser1",
@@ -209,15 +211,31 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         Test Form Validation
         """
         self.login()
-        data = {
+        form_data = {
             "username": "newname",
             "email": "testuser@example.com",
             "description": "Updated test description",
         }
-        form = ProfileForm(data=data, instance=self.profile)
+        form = ProfileForm(data=form_data, instance=self.profile)
         self.assertTrue(form.is_valid())
         form.instance.user = self.user
         self.assertEqual(form.cleaned_data["username"], "Newname")
+
+    def test_profile_update_email_no_change(self):
+        """
+        Test email update when email has not changed
+        """
+        self.login()
+        print(self.user.username)
+        print(self.profile.user.email)
+        form_data = {
+            "username": "testuser",
+            "email": self.profile.user.email,
+        }
+        form = ProfileForm(data=form_data, instance=self.profile)
+        self.assertTrue(form.is_valid())
+        cleaned_email = form.clean_email()
+        self.assertEqual(cleaned_email, self.profile.user.email)
 
     def test_profile_update_email(self):
         """
