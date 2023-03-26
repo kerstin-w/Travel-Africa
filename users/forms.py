@@ -7,6 +7,7 @@ class ProfileForm(forms.ModelForm):
     """
     Form to create and update user profile
     """
+
     email = forms.EmailField(
         widget=forms.EmailInput(attrs={"class": "form-control register"})
     )
@@ -65,7 +66,10 @@ class ProfileForm(forms.ModelForm):
         if email_exists:
             self.add_error(
                 None,
-                "A user with that email address already exists. Please enter another email.",
+                (
+                    "A user with that email address already exists. "
+                    "Please enter another email."
+                ),
             )
             return email
         return email.lower()
