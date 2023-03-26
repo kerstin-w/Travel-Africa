@@ -210,14 +210,27 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         """
         self.login()
         data = {
-            "user": "testuser",
-            "username": "testuser",
+            "username": "newname",
             "email": "testuser@example.com",
             "description": "Updated test description",
         }
         form = ProfileForm(data=data, instance=self.profile)
         self.assertTrue(form.is_valid())
         form.instance.user = self.user
+        self.assertEqual(form.cleaned_data["username"], "Newname")
+
+    def test_profile_update_email(self):
+        """
+        Test email update valid
+        """
+        form_data = {
+            "email": "test@test.com",
+            "username": "testname",
+        }
+        form = ProfileForm(data=form_data, instance=self.profile)
+        self.assertTrue(form.is_valid())
+        cleaned_email = form.clean_email()
+        self.assertEqual(cleaned_email, "test@test.com")
 
     def test_profile_update_unauthenticated_user_redirected_to_login_page(
         self,
