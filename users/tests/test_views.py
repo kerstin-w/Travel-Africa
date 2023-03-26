@@ -298,7 +298,8 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         self.assertIn("__all__", form.errors)
         self.assertEqual(
             form.errors["__all__"][0],
-            "A user with that email address already exists. Please enter another email.",
+            ("A user with that email address already exists. "
+                "Please enter another email.")
         )
 
 
@@ -362,5 +363,6 @@ class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
         )
         self.assertNotContains(
             response,
-            '<a data-bs-toggle="modal" href="#deleteProfileModal"><i class="fa-solid fa-trash icon"></i></a>',
+            ('<a data-bs-toggle="modal" href="#deleteProfileModal">'
+             '<i class="fa-solid fa-trash icon"></i></a>'),
         )
