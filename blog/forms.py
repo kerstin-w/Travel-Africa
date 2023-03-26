@@ -2,7 +2,6 @@ from django.forms import ModelForm, CheckboxInput
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 from .models import Post, Comment
-from django.core.exceptions import ValidationError
 
 
 class PostForm(ModelForm):
