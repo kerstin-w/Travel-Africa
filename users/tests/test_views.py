@@ -248,12 +248,29 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         form_data = {
             'email': 'newemail@example.com',
             'username': 'testuser1',
-            'image': 'test.jpg',
             'description': 'test description',
         }
         form = ProfileForm(data=form_data, instance=self.profile, request=None)
         self.assertFalse(form.is_valid())
         self.assertIn('Username already taken. Please choose another username.', form.errors['__all__'])
+    
+    def test_profile_update_email_exists(self):
+        """
+        Test porfile update to existing email
+        """
+        self.login()
+        form_data = {
+            'email': 'testuser1@example.com',
+            'username': 'testuser',
+        }
+      
+        form = ProfileForm(data=form_data, instance=self.profile)
+        self.assertFalse(form.is_valid())
+        self.assertIn('__all__', form.errors)
+        self.assertEqual(
+            form.errors['__all__'][0],
+            "A user with that email address already exists. Please enter another email."
+        )
 
 
 class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
