@@ -5,7 +5,6 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404
 from blog.models import Post, Category, Comment, BucketList
 from blog.admin import ProfileAdmin, CommentAdmin, BucketListAdmin
 from users.models import Profile
