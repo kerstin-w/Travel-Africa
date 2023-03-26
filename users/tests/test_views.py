@@ -23,7 +23,9 @@ class BaseProfileTestCase(TestCase):
             username="testuser", password="testpass"
         )
         self.user1 = User.objects.create_user(
-            username='testuser1', email='testuser1@example.com', password='testpassword'
+            username="testuser1",
+            email="testuser1@example.com",
+            password="testpassword",
         )
         try:
             self.profile = self.user.profile
@@ -167,7 +169,6 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         """
         Test Data
         """
-
         super().setUp()
 
     def test_get_profile_update_page(self):
@@ -224,7 +225,7 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         """
         Test Access of unauthenticated user
         """
-        url = reverse("users:profile_update", kwargs={"pk": self.profile.pk})
+        url = self.get_profile_update_url()
         response = self.client.get(url)
         self.assertRedirects(response, f"/accounts/login/?next={url}")
 
@@ -232,44 +233,46 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         """
         Test Access of different User than Profile
         """
-        user1 = User.objects.create_user(
-            username="user1", email="user1@test.com", password="testpassword"
+        self.client.login(
+            username=self.user1.username, password="testpassword"
         )
-        self.client.login(username="user1", password="testpassword")
-        url = reverse("users:profile_update", kwargs={"pk": self.profile.pk})
+        url = self.get_profile_update_url()
         response = self.client.get(url)
         self.assertContains(response, "Something went wrong...")
-    
+
     def test_profile_update_username_exists(self):
         """
         Test profile update to an existing user name
         """
         self.login()
         form_data = {
-            'email': 'newemail@example.com',
-            'username': 'testuser1',
-            'description': 'test description',
+            "email": "newemail@example.com",
+            "username": "testuser1",
+            "description": "test description",
         }
         form = ProfileForm(data=form_data, instance=self.profile, request=None)
         self.assertFalse(form.is_valid())
-        self.assertIn('Username already taken. Please choose another username.', form.errors['__all__'])
-    
+        self.assertIn(
+            "Username already taken. Please choose another username.",
+            form.errors["__all__"],
+        )
+
     def test_profile_update_email_exists(self):
         """
         Test porfile update to existing email
         """
         self.login()
         form_data = {
-            'email': 'testuser1@example.com',
-            'username': 'testuser',
+            "email": "testuser1@example.com",
+            "username": "testuser",
         }
-      
+
         form = ProfileForm(data=form_data, instance=self.profile)
         self.assertFalse(form.is_valid())
-        self.assertIn('__all__', form.errors)
+        self.assertIn("__all__", form.errors)
         self.assertEqual(
-            form.errors['__all__'][0],
-            "A user with that email address already exists. Please enter another email."
+            form.errors["__all__"][0],
+            "A user with that email address already exists. Please enter another email.",
         )
 
 
@@ -283,18 +286,17 @@ class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
         Test Data
         """
         super().setUp()
+        self.url = reverse(
+            "users:profile_delete",
+            kwargs={"username": self.user.username, "pk": self.profile.pk},
+        )
 
     def test_profile_delete(self):
         """
         Test Delete Profile
         """
         self.login()
-        response = self.client.post(
-            reverse(
-                "users:profile_delete",
-                kwargs={"username": self.user.username, "pk": self.profile.pk},
-            )
-        )
+        response = self.client.post(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertFalse(Profile.objects.filter(pk=self.profile.pk).exists())
 
@@ -302,12 +304,7 @@ class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
         """
         Test Access of unauthenticated user
         """
-        response = self.client.post(
-            reverse(
-                "users:profile_delete",
-                kwargs={"username": self.user.username, "pk": self.profile.pk},
-            )
-        )
+        response = self.client.post(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(
             response, "/accounts/login/?next=/testuser/1/delete/"
@@ -318,12 +315,7 @@ class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
         Test delete successfully and redirect
         """
         self.login()
-        response = self.client.post(
-            reverse(
-                "users:profile_delete",
-                kwargs={"username": self.user.username, "pk": self.profile.pk},
-            )
-        )
+        response = self.client.post(self.url)
         self.assertRedirects(response, reverse("home"))
         self.assertFalse(Profile.objects.filter(pk=self.profile.pk).exists())
 
@@ -334,7 +326,9 @@ class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
         user2 = User.objects.create_user(
             username="user2", password="testpass123"
         )
-        self.client.login(username=user2.username, password="testpass123")
+        self.client.login(
+            username=self.user1.username, password="testpassword"
+        )
         response = self.client.get(
             reverse(
                 "users:profile_home", kwargs={"username": self.user.username}
