@@ -43,7 +43,9 @@ class ProfileHomeView(PageTitleViewMixin, LoginRequiredMixin, TemplateView):
             Q(post__in=posts) & Q(approved=True)
         ).order_by("-created_on")
         sum_posts = Post.objects.filter(author=user, status=1).count()
-        sum_comments = Comment.objects.filter(post__in=posts, approved=True).count()
+        sum_comments = Comment.objects.filter(
+            post__in=posts, approved=True
+        ).count()
         context["sum_posts"] = sum_posts
         context["sum_comments"] = sum_comments
         context["posts"] = posts
@@ -71,11 +73,13 @@ class ProfileUpdateView(
     def test_func(self):
         profile = get_object_or_404(Profile, user=self.request.user)
         return self.request.user == profile.user
-    
+
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         if self.request.user != obj.user:
-            messages.error(self.request, "You are not authorized to view this page.")
+            messages.error(
+                self.request, "You are not authorized to view this page."
+            )
             raise Http404()
         return obj
 
@@ -108,9 +112,6 @@ class ProfileDeleteView(
             self.request.user.is_authenticated
             and self.request.user == profile.user
         )
-    
-    def get_template_names(self):
-        return ["profile.html"]
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()
