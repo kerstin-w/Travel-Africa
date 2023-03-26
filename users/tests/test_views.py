@@ -22,6 +22,9 @@ class BaseProfileTestCase(TestCase):
         self.user = User.objects.create_user(
             username="testuser", password="testpass"
         )
+        self.user1 = User.objects.create_user(
+            username='testuser1', email='testuser1@example.com', password='testpassword'
+        )
         try:
             self.profile = self.user.profile
         except Profile.DoesNotExist:
@@ -164,6 +167,7 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         """
         Test Data
         """
+
         super().setUp()
 
     def test_get_profile_update_page(self):
@@ -235,6 +239,21 @@ class ProfileUpdateViewTest(BaseProfileTestCase, TestCase):
         url = reverse("users:profile_update", kwargs={"pk": self.profile.pk})
         response = self.client.get(url)
         self.assertContains(response, "Something went wrong...")
+    
+    def test_profile_update_username_exists(self):
+        """
+        Test profile update to an existing user name
+        """
+        self.login()
+        form_data = {
+            'email': 'newemail@example.com',
+            'username': 'testuser1',
+            'image': 'test.jpg',
+            'description': 'test description',
+        }
+        form = ProfileForm(data=form_data, instance=self.profile, request=None)
+        self.assertFalse(form.is_valid())
+        self.assertIn('Username already taken. Please choose another username.', form.errors['__all__'])
 
 
 class ProfileDeleteViewTest(BaseProfileTestCase, TestCase):
