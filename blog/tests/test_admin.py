@@ -179,9 +179,6 @@ class ProfileAdminTest(BaseAdminTest):
             email="testuser@test.com",
             password="testpassword",
         )
-        created_on = datetime.strptime(
-            "2022-01-01 00:00:00", "%Y-%m-%d %H:%M:%S"
-        )
         self.profile_admin = ProfileAdmin(Profile, self.admin_site)
 
     def test_list_display(self):
@@ -244,7 +241,7 @@ class CommentAdminTest(BaseAdminTest):
         """
         client = Client()
         client.login(username="admin", password="password")
-        response = client.post(
+        client.post(
             reverse("admin:blog_comment_changelist"),
             {
                 "action": "approve_comments",
