@@ -1,32 +1,24 @@
-from django.test import TestCase, RequestFactory, Client
-from django.views.generic import TemplateView
-from django.contrib.auth.models import User, AnonymousUser
+from datetime import datetime
+from django.contrib.auth.models import AnonymousUser, User
 from django.contrib.messages import get_messages
 from django.contrib.messages.storage.fallback import FallbackStorage
 from django.http import HttpResponse
-from django.contrib.auth import get_user_model
-from django.utils.text import slugify
 from django.shortcuts import get_object_or_404
-
-from datetime import datetime
-
+from django.test import TestCase, RequestFactory, Client
 from django.urls import reverse
-from django.views import View
-from blog.views import (
-    SuperuserFormFieldsMixin,
-    PostCreateView,
-    PostFormInvalidMessageMixin,
-    AboutView,
-    HomeListView,
-    PostCategoryListView,
-    PostDetailView,
-    BucketListView,
-    Error403View,
-)
+from django.utils.text import slugify
+from django.views.generic import TemplateView
 
-from blog.views import PageTitleViewMixin
-from blog.forms import PostForm, CommentForm
-from blog.models import Category, Post, Comment, BucketList
+from blog.forms import CommentForm, PostForm
+from blog.models import BucketList, Category, Comment, Post
+from blog.views import (
+    BucketListView,
+    PageTitleViewMixin,
+    PostCategoryListView,
+    PostCreateView,
+    PostDetailView,
+    PostFormInvalidMessageMixin,
+)
 from users.models import Profile
 
 
@@ -718,6 +710,26 @@ class PostDetailViewTest(TestDataMixin, TestCase):
 
         self.assertRedirects(
             response, reverse("post_detail", kwargs={"slug": self.post1.slug})
+        )
+
+    def test_post_detail_view_comment_submission_invalid_form(self):
+        """
+        Test submission invalid
+        """
+        data = {
+            "name": "Test User",
+            "email": "testuser@example.com",
+            "body": "",
+        }
+        form = CommentForm(data=data)
+        response = self.client.post(
+            reverse("post_detail", kwargs={"slug": self.post1.slug}),
+            data=form.data,
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "post_detail.html")
+        self.assertTrue(
+            isinstance(response.context["comment_form"], CommentForm)
         )
 
 
