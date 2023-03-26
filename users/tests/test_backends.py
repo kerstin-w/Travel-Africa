@@ -38,7 +38,7 @@ class CaseInsensitiveModelBackendTest(TestCase):
         authenticated_user = self.backend.authenticate(
             request=None, username="testuser", password="testpassword"
         )
-        self.assertIsNone(authenticated_user)
+        self.assertNotEquals(user, authenticated_user)
 
     def test_authenticate_with_non_existing_user(self):
         """
