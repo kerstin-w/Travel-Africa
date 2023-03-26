@@ -775,6 +775,27 @@ class PostCreateViewTest(TestDataMixin, TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "post_create.html")
 
+    def test_post_create_view_valid_form(self):
+        """
+        Test valid form submission
+        """
+        self.client.login(username="testuser", password="testpass")
+        form_data = {
+            "title": "Test post 123",
+            "author": self.user,
+            "content": "This is a test post.",
+            "country": "Namibia",
+            "regions": self.category.pk,
+            "status": 1,
+        }
+        response = self.client.post(reverse("post_create"), form_data)
+        self.assertEqual(response.status_code, 302)
+        post = Post.objects.get(title=form_data["title"])
+        self.assertEqual(post.title, form_data["title"].lower())
+        self.assertEqual(post.content, "This is a test post.")
+        self.assertEqual(post.author, self.user)
+        self.assertEqual(post.slug, slugify(post.title))
+
     def test_post_create_view_invalid_form(self):
         """
         Test invalid form submission
@@ -845,15 +866,11 @@ class PostUpdateViewTest(TestDataMixin, TestCase):
         Test valid form submission
         """
         self.client.force_login(self.user)
-        new_category = Category.objects.create(
-            title="New Category", slug="new-category"
-        )
-        new_category.save()
         form_data = {
             "title": "Updated Test Post",
             "content": "This is an updated test post.",
             "country": "Namibia",
-            "regions": new_category.pk,
+            "regions": self.category.pk,
         }
 
         form = PostForm(data=form_data)
