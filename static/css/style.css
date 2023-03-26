@@ -594,6 +594,10 @@ tr td:first-child {
 
 /*=============== Bucket List ===============*/
 
+#bucketlist {
+    color: var(--blue-color);
+}
+
 .bucket-list {
     border-radius: 1rem;
     border: 0;

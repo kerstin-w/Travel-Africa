@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <main>
-    <section>
+    <section id="bucketlist">
         <div class="container h-100">
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-xl-10">
@@ -22,9 +22,9 @@
                                         <button type="submit" class="btn btn-link"><i class="fa-solid fa-trash-can icon"
                                                 data-bs-toggle="tooltip"
                                                 data-bs-title="Remove from Bucket List"></i></button>
-                                        <label class="form-check-label" for="firstCheckbox">
+                                        <label class="form-check-label">
                                             <a href="{{ post.get_absolute_url }}">
-                                                <p>{{ post.title|title }}&nbsp;|&nbsp;{{ post.country|title }}</p>
+                                                {{ post.title|title }}&nbsp;|&nbsp;{{ post.country|title }}
                                             </a>
                                         </label>
                                     </form>
