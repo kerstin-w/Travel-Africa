@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.db import models
 from django.db.models import Count, Q
-from django.http import JsonResponse, HttpResponseForbidden
+from django.http import JsonResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.text import slugify
@@ -140,14 +140,14 @@ class PostDetailView(DetailView):
         if self.post.status == 0:
             return redirect('handler403')
         return super().get(request, *args, **kwargs)
-    
+
     def get_context_data(self, **kwargs):
-        self.post = self.get_object()
+        self.object = self.get_object()
         context = super().get_context_data(**kwargs)
         self.get_comments(context)
         self.get_liked_status(context)
         self.get_user_profile(context)
-        context["title"] = self.post.title.title()
+        context["title"] = self.object.title.title()
         context["comment_form"] = CommentForm()
         return context
 
