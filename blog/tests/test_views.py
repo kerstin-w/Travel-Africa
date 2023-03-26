@@ -690,7 +690,8 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(
             str(messages[0]),
-            "Your comment has been successfully created and is waiting for approval..",
+            ("Your comment has been successfully "
+             "created and is waiting for approval.."),
         )
 
     def test_post_list_comment_submission_redirect(self):
