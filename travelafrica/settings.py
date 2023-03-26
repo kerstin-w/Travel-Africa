@@ -200,12 +200,20 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 # Settings for Summernote
+# https://github.com/summernote/django-summernote#options
 SUMMERNOTE_CONFIG = {
-    "iframe": True,
     "summernote": {
-        # Change editor size
         "width": "100%",
-        "height": "480",
+        "height": "400",
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        "toolbar": [
+            [
+                "font",
+                ["bold", "italic", "underline", "strikethrough", "clear"],
+            ],
+            ["para", ["ul", "ol"]],
+        ],
     },
 }
 
