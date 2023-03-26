@@ -575,7 +575,25 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         response = self.client.get(url)
         self.assertTemplateUsed(response, "post_detail.html")
 
-    def test_post_list_view_contains_post(self):
+    def test_post_detail_view_approved_post(self):
+        """
+        Test approved post
+        """
+        url = reverse("post_detail", kwargs={"slug": self.post1.slug})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.post1.title)
+
+    def test_post_detail_view_unapproved_post(self):
+        """
+        Test unapproved post
+        """
+        url = reverse("post_detail", kwargs={"slug": self.post3.slug})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse("handler403"))
+
+    def test_post_detail_view_contains_post(self):
         """
         Test that view contains post
         """
@@ -584,7 +602,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.assertContains(response, self.post1.title)
         self.assertContains(response, self.post1.content)
 
-    def test_post_list_view_context_object_name(self):
+    def test_post_detail_view_context_object_name(self):
         """
         Test context object name is post
         """
@@ -592,7 +610,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         response = self.client.get(url)
         self.assertEqual(response.context["post"], self.post1)
 
-    def test_post_list_view_context_comments(self):
+    def test_post_detail_view_context_comments(self):
         """
         Test context object comments
         """
@@ -600,7 +618,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         response = self.client.get(url)
         self.assertEqual(list(response.context["comments"]), [self.comment])
 
-    def test_post_list_view_get_comments(self):
+    def test_post_detail_view_get_comments(self):
         """
         Test get comments method
         """
@@ -609,7 +627,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.view.get_comments(context)
         self.assertEqual(len(context["comments"]), 1)
 
-    def test_post_list_view_get_liked_status_authenticated(self):
+    def test_post_detail_view_get_liked_status_authenticated(self):
         """
         Test the liked status when user liked post
         """
@@ -624,7 +642,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.view.get_liked_status(context)
         self.assertEqual(context["liked"], True)
 
-    def test_post_list_view_get_liked_status_not_authenticated(self):
+    def test_post_detail_view_get_liked_status_not_authenticated(self):
         """
         Test the liked status when user is nor registered
         """
@@ -638,7 +656,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.view.get_liked_status(context)
         self.assertEqual(context["liked"], False)
 
-    def test_post_list_view_get_user_profile_not_authenticated(self):
+    def test_post_detail_view_get_user_profile_not_authenticated(self):
         """
         Test get user profile when user is nor registered
         """
@@ -652,7 +670,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         view_instance.get_user_profile(context)
         self.assertNotIn("profile", context)
 
-    def test_post_list_view_get_user_profile_authenticated_user(self):
+    def test_post_detail_view_get_user_profile_authenticated_user(self):
         """
         Test get user profile when user is registered
         """
@@ -668,7 +686,7 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.assertIn("profile", context)
         self.assertEqual(context["profile"], self.user.profile)
 
-    def test_post_list_view_comment_submission_success(self):
+    def test_post_detail_view_comment_submission_success(self):
         """
         Test submission of comment
         """
@@ -690,11 +708,13 @@ class PostDetailViewTest(TestDataMixin, TestCase):
         self.assertEqual(len(messages), 1)
         self.assertEqual(
             str(messages[0]),
-            ("Your comment has been successfully "
-             "created and is waiting for approval.."),
+            (
+                "Your comment has been successfully "
+                "created and is waiting for approval.."
+            ),
         )
 
-    def test_post_list_comment_submission_redirect(self):
+    def test_post_detail_comment_submission_redirect(self):
         """
         Test submission redirect
         """
