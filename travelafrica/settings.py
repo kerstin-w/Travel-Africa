@@ -136,19 +136,6 @@ else:
     }
 
 
-# Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-# DATABASES = {
-#    "default": {
-#        "ENGINE": "django.db.backends.sqlite3",
-#        "NAME": BASE_DIR / "db.sqlite3",
-#    }
-# }
-
-# DATABASES = {"default": dj_database_url.parse(os.environ.get("DATABASE_URL"))}
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -212,7 +199,7 @@ EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-# Settings for Summernote Time Out
+# Settings for Summernote
 SUMMERNOTE_CONFIG = {
     "iframe": True,
     "summernote": {
