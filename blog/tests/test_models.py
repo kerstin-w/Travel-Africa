@@ -340,7 +340,9 @@ class CommentModelTest(TestCase):
         self.profile = get_object_or_404(Profile, user=self.user)
         self.profile.pk = 1
         self.profile.save()
-        self.category = Category.objects.create(title="Test Category", slug="test-category")
+        self.category = Category.objects.create(
+            title="Test Category", slug="test-category"
+        )
         self.post = Post.objects.create(
             title="Test Post",
             slug="test-post",
@@ -485,7 +487,9 @@ class BucketListModelTest(TestCase):
         )
         self.user.save()
         self.bucket_list = BucketList.objects.create(user=self.user)
-        self.category = Category.objects.create(title="Test Category", slug="test-category")
+        self.category = Category.objects.create(
+            title="Test Category", slug="test-category"
+        )
         self.post1 = Post.objects.create(
             title="Test Post 1",
             slug="test-post-1",
