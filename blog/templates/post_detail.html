@@ -46,12 +46,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        {% for region in post.regions.all %}
                                         <td>
                                             <span class="heading-underline">Region:</span>
                                         </td>
-                                        <td>{{ region }}</td>
-                                        {% endfor %}
+                                        <td>{{ post.regions }}</td>
                                     </tr>
                                     <tr>
                                         <td><i>Create on:</i></td>
@@ -70,7 +68,7 @@
                                                     {% else %}
                                                     <i class="fa-solid fa-heart"></i>
                                                     {% endif %}
-                                                    <p id="likes-count">{{ post.number_of_likes }}</p>
+                                                    <span id="likes-count">{{ post.number_of_likes }}</span>
                                                 </button>
                                                 {% else %}
                                                 <button
@@ -82,11 +80,9 @@
                                                 {% endif %} {% if user.is_authenticated %} {% if in_bucket_list %}
                                                 <button type="button" id="add-to-bucketlist-button" class="btn btn-save"
                                                     disabled>
-                                                    <p class="mb-0">
-                                                        <span id="bucket-list-text"><i
-                                                                class="fa-solid fa-square-check"></i>&nbsp;Bucket
-                                                            List</span>
-                                                    </p>
+                                                    <span id="bucket-list-text" class="mb-0"><i
+                                                            class="fa-solid fa-square-check"></i>&nbsp;Bucket
+                                                        List</span>
                                                 </button>
                                                 {% else %}
                                                 <form method="post"
@@ -95,11 +91,9 @@
                                                     {% csrf_token %}
                                                     <button type="submit" id="add-to-bucketlist-button"
                                                         class="btn btn-save">
-                                                        <p class="mb-0">
-                                                            <span id="bucket-list-text"><i
-                                                                    class="fa-solid fa-square-plus"></i>&nbsp;Bucket
-                                                                List</span>
-                                                        </p>
+                                                        <span id="bucket-list-text" class="mb-0"><i
+                                                                class="fa-solid fa-square-plus"></i>&nbsp;Bucket
+                                                            List</span>
                                                     </button>
                                                 </form>
                                                 {% endif %} {% endif %}
