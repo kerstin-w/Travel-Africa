@@ -77,7 +77,7 @@
                                                     <i class="fa-solid fa-heart"></i>
                                                     <p id="likes-count">{{ post.number_of_likes }}</p>
                                                 </button>
-                                                {% endif %} {% if user.is_authenticated %} {% if in_bucket_list %}
+                                                {% endif %} {% if user.is_authenticated %} {% if post in user.bucketlist.post.all %}
                                                 <button type="button" id="add-to-bucketlist-button" class="btn btn-save"
                                                     disabled>
                                                     <span id="bucket-list-text" class="mb-0"><i
