@@ -105,8 +105,7 @@
                             {% if user.is_authenticated and user == post.author or user.is_superuser %}
                             <div class="d-flex flex-row justify-content-center">
                                 <a href="{% url 'post_update' post.slug %}"><i class="fa-solid fa-pen icon"></i></a>
-
-                                <a data-bs-toggle="modal" href="#deletePostModal"><i
+                                <a data-bs-toggle="modal" href="#deletePostModal" aria-haspopup="true" id="deletePost"><i
                                         class="fa-solid fa-trash icon"></i></a>
                             </div>
                             {% endif %}
@@ -153,7 +152,7 @@
                                 <div class="d-flex flex-row align-items-center delete-comment">
                                     <small>{{ comment.created_on|date:"F j, Y" }}</small>
                                     {% if user.is_authenticated and user == post.author or user.is_superuser %}
-                                    <button class="btn" data-bs-toggle="modal"
+                                    <button class="btn" aria-haspopup="true" id="deleteComment" data-bs-toggle="modal"
                                         data-bs-target="#deleteCommentModal{{comment.pk}}">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
@@ -185,7 +184,7 @@
 </main>
 <!-- Delete Post Modal -->
 {% if user.is_authenticated %}
-<div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="Delete" aria-hidden="true">
+<div class="modal fade" id="deletePostModal" tabindex="-1" aria-labelledby="deletePost" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -206,9 +205,11 @@
         </div>
     </div>
 </div>
-{% endif %} {% for comment in post.comments.all %}
+{% endif %}
+<!-- Delete Comment Modal -->
+{% for comment in post.comments.all %}
 {% if user.is_authenticated and user == post.author or user.is_superuser %}
-<div class="modal fade" id="deleteCommentModal{{comment.pk}}" tabindex="-1" aria-labelledby="Delete" aria-hidden="true">
+<div class="modal fade" id="deleteCommentModal{{comment.pk}}" tabindex="-1" aria-labelledby="deleteComment" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
