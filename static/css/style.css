@@ -435,7 +435,7 @@ hr {
 .profile-img {
     max-height: 300px;
     max-width: 250px;
-    clip-path: circle();
+    clip-path: circle(at center);
 }
 
 .icon {
