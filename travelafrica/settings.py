@@ -201,6 +201,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Settings for Summernote
 # https://github.com/summernote/django-summernote#options
+SUMMERNOTE_THEME = 'bs5'
 SUMMERNOTE_CONFIG = {
     "summernote": {
         "width": "100%",
