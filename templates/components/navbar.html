@@ -11,7 +11,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                         <i class="fas fa-bars"></i>
                     </button>
-                    <a class="navbar-brand logo d-flex align-items-center" id="logo" href="{% url 'home' %}"><i
+                    <a class="navbar-brand logo d-flex align-items-center" id="logo" href="{% url 'home' %}"  aria-label="Go to Home Page"><i
                             class="fa-solid fa-earth-africa africa-icon"> </i>TRAVELAFRICA</a>
                     <!-- Collapsible wrapper -->
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -50,25 +50,25 @@
                             </li>
                             {% if user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'bucketlist' %}"><i
+                                <a class="nav-link" href="{% url 'bucketlist' %}" aria-label="Bucket List"><i
                                         class="fa-solid fa-list nav-icon"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'post_create' %}"><i
+                                <a class="nav-link" href="{% url 'post_create' %}" aria-label="Create Post"><i
                                         class="fa-solid fa-pen-to-square nav-icon"></i></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="modal" href="#signOutModal"><i
+                                <a class="nav-link" data-bs-toggle="modal" href="#signOutModal"  aria-label="Logout"><i
                                         class="fa-solid fa-arrow-right-from-bracket nav-icon"></i></a>
                             </li>
                             <li class="nav-item">
                                 {% with profile=request.user.profile %} {% if "placeholder" in profile.image.url %}
                                 <a class="nav-link"
-                                    href="{% url 'users:profile_home' username=request.user.username %}">
+                                    href="{% url 'users:profile_home' username=request.user.username %}" aria-label="user Profile">
                                     <i class="fa-solid fa-user nav-icon"></i>
                                 </a>
                                 {% else %}
-                                <a href="{% url 'users:profile_home' username=request.user.username %}">
+                                <a href="{% url 'users:profile_home' username=request.user.username %}"  aria-label="User Profile">
                                     <img src="{{ profile.image.url }}" class="profile-img profile-img-small"
                                         alt="{{ profile.user.username }}">
                                 </a>

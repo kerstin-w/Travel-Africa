@@ -104,8 +104,8 @@
                             </table>
                             {% if user.is_authenticated and user == post.author or user.is_superuser %}
                             <div class="d-flex flex-row justify-content-center">
-                                <a href="{% url 'post_update' post.slug %}"><i class="fa-solid fa-pen icon"></i></a>
-                                <a data-bs-toggle="modal" href="#deletePostModal" aria-haspopup="true" id="deletePost"><i
+                                <a href="{% url 'post_update' post.slug %}" aria-label="Edit Post"><i class="fa-solid fa-pen icon"></i></a>
+                                <a data-bs-toggle="modal" href="#deletePostModal" aria-haspopup="true" id="deletePost"  aria-label="Delete Post"><i
                                         class="fa-solid fa-trash icon"></i></a>
                             </div>
                             {% endif %}
@@ -153,7 +153,7 @@
                                     <small>{{ comment.created_on|date:"F j, Y" }}</small>
                                     {% if user.is_authenticated and user == post.author or user.is_superuser %}
                                     <button class="btn" aria-haspopup="true" id="deleteComment" data-bs-toggle="modal"
-                                        data-bs-target="#deleteCommentModal{{comment.pk}}">
+                                        data-bs-target="#deleteCommentModal{{comment.pk}}" aria-label="Delete Comment">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                     {% endif %}
@@ -170,8 +170,10 @@
                             <div class="add-comment">
                                 <h3 class="heading-underline mb-4">Add a comment:</h3>
                                 <form method="post">
+                                    <label for="id_body">
                                     {% csrf_token %} {{ comment_form.as_p }}
                                     <button type="submit" class="btn btn-save">Submit</button>
+                                    </label>
                                 </form>
                             </div>
                         </div>
