@@ -551,11 +551,6 @@ hr {
 }
 
 /*=============== Post Detail ===============*/
-select {
-    height: 100px;
-    width: 130px;
-}
-
 tr td:first-child {
     width: 30%;
 }
