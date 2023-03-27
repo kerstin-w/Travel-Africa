@@ -638,9 +638,6 @@ tr td:first-child {
 
 .bucket-list .form-check-label a {
     text-decoration: none;
-}
-
-.bucket-list .form-check-label p {
     color: var(--blue-color);
 }
 
