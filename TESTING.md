@@ -62,3 +62,27 @@ A few errors occurred with summernote during the validation process. The `summer
     <summary>Post Page</summary>
     <img src="documentation/validator/html/summernote-2.png">
 </details>
+
+<br>
+
+### <a name="css">CSS</a>
+**Custom CSS Styling** from [style.css](static/css/style.css) was validated using the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/).
+Some *"Due to their dynamic nature, CSS variables are currently not statically checked"* warnings were generated.
+These warnings are related to the global variables declared at the top of [style.css](static/css/style.css). 
+The warnings are generated because the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) does not currently support CSS global variable declaration, and are not considered to be an issue. 
+Some additional *"vendor extension"* warnings were also generated. These warnings are not considered to be an issue since the vendor extensions are to enable correct display of various elements in different browsers. 
+*Imported style sheets are not checked in direct input and file upload modes* warnings were generated. Theses warnings are related to the Google Fonts and are not considered to be an issue, but just an information that imported style sheets cannot be validated. 
+One error was generated using `clipath: circle()` without any values. I corrected this error and afterwards no errors were generated.
+
+<details>
+    <summary>Result</summary>
+    <img src="documentation/validator/css/jigsaw-result.png">
+</details>
+<details>
+    <summary>Warnings during validation check</summary>
+    <img src="documentation/validator/css/jigsaw-warnings.png">
+</details>
+<details>
+    <summary>Error during validation check</summary>
+    <img src="documentation/validator/css/jigsaw-error.png">
+</details>
