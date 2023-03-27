@@ -448,6 +448,11 @@ hr {
     object-position: 100% 0;
 }
 
+#profile .icon {
+    padding: 0.6rem;
+    font-size: 1.5rem;
+}
+
 .profile-img {
     max-height: 300px;
     max-width: 250px;
@@ -503,6 +508,11 @@ hr {
 
 .post-form {
     padding: 2em 1.4em;
+}
+
+.post-form .icon {
+    padding: 0.6rem;
+    font-size: 1.5rem;
 }
 
 .post-list-content {
