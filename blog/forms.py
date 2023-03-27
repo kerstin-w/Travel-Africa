@@ -43,7 +43,7 @@ class PostForm(ModelForm):
                     "class": "form-check-input",
                 }
             ),
-            "region": forms.Select(
+            "regions": forms.Select(
                 attrs={
                     "class": "form-select",
                 }
