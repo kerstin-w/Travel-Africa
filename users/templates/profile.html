@@ -18,7 +18,7 @@
                                 {% if request.user == profile.user or user.is_superuser %}
                                 <a href="{% url 'users:profile_update' pk=profile.pk %}"><i
                                         class="fa-solid fa-pen icon"></i></a>
-                                <a data-bs-toggle="modal" href="#deleteProfileModal"><i
+                                <a data-bs-toggle="modal" href="#deleteProfileModal" aria-haspopup="true" id="deleteProfile"><i
                                         class="fa-solid fa-trash icon"></i></a>
                                 {% endif %}
                             </div>
