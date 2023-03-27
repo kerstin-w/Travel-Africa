@@ -490,6 +490,8 @@ hr {
 .about-picture {
     height: 100%;
     border-radius: 1rem 0 0 1rem;
+    object-fit: cover;
+    object-position: 30% 0;
 }
 
 /*=============== Error Page ===============*/
