@@ -90,6 +90,7 @@ One error was generated using `clipath: circle()` without any values. I correcte
 <br>
 
 ### <a name="js">JavaScript</a>
+
 The custom [script.js](static/js/script.js) was validated using the [JSHint](https://jshint.com/about/) static code analysis tool. 
 A wanring *"One unused variable"* was generated for the `tooltipList` which I resolved by refactoring the code. Afterwards the test passed without errors or warnings.
 Due to the lack of complexity of **JavaScript** code implemented on the project, **Automated Unit Testing** 
@@ -102,4 +103,23 @@ of the **JavaScript** code was considered unnecessary. All **JavaScript** functi
 <details>
     <summary>Warning during validation check</summary>
     <img src="documentation/validator/js/jshint-warning.png">
+</details>
+
+<br>
+
+### <a name="Python">Python</a>
+All **Python Code** was thoroughly de-bugged and tested at the command line during the development process, and has been validated 
+using [Flake8](https://flake8.pycqa.org/). [flake8-django](https://pypi.org/project/flake8-django/) was also installed to assist with validation.  
+**Flake8** was configured by creating a `setup.cfg` file in the root of the project, which contains the following settings:
+```
+[flake8]
+exclude = */migrations/*.py, *__init__.py, *_pychache_*, *settings.py*, .vscode, env.py
+```
+The settings exclude **django** migrations, `__init__.py`, `.vscode` and `_pychache_` files, as these are system generated files and do not need to be checked.  
+*settings.py* (line too long) errors are ignored as it is not possible to shorten the affected lines of code without causing application errors.  
+*env.py* (line too long) errors are ignored as it is not possible to shorten the affected lines of code without causing application errors.  
+
+<details>
+    <summary>Result</summary>
+    <img src="documentation/validator/python/flake8.png">
 </details>
