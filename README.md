@@ -35,6 +35,7 @@ Travel Africa is a website that celebrates the natural beauty and rich culture o
     - [Framework](#framework)
     - [Programs](#programs)
 - [Testing](#testing)
+- [Deployment](#deployment)
 
 
 ---
@@ -475,3 +476,103 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 ## <a name="testing">Testing</a>
 
 See [TESTING.md](TESTING.md) for an overview of website testing and debugging.
+
+## <a name="#deployment">Deployment</a>
+
+The project has been developed using [Gitpod](https://gitpod.io/) and [GitHub](https://github.com/). The project was regularly committed to GitHub during the initial development phase.
+
+This project was created through [GitHub](https://github.com/):
+1. Locating repository, clicking on the "New" button.
+2. Selecting the relevant template: [Template](https://github.com/Code-Institute-Org/gitpod-full-template)
+3. Adding the repository name "Travel-Africa".
+4. Clicking the button "Create repository".
+
+## Creating the Django app
+
+1. In **Gitpod** open a new terminal to start a new Django App
+2. Install **Django and gunicorn**: `pip3 install django gunicorn`
+3. Install supporting **database libraries** `dj_database_url` and `psycopg2` library: `pip3 install dj_database_url psycopg2`
+4. Create file for **requirements**: in the terminal window type `pip freeze --local > requirements.txt`
+5. Create **project**: in the terminal window type `django-admin startproject project_name`
+6. Create **app**: in the terminal window type `python3 manage.py startapp app_name`
+7. Add app to the list of installed apps in `settings.py` file: `app_name`
+8. Migrate changes: in the terminal window type `python3 manage.py migrate`
+9. Run the server: in the terminal window type `python3 manage.py runserver`
+
+## Deployment
+
+- This site was deployed by completing the following steps:
+
+**In GitPod**
+
+1. Create a file `env.py` on the top-level directory
+2. Add `import os` at the top of `env.py`
+3. Cut the default `SECRET_KEY` value from the project settings file and paste it into the value of the following variable: `os.environ['SECRET_KEY'] = 'secretKey'``
+4. Create a `Procfile` on the top-level directory and add the following line of code: `web: gunicorn krie.wsgi.`
+5. Update list of dependencies to the requirements.txt file: `pip3 freeze --local > requirements.txt`
+
+**In Heroku**
+
+1. Log in to [Heroku](https://heroku.com) or create an account
+2. On the main page click the button labelled `New` in the top right corner and from the drop-down menu select `Create New`
+App
+3. Enter a unique app name
+4. Select your region
+5. Click on the `Create App` button
+6. Click in resources and select Heroku Postgres database
+7. Click Reveal Config Vars and add a new record with `PORT`
+7. Click Reveal Config Vars and add a new record with `SECRET_KEY`
+8. Click Reveal Config Vars and add a new record with the `CLOUDINARY_URL`
+9. Click Reveal Config Vars and add a new record with the `DISABLE_COLLECTSTATIC = 1`
+10. Scroll down to the Buildpack section click Add Buildpack select `python` and click Save Changes
+
+**In GitPod**
+
+1. Connect the POSTGRES database by setting DATABASES in settings.py to the following, where database_url is as per the config vars in Heroku settings:
+````
+DATABASES = {
+        'default': dj_database_url.parse(database_url)
+    }
+````
+2. Run `python3 manage.py showmigrations` at the terminal to show migrations to be applied to the new POSTGRES database.
+3. Run `python3 manage.py migrate --plan` at the terminal to check the migrations.
+4. Run `python3 manage.py migrate` at the terminal to apply the migrations to the new POSTGRES database.
+5. Add Heroku app name and localhost to `ALLOWED_HOSTS`.
+
+**Im Heroku**
+1. Scroll to the top of the page and choose the Deploy tab
+2. Select Github as the deployment method
+3. Confirm you want to connect to GitHub
+4. Search for the repository name and click the connect button
+5. Scroll to the bottom of the deploy page and select the preferred deployment type
+6. Click either Enable Automatic Deploys for automatic deployment when you push updates to Github
+
+## Final Deployment 
+
+1. When development is complete change the debug setting to: `DEBUG = False` in settings.py
+2. In this project the summernote editor was used so for this to work in Heroku add: `X_FRAME_OPTIONS = SAMEORIGIN `to
+   settings.py.
+3. In Heroku settings, delete the config vars for `DISABLE_COLLECTSTATIC = 1`
+4. Make sure all Config Vars for `DATABASE_URL`, `EMAIL_HOST_PASSWORD`, `EMAIL_HOST_USER` are added.
+
+<details>
+<summary>To Fork the project:</summary>
+
+1. Go to the [Project Code Repository Location](https://github.com/kerstin-w/Travel-Africa) on [GitHub](https://github.com/).
+2. In the top-right corner of the page, click *Fork*.  
+
+</details>
+
+<details>
+<summary>To Clone the project:</summary>
+
+1. Go to the [Project Code Repository Location](https://github.com/kerstin-w/Travel-Africa) on [GitHub](https://github.com/).
+2. You will be provided with three options to choose from, HTTPS, SSH or GitHub CLI, click the clipboard icon in order
+to copy the URL
+3. Once you click the button the fork will be in your repository
+4. Open a new terminal
+5. Change the current working directory to the location that you want the cloned directory
+6. Type `git clone` and paste the URL copied in step 2
+7. Press `Enter` and the project is cloned
+
+</details>
