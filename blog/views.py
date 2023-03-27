@@ -335,7 +335,7 @@ class AddToBucketListView(LoginRequiredMixin, RedirectView):
     """
     Allow registered users to add a blog post to their bucket list
     """
-    
+
     def post(self, request, *args, **kwargs):
         post = get_object_or_404(Post, slug=self.kwargs["slug"])
         bucketlist, created = BucketList.objects.get_or_create(

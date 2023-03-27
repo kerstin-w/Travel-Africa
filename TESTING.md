@@ -86,3 +86,20 @@ One error was generated using `clipath: circle()` without any values. I correcte
     <summary>Error during validation check</summary>
     <img src="documentation/validator/css/jigsaw-error.png">
 </details>
+
+<br>
+
+### <a name="js">JavaScript</a>
+The custom [script.js](static/js/script.js) was validated using the [JSHint](https://jshint.com/about/) static code analysis tool. 
+A wanring *"One unused variable"* was generated for the `tooltipList` which I resolved by refactoring the code. Afterwards the test passed without errors or warnings.
+Due to the lack of complexity of **JavaScript** code implemented on the project, **Automated Unit Testing** 
+of the **JavaScript** code was considered unnecessary. All **JavaScript** functions and event handlers in the custom **JavaScript Code Libraries** have been thoroughly manually de-bugged and tested in the console.
+
+<details>
+    <summary>Result</summary>
+    <img src="documentation/validator/js/jshint-result.png">
+</details>
+<details>
+    <summary>Warning during validation check</summary>
+    <img src="documentation/validator/js/jshint-warning.png">
+</details>
