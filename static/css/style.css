@@ -105,6 +105,10 @@ hr {
     text-decoration-color: var(--orange-color);
 }
 
+.asteriskField {
+    display: none;
+}
+
 /*=============== Navbar ===============*/
 .navbar {
     border-radius: 50px;
@@ -435,6 +439,10 @@ hr {
 }
 
 /*=============== Profile ===============*/
+#id_username,
+#id_email {
+    width: 60%;
+}
 #profile .card-img-top {
     object-fit: cover;
     object-position: 100% 0;
