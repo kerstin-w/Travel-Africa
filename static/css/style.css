@@ -582,8 +582,8 @@ tr td:first-child {
 }
 
 .summernote-text p {
-    color: var(--blue-color);
-    font-size: 1.2rem;
+    color: var(--blue-color) !important;
+    font-size: 1.2rem !important;
 }
 
 .post-detail-card {
