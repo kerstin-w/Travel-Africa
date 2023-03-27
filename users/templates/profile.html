@@ -10,9 +10,9 @@
                             <div class="col-md-4 pb-4 text-center">
                                 {% if "placeholder" in profile.image.url %}
                                 <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
-                                    class="profile-img my-5 mx-2" alt="Profile Image Placeholder" />
+                                    class="profile-img my-5 mx-2" alt="Profile Image Placeholder">
                                 {% else %}
-                                <img src="{{ profile.image.url }}" class="profile-img my-5 mx-3" alt="Profile Image" />
+                                <img src="{{ profile.image.url }}" class="profile-img my-5 mx-3" alt="Profile Image">
                                 {% endif %}
                                 <h3><span class="highlight-heading">{{ profile.user }}</span></h3>
                                 {% if request.user == profile.user or user.is_superuser %}
@@ -25,7 +25,7 @@
                             <div class="col-md-8">
                                 <div class="card-body p-4 mt-3">
                                     <h6>Information</h6>
-                                    <hr class="mt-0 mb-4" />
+                                    <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         <div class="col-xs-12 col-sm-6 mb-3">
                                             <h6>About</h6>
@@ -46,7 +46,7 @@
                                     <!-- User Posts and Comments -->
                                     {% if request.user == profile.user or user.is_superuser %}
                                     <h6>Activity</h6>
-                                    <hr class="mt-0 mb-4" />
+                                    <hr class="mt-0 mb-4">
                                     <p>
                                         <button class="btn btn-save me-2" id="collapsePostsButton" type="button"
                                             data-bs-toggle="collapse" data-bs-target="#collapsePosts"
@@ -81,11 +81,11 @@
                                                             {% if "placeholder" in comment.profile.user.profile.image.url %}
                                                             <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
                                                                 class="profile-img profile-img-small me-2"
-                                                                alt="Profile Image Placeholder" />
+                                                                alt="Profile Image Placeholder">
                                                             {% else %}
                                                             <img src="{{ comment.profile.user.profile.image.url }}"
                                                                 alt="{{ comment.name }}"
-                                                                class="profile-img profile-img-small me-2" />
+                                                                class="profile-img profile-img-small me-2">
                                                             {% endif %}
                                                         </a>
                                                         <p class="text-muted">{{ comment.name|title }} wrote on post: <a
@@ -105,7 +105,7 @@
                                     {% else %}
                                     <!--User Posts-->
                                     <h6>Posts</h6>
-                                    <hr class="mt-0 mb-4" />
+                                    <hr class="mt-0 mb-4">
                                     <div class="row pt-1">
                                         {% if posts %} {% for post in posts %}
                                         <div class="col-md-6 d-flex justify-content-around">

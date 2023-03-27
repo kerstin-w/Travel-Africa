@@ -12,9 +12,9 @@
                         <div class="card post-detail-card">
                             {% if "placeholder" in post.featured_image.url %}
                             <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678367075/pexels-leah-kelley-3935702_we1e43.jpg"
-                                class="img-fluid" alt="{ post.title }}" />
+                                class="img-fluid" alt="{ post.title }}">
                             {% else %}
-                            <img src="{{ post.featured_image.url }}" class="img-fluid" alt="{{ post.title }}" />
+                            <img src="{{ post.featured_image.url }}" class="img-fluid" alt="{{ post.title }}">
                             {% endif %}
                             <table class="table-post-card">
                                 <tbody>
@@ -30,18 +30,18 @@
                                                 {% if "placeholder" in post.author.profile.image.url %}
                                                 <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
                                                     class="profile-img profile-img-small"
-                                                    alt="Profile Image Placeholder" />
+                                                    alt="Profile Image Placeholder">
                                                 {% else %}
                                                 <img src="{{ post.author.profile.image.url }}"
-                                                    class="profile-img profile-img-small" alt="{{ post.author }}" />
+                                                    class="profile-img profile-img-small" alt="{{ post.author }}">
                                                 {% endif %}
                                             </a>
                                             {% else %} {% if "placeholder" in post.author.profile.image.url %}
                                             <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
-                                                class="profile-img profile-img-small" alt="Profile Image Placeholder" />
+                                                class="profile-img profile-img-small" alt="Profile Image Placeholder">
                                             {% else %}
                                             <img src="{{ post.author.profile.image.url }}"
-                                                class="profile-img profile-img-small" alt="{{ post.author }}" />
+                                                class="profile-img profile-img-small" alt="{{ post.author }}">
                                             {% endif %} {% endif %}
                                         </td>
                                     </tr>
@@ -117,7 +117,7 @@
                         </p>
                     </div>
                 </div>
-                <hr />
+                <hr>
                 <!-- Comments -->
                 <div class="container mt-4">
                     <div class="row">
@@ -131,18 +131,18 @@
                                         {% if "placeholder" in comment.profile.user.profile.image.url %}
                                         <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
                                             class="profile-img profile-img-small me-2"
-                                            alt="Profile Image Placeholder" />
+                                            alt="Profile Image Placeholder">
                                         {% else %}
                                         <img src="{{ comment.profile.user.profile.image.url }}" alt="{{ comment.name }}"
-                                            class="profile-img profile-img-small me-2" />
+                                            class="profile-img profile-img-small me-2">
                                         {% endif %}
                                     </a>
                                     {% else %} {% if "placeholder" in comment.profile.user.profile.image.url %}
                                     <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
-                                        class="profile-img profile-img-small me-2" alt="Profile Image Placeholder" />
+                                        class="profile-img profile-img-small me-2" alt="Profile Image Placeholder">
                                     {% else %}
                                     <img src="{{ comment.profile.user.profile.image.url }}" alt="{{ comment.name }}"
-                                        class="profile-img profile-img-small me-2" />
+                                        class="profile-img profile-img-small me-2">
                                     {% endif %} {% endif %}
 
                                     <p class="text-muted">{{ comment.name|title }} wrote:</p>
@@ -197,7 +197,7 @@
             <div class="modal-footer">
                 <form method="post" action="{% url 'post_delete' post.slug %}">
                     {% csrf_token %} {% if redirect_field_value %}
-                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
                     {% endif %}
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
@@ -222,7 +222,7 @@
             <div class="modal-footer">
                 <form method="post" action="{% url 'comment_delete'  pk=comment.pk %}">
                     {% csrf_token %} {% if redirect_field_value %}
-                    <input type="hidden" name="next" value="{{ request.path }}" />
+                    <input type="hidden" name="next" value="{{ request.path }}">
                     {% endif %}
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
