@@ -9,7 +9,7 @@
 /*--------------- Custom properties ---------------*/
 :root {
     --dark-blue-color: #253558;
-    --blue-color: #686e9f;
+    --blue-color: #5c639e;
     --yellow-color: #fbe4a1;
     --skin-color: #fcb395;
     --orange-color: #e48152;
@@ -293,7 +293,7 @@ hr {
 }
 
 .hero-content h1 {
-    color: #686e9f;
+    color: var(--blue-color);
     text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.6);
     font-size: 60px;
     backdrop-filter: blur(.7px);
@@ -414,7 +414,7 @@ hr {
     left: 0;
     color: #fff;
     padding: 25px;
-    background-color: #686e9f94;
+    background-color: ##5c639e94;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
