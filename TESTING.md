@@ -200,8 +200,23 @@ All functionalities have been tested and they work as expected. You can find mor
 
 - As an Superuser,
   - [#28](https://github.com/kerstin-w/Travel-Africa/issues/28) I want to create a category when needed so that I can manage the site effectively.
+
+    In the **Admin Panel** the Superuser can create new categories for the website. The new category will automatically be part of the regions and will be listed in the navbar dropdown.
+
+    <img src="documentation/testing/user-stories/admin-category.png" width="500px" style="margin: 20px;">
+    
   - [#29](https://github.com/kerstin-w/Travel-Africa/issues/29) I want to delete content when inappropriate so that I can maintain the site and ensure that only useful or relevant content remains
+
+    On the **Post Page** the Superuser has the same option as the post auther and can delete or edit a post. Further, the Superuser can delete posts from the **Admin Panel**
+
+    <img src="documentation/testing/user-stories/admin-delete.png" width="500px" style="margin: 20px;">
+
   - [#30](https://github.com/kerstin-w/Travel-Africa/issues/30) I want to block user accounts so that I can ensure only trusted users can access the site.
+
+    In the **Admin Panel** under **Permissions** the Superuser can unselect the status **Activ** which makes the user inactive. An inactive User can not login.
+
+    <img src="documentation/testing/user-stories/admin-inactive.png" width="400px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/page-inactive.png" width="500px" style="margin: 20px;">
 
 <br>
 
