@@ -5,8 +5,9 @@ Here are the details of the comment:
 
 Name: {{ comment.name }}
 Comment: {{ comment.body }}
+https://travel-africa.herokuapp.com{{ comment.post.get_absolute_url }}
 
 You can login on Travel Africa Blog to see all recent comments on your posts.
 
 Thank you for using our website!
-https://travel-africa.herokuapp.com/
+https://travel-africa.herokuapp.com
