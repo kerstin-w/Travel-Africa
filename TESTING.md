@@ -2,7 +2,8 @@
 
 ## Contents
 
-- [Functional Testing](#functional-testing)
+- [Manual Testing](#manual-testing)
+- [Automated Testing](#automated-testing)
 - [User Stories Testing](#user-stories-testing)
 - [Validator Testing](#validator-testing)
   - [HTML](#html)
@@ -19,6 +20,21 @@
 - [Unresolved](#unresolved)
 
 ---
+
+## <a name="automated-testing">Automated Testing</a>
+
+Python **Automated Unit Testing** was implemented using the [Django Unit Testing](https://docs.djangoproject.com/en/3.2/topics/testing/overview/) framework.  
+**Unit Tests** have been written to cover all **Forms**, **Models**, **Views**, **Admin**, **Context-Processors** and **Fields**.
+I implemented unit testing only at the end of the project, because it was not a mandatory requirement. However, during testing I realized the importance of implementing unit testing from the start of a project in order to ensure the functionality of the code permanently during the development process.
+A total of **171** **Unit Tests** have been written. All **171** tests run successfully without errors or warnings.   
+
+<details>
+    <summary>Coverage Automated Testing</summary>
+    <img src="documentation/testing/automated-testing/coverage-1.png">
+    <img src="documentation/testing/automated-testing/coverage-2.png">
+</details>
+
+<br>
 
 ## <a name="validator-testing">Validator Testing</a>
 
