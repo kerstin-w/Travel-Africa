@@ -75,7 +75,7 @@
                                                     class="btn btn-read like-button d-flex flex-row align-items-center"
                                                     disabled>
                                                     <i class="fa-solid fa-heart"></i>
-                                                    <p id="likes-count">{{ post.number_of_likes }}</p>
+                                                    <span id="likes-count">{{ post.number_of_likes }}</span>
                                                 </button>
                                                 {% endif %} {% if user.is_authenticated %} {% if post in user.bucketlist.post.all %}
                                                 <button type="button" id="add-to-bucketlist-button" class="btn btn-save"
