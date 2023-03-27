@@ -6,9 +6,7 @@
     <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
     {% endif %}
     <div class="card-body">
-        {% for region in post.regions.all %}
-        <p class="text-muted">{{ post.created_on|date }}&nbsp;<span class="badge bg-secondary">{{region}}</span></p>
-        {% endfor %}
+        <p class="text-muted">{{ post.created_on|date }}&nbsp;<span class="badge bg-secondary">{{post.regions}}</span></p>
         <h5 class="card-title">{{ post.title|title}}</h5>
         <p class="card-title">{{ post.content|striptags|truncatechars:200 }}</p>
         <div class="d-flex flex-column">
