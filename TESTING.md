@@ -37,10 +37,13 @@ A total of **171** **Unit Tests** have been written. All **171** tests run succe
 
 ## <a name="user-stories-testing">User Stories Testing</a>
 
+All functionalities have been tested and they work as expected. You can find more about [Manual Testing](#manual-testing). 
+
 ### As a first-time visitor,
   - [#1](https://github.com/kerstin-w/Travel-Africa/issues/1) I want to know what this site is about immediately so that I can decide whether I will explore further.
 
     This was achieved with a nice hero banner, asking the user to explore the blog about Africa.
+
     <img src="documentation/testing/user-stories/hero1.png" width="500px" style="margin: 20px;">
 
   - [#2](https://github.com/kerstin-w/Travel-Africa/issues/2) I want to navigate pages so that I can understand what types of information I can find.
@@ -150,11 +153,49 @@ A total of **171** **Unit Tests** have been written. All **171** tests run succe
     <img src="documentation/testing/user-stories/comment-mail.png" width="500px" style="margin: 20px;">
 
   - [#18](https://github.com/kerstin-w/Travel-Africa/issues/18) I can can add a Post to my bucket list so that I can save destinations I want to travel to.
+
+    On the **Post Page** the user can select the Bucket List button to add a post to the bucket list. From the **navbar** the user can click on the list icon to open their personal bucket list, where selected posts are stored. On the **Bucket List Page** the user can click on a certain post to revisit the post or select the bin icon to remove it. One a post is saved to the bucket list, on the Post Page the button is disabled. 
+
+    <img src="documentation/testing/user-stories/bucketlist-1.png" width="300px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/bucketlist-added.png" width="300px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/bucketlist-disabled.png" width="300px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/bucketlist-2.png" width="300px" style="margin: 20px;">
+
   - [#19](https://github.com/kerstin-w/Travel-Africa/issues/19) I can delete my comments so that I can control the information that I share.
+
+    On the **Post Page** in the comment section the user can select the bin icon to delete a comment. This functionallity is available for the author of the post, and the commenter. After the user clicked on the bin icon a modal will open to confirm that the user is certain to delete the comment.
+
+    <img src="documentation/testing/user-stories/delete-comment.png" width="300px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/delete-comment-modal.png" width="300px" style="margin: 20px;">
+
+
   - [#26](https://github.com/kerstin-w/Travel-Africa/issues/26) I can rely on the app to log me out automatically so that strangers cannot access my profile in case I am on a public computer.
+    
+    A timeout for the user is setup in the settings, loggin the user out after 30mins or once the user closed the browser.
+    <br>
+        ```
+        # Settings for Session Time Out
+        SESSION_EXPIRE_SECONDS = 1800
+        SESSION_TIMEOUT_REDIRECT = "/"
+        SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+        ```
   - [#27](https://github.com/kerstin-w/Travel-Africa/issues/27) I can be routed to a error page in case a page is not found so that I understand the error and click on a link to get back to the homepage.
+
+    A error page has been setup, in case user try to access a page without permission, the page does not exist or other errors occure.
+
+    <img src="documentation/testing/user-stories/error-1.png" width="500px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/error-2.png" width="500px" style="margin: 20px;">
+
   - [#31](https://github.com/kerstin-w/Travel-Africa/issues/31) I want to reset my password so that I can regain access to my account if I forget my password.
-  
+    
+    On the **Login Page** the user can select *Forgot Password** to reset the password. Afterwards an **email** will be send to the user with a link to confirm. This link will redirect the user to the **change password page**. On the **change password page** the user can enter a new password. 
+
+    <img src="documentation/testing/user-stories/forgot-password.png" width="300px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/forgot-password-2.png" width="300px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/forgot-password-3.png" width="300px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/forgot-password-mail.png" width="300px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/forgot-password-4.png" width="300px" style="margin: 20px;">
+
 <br>
 
 - As an Superuser,
