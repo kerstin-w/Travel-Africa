@@ -92,7 +92,7 @@ A total of **171** **Unit Tests** have been written. All **171** tests run succe
 
 <br>
 
-- As an registered User,
+### As an registered User,
   - [#7](https://github.com/kerstin-w/Travel-Africa/issues/7) I can view my own account so that I can manage my account easily.
 
     From the **navbar** the user can click on the small profile picture and the Profile Page will open. From the Profile Page the user has the option to **delete the account**, **edit the account** and reset the password. 
