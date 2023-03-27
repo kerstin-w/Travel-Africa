@@ -14,6 +14,7 @@
     --skin-color: #fcb395;
     --orange-color: #e48152;
     --white-color: #faebd7;
+    --absolute-white-color: #fff;
 
     --font-title: 'Waiting for the Sunrise', sans-serif;
     --font-body: 'Roboto', sans-serif;
@@ -412,9 +413,9 @@ hr {
     display: block;
     bottom: 0;
     left: 0;
-    color: #fff;
+    color: var(--absolute-white-color);
     padding: 25px;
-    background-color: ##5c639e94;
+    background-color: #5c639e94;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 }
@@ -505,13 +506,13 @@ hr {
 .btn-read,
 .btn-save {
     background-color: var(--orange-color);
-    color: var(--white-color);
+    color: var(--absolute-white-color);
 }
 
 .btn-read:hover,
 .btn-save:hover {
     background-color: #dd7342;
-    color: var(--white-color);
+    color: var(--absolute-white-color);
 }
 
 .post-detail-list>a {
@@ -605,6 +606,10 @@ tr td:first-child {
 
 #bucketlist {
     color: var(--blue-color);
+}
+
+#bucket-list-text {
+    color: var(--absolute-white-color);
 }
 
 .bucket-list {
