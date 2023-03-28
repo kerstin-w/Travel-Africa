@@ -36,6 +36,7 @@ Travel Africa is a website that celebrates the natural beauty and rich culture o
     - [Programs](#programs)
 - [Testing](#testing)
 - [Deployment](#deployment)
+- [References & Credit](#references-credit)
 
 
 ---
