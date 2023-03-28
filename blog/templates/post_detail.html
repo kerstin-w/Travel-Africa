@@ -77,7 +77,8 @@
                                                     <i class="fa-solid fa-heart"></i>
                                                     <span id="likes-count">{{ post.number_of_likes }}</span>
                                                 </button>
-                                                {% endif %} {% if user.is_authenticated %} {% if post in user.bucketlist.post.all %}
+                                                {% endif %} {% if user.is_authenticated %}
+                                                {% if post in user.bucketlist.post.all %}
                                                 <button type="button" id="add-to-bucketlist-button" class="btn btn-save"
                                                     disabled>
                                                     <span class="mb-0"><i
@@ -104,9 +105,10 @@
                             </table>
                             {% if user.is_authenticated and user == post.author or user.is_superuser %}
                             <div class="d-flex flex-row justify-content-center">
-                                <a href="{% url 'post_update' post.slug %}" aria-label="Edit Post"><i class="fa-solid fa-pen icon"></i></a>
-                                <a data-bs-toggle="modal" href="#deletePostModal" aria-haspopup="true" id="deletePost"  aria-label="Delete Post"><i
-                                        class="fa-solid fa-trash icon"></i></a>
+                                <a href="{% url 'post_update' post.slug %}" aria-label="Edit Post"><i
+                                        class="fa-solid fa-pen icon"></i></a>
+                                <a data-bs-toggle="modal" href="#deletePostModal" aria-haspopup="true" id="deletePost"
+                                    aria-label="Delete Post"><i class="fa-solid fa-trash icon"></i></a>
                             </div>
                             {% endif %}
                         </div>
@@ -130,8 +132,7 @@
                                     <a href="{% url 'users:profile_home' username=comment.profile.user.username %}">
                                         {% if "placeholder" in comment.profile.user.profile.image.url %}
                                         <img src="https://res.cloudinary.com/db0ufjm4a/image/upload/v1678200052/user_profile_placeholder_wcp5nb.jpg"
-                                            class="profile-img profile-img-small me-2"
-                                            alt="Profile Image Placeholder">
+                                            class="profile-img profile-img-small me-2" alt="Profile Image Placeholder">
                                         {% else %}
                                         <img src="{{ comment.profile.user.profile.image.url }}" alt="{{ comment.name }}"
                                             class="profile-img profile-img-small me-2">
@@ -171,8 +172,8 @@
                                 <h3 class="heading-underline mb-4">Add a comment:</h3>
                                 <form method="post">
                                     <label for="id_body">
-                                    {% csrf_token %} {{ comment_form.as_p }}
-                                    <button type="submit" class="btn btn-save">Submit</button>
+                                        {% csrf_token %} {{ comment_form.as_p }}
+                                        <button type="submit" class="btn btn-save">Submit</button>
                                     </label>
                                 </form>
                             </div>
@@ -211,7 +212,8 @@
 <!-- Delete Comment Modal -->
 {% for comment in post.comments.all %}
 {% if user.is_authenticated and user == post.author or user.is_superuser or user == comment.name %}
-<div class="modal fade" id="deleteCommentModal{{comment.pk}}" tabindex="-1" aria-labelledby="deleteComment" aria-hidden="true">
+<div class="modal fade" id="deleteCommentModal{{comment.pk}}" tabindex="-1" aria-labelledby="deleteComment"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
