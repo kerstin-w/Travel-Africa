@@ -426,7 +426,210 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 
 ## <a name="features">Features</a>
 
+### <a name="implemented-features">Implemented Features</a>
+
+### Navbar
+- Navbar items **Home, About, Regions, Logo, Search, Register and Login** are available for unregistered/not logged in users.
+- Navbar items **Home, About, Regions, Logo, Search, Bucket List, Write Post, Logout and Profile** are available for registered users.
+- The Navbar is fixed to the top of the screen even when the user is scrolling down the page to allow easier navigation.
+- The logo is linked to the Homepage and each menu item is linked to each page respectively to allow easier navigation.
+- The search bar allows users to easily search for a keyword they are looking for.
+- The navigation menu collapses on small/medium devices to optimise the menu for smaller screen sizes.
+
+<details>
+    <summary>Navbar for unregistered/not logged in users</summary>
+
+![Navbar for unregistered/not logged in users](documentation/features/nav-desktop-not-logged-in.png)
+![Navbar for unregistered/not logged in users](documentation/features/nav-mobile-not-logged-in-1.png)
+![Navbar for unregistered/not logged in users](documentation/features/nav-mobile-not-logged-in-2.png)
+
+</details>
+
+<details>
+    <summary>Navbar logged in users</summary>
+
+![Navbar registered users](documentation/features/nav-desktop-logged-in.png)
+![Navbar registered users](documentation/features/nav-mobile-logged-in.png)
+
+</details>
+
 <br>
+
+### Home Page
+
+- The hero image welcomes the user with a short message letting the user know what the website is about. These are 3 carousel images with a button. When the button is pressed, it brings the user to the Post page (all posts).
+
+<img src="documentation/features/homepage.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### Home Page - Highlights
+
+- In the highlighted posts, users can see a selection of 6 blog posts. These posts are selected by the admin by clicking the featured box in the post database.
+
+<img src="documentation/features/homepage-highlights.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### Footer
+- All the footer items are available to both unregistered and registered users.
+
+<img src="documentation/features/footer.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### About Page
+
+- The About Page gives, users information about the Travel Africa website. It introduces the users to the website. It also details the main purpose and the goal of the blog.
+
+<img src="documentation/features/about.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### Regions Page
+
+- You can either select to sell all Posts or just the Posts of the selected region. 
+- A list with post according to the selection will be displayed. 
+- All Post Cards show a picture of the post, the date the post was created, a badge of the region, title, shortened description and an Explore Button
+- All users can see the amount of comments and likes a post already received. 
+- Pagination is implemented and each site shows a total of 8 posts.
+
+<img src="documentation/features/post-list.png" width="600px" style="margin: 20px;">
+
+### Post Detail Page
+
+- The Post Detail Page shows all information (title, country, author, region, created on, description) of a certain Post.
+- The behavouis is differently for users who are not logged in and users who are logged in. 
+
+<br>
+
+<details>
+    <summary>Post Detail Page unregistered/not logged in users</summary>
+
+![Post Detail Page unregistered/not logged in users](documentation/features/post-detail-not-logged-in-2.png)
+![Post Detail Page unregistered/not logged in users](documentation/features/post-detail-not-logged-in-1.png)
+
+</details>
+
+<br>
+
+- Users who are not logged in can see all information on a post.
+- Users who are not logged in can the see the number of likes, but cannot interact with it.
+- Users who are not logged in can only read comments but not write a comment.
+
+<br>
+
+<details>
+    <summary>Post Detail Page logged in users</summary>
+
+![Post Detail Page logged in users](documentation/features/post-detail-logged-in-1.png)
+![Post Detail Page logged in users](documentation/features/post-detail-logged-in-2.png)
+![Post Detail Page logged in users](documentation/features/post-detail-logged-in-3.png)
+
+</details>
+
+<br>
+
+- Users who are logged in can see all information on a post.
+- Users who are logged in can click on the little profile image of the author and view the author profile page
+- Users who are logged in can the see the number of likes and like a post.
+- Users who are logged in can add the post to their bucket list. The bucket list button is disabled once a post is added to the bucket list.
+- Users who are logged in can add read and write comments. 
+- The Author and the Superuser also have the option to edit and delete a post. These buttons are only displayed to author and superuser.
+
+<br>
+
+### Create and Edit a Post
+
+- Registered users can write a post by entering all information into the form.
+- The form will be validated and if the input is not valid, or data is missing the user will see an appropriate message on the screen.
+
+<img src="documentation/features/create-post.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/create-post-2.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### User Profile
+
+- Registered user can click on the little profile image of the author to see the Profile picture.
+- The Owner of the profile will see a slightly different Profile Page than other registered users.
+
+<br>
+
+- Users can see information about the other user: a short description of the person, member since
+- Users can see a list of posts written by the profile user
+
+<img src="documentation/features/profile.png" width="600px" style="margin: 20px;">
+
+<br>
+
+- The profile owner can see all information as well.
+- The profile owner has the opttion to edit or delete the profile.
+- The profile owner can click on the Posts button to see all posts written.
+- The profile owner can click on the comments button to see all comments received. 
+
+<img src="documentation/features/profile-owner-1.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/profile-owner-2.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/profile-owner-3.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### Edit Profile
+
+- The profile owner can update their own profile by filling out the form, or adding information.
+- The from is validated and if the input is not valid, or data is missing the user will see an appropriate message on the screen.
+- THe user also has the option to change their password.
+
+<img src="documentation/features/edit-profile-1.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/edit-profile-2.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### Bucket List
+
+- In the bucket list a user can revisted all post that were saved by the user.
+- This gives a user the option to create a list of places to visit, or just to be able read the post again and not loos track of it.
+- By clicking on a post title the user will be forwarded to the Post Page.
+- The the user can remove a post from the bucket list by clicking on the bin icon. 
+
+<img src="documentation/features/bucket-list.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### Search
+
+- The users can search by inputting a keyword in the search tool. This allows the user to try and find posts they are looking for.
+- On the Search Results Page, users can see the posts found by their search.
+
+<img src="documentation/features/search.png" width="600px" style="margin: 20px;">
+
+<br>
+
+### Sign Up
+
+- Users who are not registered, yet can sign up for Travel Africa. 
+- The user needs to enter email, username and password.
+- Email and username need to be unique. 
+- The form will be validated and if the input is not valid, or data is missing the user will see an appropriate message on the screen.
+- Once the user entered all data a confirmation mail will be sent to the users email address to confirm the email address. 
+- Afterwards the user can log into the page 
+
+<img src="documentation/features/signup-1.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/signup-2.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/confirmation.png" width="600px" style="margin: 20px;">
+
+### Sign In
+
+- Users who are already registered can log into the account.
+- The form will be validated and if the input is not valid, or data is missing the user will see an appropriate message on the screen.
+- If the user forgot the password, it is also given the option to reset the password. 
+- Afterwards the user will receive an emial with a link to reset the password and enter a new password.
+
+<img src="documentation/features/signin-1.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/signin-2.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/password-1.png" width="600px" style="margin: 20px;">
+<img src="documentation/features/password-2.png" width="600px" style="margin: 20px;">
+
 
 ## <a name="technologies-used">Technologies Used</a>
 
