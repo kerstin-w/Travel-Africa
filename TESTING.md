@@ -10,7 +10,7 @@
   - [CSS](#css)
   - [JS](#js)
   - [Python](#python)
-- [LightHouse](#lighthouse)
+- [Performance Testing](#performance-testing)
   - [Destop Results](#desktop-results)
   - [Mobile Results](#mobile-results)
 - [Browser Compatibility](#browser-compatibility)
@@ -308,6 +308,7 @@ of the **JavaScript** code was considered unnecessary. All **JavaScript** functi
 <br>
 
 ### <a name="Python">Python</a>
+
 All **Python Code** was thoroughly de-bugged and tested at the command line during the development process, and has been validated 
 using [Flake8](https://flake8.pycqa.org/). [flake8-django](https://pypi.org/project/flake8-django/) was also installed to assist with validation.  
 **Flake8** was configured by creating a `setup.cfg` file in the root of the project, which contains the following settings:
@@ -323,3 +324,38 @@ The settings exclude **django** migrations, `__init__.py`, `.vscode` and `_pycha
     <summary>Result</summary>
     <img src="documentation/validator/python/flake8.png">
 </details>
+
+<br>
+
+### <a name="performance-testing">Performance Testing</a>
+
+<br>
+
+## <a name="browser-compatibility">Browser Compatibility</a>
+
+This App was tested on Chrome, Microsoft Edge, and Firefox for desktop.
+
+The App was tested on Safari for mobile and tablet.
+
+<br>
+
+## <a name="responsivity">Responsivity</a>
+
+---
+
+Responsiveness was tested through Chrome Developer tools. The devices tested include:
+
+- iPhone SE
+- iPhone XR
+- iPhone 12 Pro
+- Pixel 5
+- Samsung Galaxy S8+
+- Samsung Galaxy S20 Ultra
+- iPad Air
+- iPad Mini
+- Surface Pro 7
+- Surface Duo
+- Galaxy Fold
+- Samsung Galaxy A51
+
+I was able to directly test the website on an iPhone 13 mini and an iPad.
