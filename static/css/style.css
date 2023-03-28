@@ -727,10 +727,9 @@ tr td:first-child {
         max-width: 250px;
     }
 
-    .footer .row:first-child {
-        display: none
+    .social-text {
+        padding: 15px 10px 15px 0px;
     }
-
 }
 
 @media only screen and (max-width: 454px) {
