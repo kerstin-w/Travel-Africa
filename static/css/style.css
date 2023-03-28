@@ -718,6 +718,11 @@ tr td:first-child {
         padding-top: .2em;
     }
 
+    #id_username,
+    #id_email {
+        width: 100%;
+    }
+
     #profile .profile-img {
         max-width: 250px;
     }
