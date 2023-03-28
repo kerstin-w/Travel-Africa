@@ -22,8 +22,15 @@
 Back to the [README](README.md)<br>
 
 ## <a name="manual-testing">Manual Testing</a>
-The original Google sheet file for the test case report can be found [here]()
+The original Google sheet file for the test case report can be found [here](https://docs.google.com/spreadsheets/d/1RxRKw0dkuCsVCKH35hyEvHgERZHe9TPI1KK-6oW0Edw/edit?usp=sharing).
 
+![Test Case](documentation/testing/manual-testing/manual-testing-1.png)
+![Test Case](documentation/testing/manual-testing/manual-testing-2.png)
+![Test Case](documentation/testing/manual-testing/manual-testing-3.png)
+![Test Case](documentation/testing/manual-testing/manual-testing-4.png)
+![Test Case](documentation/testing/manual-testing/manual-testing-5.png)
+![Test Case](documentation/testing/manual-testing/manual-testing-6.png)
+![Test Case](documentation/testing/manual-testing/manual-testing-7.png)
 
 <br>
 
