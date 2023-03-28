@@ -699,6 +699,10 @@ tr td:first-child {
         left: auto;
     }
 
+    .navbar-collapse {
+        padding-left: .8rem;
+    }
+
     .navbar-collapse .login {
         align-items: flex-start !important;
         border-top: 1px solid var(--blue-color);
