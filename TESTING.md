@@ -355,8 +355,6 @@ The App was tested on Safari for mobile and tablet.
 
 ### <a name="responsivity">Responsivity</a>
 
----
-
 Responsiveness was tested through Chrome Developer tools. The devices tested include:
 
 - iPhone SE
@@ -373,3 +371,42 @@ Responsiveness was tested through Chrome Developer tools. The devices tested inc
 - Samsung Galaxy A51
 
 I was able to directly test the website on an iPhone 13 mini and an iPad.
+
+### <a name="issues-bugs">Issues/ Bugs Found & Resolved</a>
+
+- Error during first Deploy:
+
+During the first deploy I received an error:
+```
+       Failed to build backports.zoneinfo
+       ERROR: Could not build wheels for backports.zoneinfo, which is required to install pyproject.toml-based projects
+ !     Push rejected, failed to compile Python app.
+ !     Push failed
+```
+
+which is was able to fix by adding `backports.zoneinfo==0.2.1;python_version<3.9`. Solution was found on [Stackoverflow](https://stackoverflow.com/questions/71712258/error-could-not-build-wheels-for-backports-zoneinfo-which-is-required-to-insta)
+
+- UnorderedObjectListWarning:
+
+For pages with pagination an `UnorderedObjectListWarning' was printed to the console, which I resolved by adding `ordering`to the PostListViews
+
+### <a name="#unresolved">Unresolved</a>
+
+- Random failing in Heroku
+
+After the project has been deployed for the first time, errors continue to occur during the push. 
+```
+     Error while running '$ python manage.py collectstatic --noinput'.
+       See traceback above for details.
+       You may need to update application code to resolve this error.
+       Or, you can disable collectstatic for this application:
+          $ heroku config:set DISABLE_COLLECTSTATIC=1
+       https://devcenter.heroku.com/articles/django-assets
+ !     Push rejected, failed to compile Python app.
+ !     Push failed
+ ```
+Tutor support also knew about this problem and could not identify the source of the problem. In most cases `python3 manage.py collectstatic` helps to deploy the changes successfully after all.
+
+- Summernote Editor in Admin Panel:
+
+As described in [HTML](#html), I had to copy the widget_iframe for Summernote into my project and style it with custom css. The consequence is that the `width`, which was set in the custom css file, does not take effect in the admin panel.The editor in the admin panel is therefore currently not as wide as desired. This can be solved by copying and loading the style sheet from the admin panel into the project and adding the desired width for the editor there. Since all features are currently working and no user story is compromised, this has not yet been implemented due to time limitations, but is planned for the future. 
