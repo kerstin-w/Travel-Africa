@@ -73,6 +73,7 @@ ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "users.backends.CaseInsensitiveModelBackend",
+    'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

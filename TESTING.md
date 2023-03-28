@@ -19,6 +19,13 @@
 - [Unresolved](#unresolved)
 
 ---
+Back to the [README](README.md)<br>
+
+## <a name="manual-testing">Manual Testing</a>
+The original Google sheet file for the test case report can be found [here]()
+
+
+<br>
 
 ## <a name="automated-testing">Automated Testing</a>
 
@@ -331,7 +338,7 @@ The settings exclude **django** migrations, `__init__.py`, `.vscode` and `_pycha
 
 <br>
 
-## <a name="browser-compatibility">Browser Compatibility</a>
+### <a name="browser-compatibility">Browser Compatibility</a>
 
 This App was tested on Chrome, Microsoft Edge, and Firefox for desktop.
 
@@ -339,7 +346,7 @@ The App was tested on Safari for mobile and tablet.
 
 <br>
 
-## <a name="responsivity">Responsivity</a>
+### <a name="responsivity">Responsivity</a>
 
 ---
 
