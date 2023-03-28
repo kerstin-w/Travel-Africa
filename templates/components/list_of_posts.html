@@ -6,11 +6,13 @@
     <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
     {% endif %}
     <div class="card-body">
-        <p class="text-muted">{{ post.created_on|date }}&nbsp;<span class="badge bg-secondary">{{post.regions}}</span></p>
+        <p class="text-muted">{{ post.created_on|date }}&nbsp;<span class="badge bg-secondary">{{post.regions}}</span>
+        </p>
         <h5 class="card-title">{{ post.title|title}}</h5>
-        <p class="card-title">{{ post.content|striptags|truncatechars:200 }}</p>
+        <p class="card-title">{{ post.content|safe|striptags|truncatechars:200 }}</p>
         <div class="d-flex flex-column">
-            <a href="{{ post.get_absolute_url }}" class="btn btn-read" aria-label="Read Blog Post {{ post.title|title}}">Explore More</a>
+            <a href="{{ post.get_absolute_url }}" class="btn btn-read"
+                aria-label="Read Blog Post {{ post.title|title}}">Explore More</a>
             <span class="pt-3 d-flex justify-content-center align-items-center"><i class="fa-solid fa-comments">
                 </i>&nbsp;{{ post.num_comments }}&nbsp;|&nbsp;<i class="fa-solid fa-heart"></i>
                 &nbsp;{{ post.number_of_likes }}</span>
