@@ -623,13 +623,26 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 - Users who are already registered can log into the account.
 - The form will be validated and if the input is not valid, or data is missing the user will see an appropriate message on the screen.
 - If the user forgot the password, it is also given the option to reset the password. 
-- Afterwards the user will receive an emial with a link to reset the password and enter a new password.
+- Afterwards the user will receive an email with a link to reset the password and enter a new password.
 
 <img src="documentation/features/signin-1.png" width="600px" style="margin: 20px;">
 <img src="documentation/features/signin-2.png" width="600px" style="margin: 20px;">
 <img src="documentation/features/password-1.png" width="600px" style="margin: 20px;">
 <img src="documentation/features/password-2.png" width="600px" style="margin: 20px;">
 
+<br>
+
+### <a name="future-features">Future Features</a>
+
+- This project was built to produce a minimum viable product. Nevertheless there are still some features to be implemented in the future. See [here](https://github.com/kerstin-w/Travel-Africa/issues?q=is%3Aopen+is%3Aissue)
+
+#### [#34](https://github.com/kerstin-w/Travel-Africa/issues/34) - Sending Direct Messages
+#### [#33](https://github.com/kerstin-w/Travel-Africa/issues/33) - Welcome Email
+#### [#32](https://github.com/kerstin-w/Travel-Africa/issues/32) - Social Login
+#### Image CDN:
+- Since the application allows users to upload images and does not limit the size of the image, this will cause losses and fluctuations in site performance. Therefore, a CDN should ensure that a suitable size of the image is transmitted to keep loading time as low as possible. 
+
+<br>
 
 ## <a name="technologies-used">Technologies Used</a>
 
