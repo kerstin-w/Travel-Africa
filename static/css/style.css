@@ -742,4 +742,14 @@ tr td:first-child {
     .hero-content {
         top: 50%;
     }
+
+    .social span {
+        display: none;
+    }
+
+    .footer-text {
+        font-size: medium;
+        padding: 15px 0 15px 20px;
+
+    }
 }
