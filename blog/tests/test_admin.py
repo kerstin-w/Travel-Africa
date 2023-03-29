@@ -219,6 +219,7 @@ class CommentAdminTest(BaseAdminTest):
         )
         self.post = Post.objects.create(
             title="Test Post",
+            slug="test-post",
             content="This is a test post.",
             author=self.user1,
             regions=self.category1,
