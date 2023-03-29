@@ -448,10 +448,11 @@ hr {
 }
 
 /*=============== Profile ===============*/
-#id_username,
-#id_email {
-    width: 60%;
+#profile-update .row {
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
+
 #profile .card-img-top {
     object-fit: cover;
     object-position: 100% 0;
@@ -719,11 +720,6 @@ tr td:first-child {
         padding-top: .2em;
     }
 
-    #id_username,
-    #id_email {
-        width: 100%;
-    }
-
     #profile .profile-img {
         max-width: 250px;
     }
@@ -734,6 +730,11 @@ tr td:first-child {
 }
 
 @media only screen and (max-width: 454px) {
+    #profile-update .row {
+        padding-left: .4rem;
+        padding-right: .4rem;
+    }
+
     .hero-content {
         top: 50%;
     }
