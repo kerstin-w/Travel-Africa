@@ -110,6 +110,10 @@ hr {
     display: none;
 }
 
+.alert ul {
+    list-style-type: none;
+}
+
 /*=============== Navbar ===============*/
 .navbar {
     border-radius: 50px;
