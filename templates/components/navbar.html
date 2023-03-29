@@ -70,7 +70,7 @@
                                 {% else %}
                                 <a href="{% url 'users:profile_home' username=request.user.username %}"  aria-label="User Profile">
                                     <img src="{{ profile.image.url }}" class="profile-img profile-img-small"
-                                        alt="{{ profile.user.username }}">
+                                        alt="{{ profile.user.username }}" loading="lazy">
                                 </a>
 
                                 {% endif %} {% endwith %}
