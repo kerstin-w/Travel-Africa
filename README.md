@@ -493,7 +493,7 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 
 - You can either select to sell all Posts or just the Posts of the selected region. 
 - A list with post according to the selection will be displayed. 
-- All Post Cards show a picture of the post, the date the post was created, a badge of the region, title, shortened description and an Explore Button
+- All Post Cards show a picture of the post, the date the post was created, a badge of the region, title, shortened description and an Explore Button.
 - All users can see the amount of comments and likes a post already received. 
 - Pagination is implemented and each site shows a total of 8 posts.
 
@@ -688,7 +688,7 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 - [Google Fonts](https://fonts.google.com/) - was used to import Fonts to the style.css file.
 - [Heroku](https://heroku.com/) - was initially used to deploy the project.
 - [Tiny PNG](https://tinypng.com/) - was used to compress pictures.
-- [Visual Studio Code](https://code.visualstudio.com/) - was used to edit my code and create SVG paths from SVG image files.
+- [Visual Studio Code](https://code.visualstudio.com/) - was used to edit my code.
 
 <br>
 
@@ -795,3 +795,30 @@ to copy the URL
 7. Press `Enter` and the project is cloned
 
 </details>
+
+## <a name="#references-credit">References & Credit</a>
+
+### Media & Fonts
+
+- [tiny.png](https://tinypng.com/): Used to compress media files
+- [Font Awesome](https://fontawesome.com/): Resource for icons
+- [Google Fonts](https://fonts.google.com): Used as font library
+- [RealFaviconGenerator](https://realfavicongenerator.net/): Used to create a Favicon
+- [Pexels](https://www.pexels.com/) & [Lonely Planet](https://www.lonelyplanet.de/): Resources for images
+- [Dev.to](https://dev.to/shubhamjain/how-to-create-marker-highlight-effect-in-css-be4): Used for SVG Brush effect
+
+### Code
+
+- [Django 3.2 documentation](https://docs.djangoproject.com/en/3.2/): I highly relied upon the Django documentation throughout the project.
+- [django-allauth documentation](https://django-allauth.readthedocs.io/en/latest/installation.html): I relied upon the Django Allauth documentation for user authentication, registration and user management.
+- [Django-crispy documentation](https://django-crispy-forms.readthedocs.io/en/latest/): As source to handle forms.
+- [Summernote](https://summernote.org/) & [Summernote GitHub](https://github.com/summernote/summernote): As source for Summernote Editor configuration.
+- [Forgepackages](https://www.forgepackages.com/guides/page-titles/): As source for dynamic page titles.
+- [Simpleisbetterthancomplex](https://simpleisbetterthancomplex.com/tutorial/2017/02/06/how-to-implement-case-insensitive-username.html): As source to ensure case insesitvity for username.
+- [Cloudwithdjango](https://www.cloudwithdjango.com/django-shorts-3-sending-emails/): As source for sending emails.
+- [Cloudwithdjango](https://www.cloudwithdjango.com/adding-a-session-timeout-in-django/): As source for Session Timeout settings.
+- [Betterprogramming](https://betterprogramming.pub/django-quick-tips-context-processors-da74f887f1fc): As source for Context Processors.
+
+### Content
+
+All content provided in Blog Posts was taken from [Lonely Planet](https://www.lonelyplanet.de/)
