@@ -5,7 +5,7 @@ from django.urls import reverse
 from .fields import CaseInsensitiveCharField
 from users.models import Profile
 
-STATUS = ((0, "Draft"), (1, "Published"))
+STATUS = ((0, "Review"), (1, "Published"))
 
 
 class Category(models.Model):
