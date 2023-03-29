@@ -1,10 +1,5 @@
 /*--------------- Google fonts ---------------*/
-/* Waiting for the Sunrise */
-@import url('https://fonts.googleapis.com/css2?family=Waiting+for+the+Sunrise&display=swap');
-
-/* Roboto */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Waiting+for+the+Sunrise&display=swap');
 
 /*--------------- Custom properties ---------------*/
 :root {
@@ -395,7 +390,7 @@ hr {
     transform: scale(1.15);
 }
 
-.content .content-img:hover .content-post-title h4 {
+.content .content-img:hover .content-post-title h3 {
     color: var(--white-color);
 }
 
