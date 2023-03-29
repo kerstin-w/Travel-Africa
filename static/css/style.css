@@ -741,6 +741,8 @@ tr td:first-child {
 
     .hero-content {
         top: 50%;
+        left: unset;
+        right: unset;
     }
 
     .social span {
