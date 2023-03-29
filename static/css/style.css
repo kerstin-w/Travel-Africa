@@ -45,7 +45,8 @@ main {
 h1,
 h2,
 h3 {
-    font-family: var(--font-title)
+    font-family: var(--font-title);
+    font-weight: 900;
 }
 
 hr {
