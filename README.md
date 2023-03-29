@@ -103,9 +103,11 @@ Goals of the Travel Africa blog are:
 
 ### <a name="colour-palette">Colour Palette</a>
 
-To create a colour palette, I used [_Mycolor.space_](https://mycolor.space/). The color palette consists of deep blues meant to evoke the sea and sky, warm yellows and oranges meant to evoke the sun, and a skin tone-like color that can be associated with the various cultures of Africa. The palette also includes a mellow white that reflects the natural and unspoiled beauty of African landscapes and wildlife, 
+To create a colour palette, I used [_Mycolor.space_](https://mycolor.space/). The color palette consists of deep blues meant to evoke the sea and sky, warm yellows and oranges meant to evoke the sun, and a skin tone-like color that can be associated with the various cultures of Africa. The palette also includes a mellow white that reflects the natural and unspoiled beauty of African landscapes and wildlife.
 
 ![Colour Palette](documentation/colours.png)
+
+After testing the accessibility, I changed the lighter blue ![#686E9F](https://placehold.co/15x15/686E9F/686E9F.png) `#686E9F` to a slightly darker blue ![#5c639e](https://placehold.co/15x15/5c639e/5c639e.png) `#5c639e` to achieve a better contrast between the background and the text.
 
 ### <a name="fonts">Fonts</a>
 [_Sourced via Google Fonts._](https://fonts.google.com/)
