@@ -144,8 +144,8 @@ All functionalities have been tested and they work as expected. You can find mor
 
     On the **Post Page** the user can select the bin icon to delete the post. Afterwards a modal will open to confirm that the user is certain to delete the post.
 
-    <img src="documentation/testing/user-stories/update-post-1.png" width="500px" style="margin: 20px;">
-    <img src="documentation/testing/user-stories/delete-post.png" width="500px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/delete-post-1.png" width="500px" style="margin: 20px;">
+    <img src="documentation/testing/user-stories/delete-post-2.png" width="500px" style="margin: 20px;">
 
   - [#14](https://github.com/kerstin-w/Travel-Africa/issues/14) I can leave a comment on a post so that I can exchange with the author an be    involved in a conversation.
 

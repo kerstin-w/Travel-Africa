@@ -528,6 +528,7 @@ The database has been switched to [ElephantSQL](https://www.elephantsql.com/).
 ![Post Detail Page logged in users](documentation/features/post-detail-logged-in-1.png)
 ![Post Detail Page logged in users](documentation/features/post-detail-logged-in-2.png)
 ![Post Detail Page logged in users](documentation/features/post-detail-logged-in-3.png)
+![Post Detail Page logged in users](documentation/features/post-detail-logged-in-4.png)
 
 </details>
 
