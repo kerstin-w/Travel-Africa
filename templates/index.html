@@ -15,6 +15,8 @@
                 <div class="carousel-item bg-setup carousel-bg-1 active" data-bs-interval="8000">
                     <div class="overlay"></div>
                     <div class="hero-content">
+                        <link rel="preload" href="https://s2.svgbox.net/pen-brushes.svg?ic=brush-1&color=faebd7f0"
+                            as="image" type="image/svg+xml" />
                         <h1 class="heading-underline">Travel Africa</h1>
                         <p class="hero-text">Whether you're a wide-eyed first-timer or a frequent visitor, Africa cannot
                             fail to win your heart.</p>
@@ -62,9 +64,10 @@
                 <div class="col-md-8 cl-sm-12">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" loading="lazy">
+                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image"
+                                loading="lazy">
                             <div class="content-post-title">
-                                <h4>{{ post.title|title }}</h4>
+                                <h3>{{ post.title|title }}</h3>
                             </div>
                         </div>
                     </a>
@@ -73,18 +76,20 @@
                 <div class="col-md-4 cl-sm-6">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" loading="lazy">
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image"
+                                loading="lazy">
                             <div class="content-post-title">
-                                <h4>{{ post.title|title }}</h4>
+                                <h3>{{ post.title|title }}</h3>
                             </div>
                         </div>
                     </a>
                     {% elif forloop.counter == 3 %}
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" loading="lazy">
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image"
+                                loading="lazy">
                             <div class="content-post-title">
-                                <h4>{{ post.title|title }}</h4>
+                                <h3>{{ post.title|title }}</h3>
                             </div>
                         </div>
                     </a>
@@ -93,18 +98,20 @@
                 <div class="col-md-4 cl-sm-6">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" loading="lazy">
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image"
+                                loading="lazy">
                             <div class="content-post-title">
-                                <h4>{{ post.title|title }}</h4>
+                                <h3>{{ post.title|title }}</h3>
                             </div>
                         </div>
                     </a>
                     {% elif forloop.counter == 5 %}
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" loading="lazy">
+                            <img class="img-fluid" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image"
+                                loading="lazy">
                             <div class="content-post-title">
-                                <h4>{{ post.title|title }}</h4>
+                                <h3>{{ post.title|title }}</h3>
                             </div>
                         </div>
                     </a>
@@ -113,9 +120,10 @@
                 <div class="col-md-8 cl-sm-12">
                     <a href="{% url 'post_detail' post.slug %}" aria-label="Go to the post detail page">
                         <div class="content-img">
-                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image" loading="lazy">
+                            <img class="img-featured" src="{{ post.featured_image.url }}" alt="{{ post.title }} Image"
+                                loading="lazy">
                             <div class="content-post-title">
-                                <h4>{{ post.title|title }}</h4>
+                                <h3>{{ post.title|title }}</h3>
                             </div>
                         </div>
                     </a>

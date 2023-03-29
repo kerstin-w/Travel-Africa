@@ -413,6 +413,10 @@ hr {
     position: relative;
 }
 
+.content-post-title h3 {
+    letter-spacing: 2px;
+}
+
 .content .content-post-title {
     width: 100%;
     position: absolute;
