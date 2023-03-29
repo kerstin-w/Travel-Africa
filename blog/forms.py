@@ -22,30 +22,13 @@ class PostForm(ModelForm):
         widgets = {
             "title": forms.TextInput(
                 attrs={
-                    "class": "form-control",
-                    "placeholder": "Add title here...",
+                    "placeholder": "Add your post title here...",
                 }
             ),
             "content": SummernoteWidget(),
             "country": forms.TextInput(
                 attrs={
-                    "class": "form-control",
                     "placeholder": "Add the country here...",
-                }
-            ),
-            "featured_image": forms.FileInput(
-                attrs={
-                    "class": "form-control",
-                }
-            ),
-            "featured": CheckboxInput(
-                attrs={
-                    "class": "form-check-input",
-                }
-            ),
-            "regions": forms.Select(
-                attrs={
-                    "class": "form-select",
                 }
             ),
         }
