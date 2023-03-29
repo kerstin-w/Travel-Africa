@@ -1,11 +1,17 @@
 {% extends "base.html" %} {% block content %}
 <main>
     <!--Blog Post -->
-    <section>
+    <section id="post-detail">
         <div class="container box-shadow post-form">
             <div class="row">
                 <div class="col-md-8 d-flex justify-content-center mx-auto">
                     <h1 class="heading-underline mt-2 mb-5">{{ post.title|title }}</h1>
+                    {% if user.is_authenticated and user == post.author or user.is_superuser %}
+                    <a href="{% url 'post_update' post.slug %}" aria-label="Edit Post" class="post-edit"><i
+                            class="fa-solid fa-pen icon"></i></a>
+                    <a data-bs-toggle="modal" href="#deletePostModal" aria-haspopup="true" id="deletePost"
+                        aria-label="Delete Post" class="post-delete"><i class="fa-solid fa-trash icon"></i></a>
+                    {% endif %}
                 </div>
                 <div class="row mb-3">
                     <div class="col-md-4">
@@ -103,14 +109,6 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            {% if user.is_authenticated and user == post.author or user.is_superuser %}
-                            <div class="d-flex flex-row justify-content-center">
-                                <a href="{% url 'post_update' post.slug %}" aria-label="Edit Post"><i
-                                        class="fa-solid fa-pen icon"></i></a>
-                                <a data-bs-toggle="modal" href="#deletePostModal" aria-haspopup="true" id="deletePost"
-                                    aria-label="Delete Post"><i class="fa-solid fa-trash icon"></i></a>
-                            </div>
-                            {% endif %}
                         </div>
                     </div>
                     <div class="col-md-8 summernote-text">
@@ -124,7 +122,7 @@
                 <div class="container mt-4">
                     <div class="row">
                         <div class="col-sm-12 col-md-6 col-12 ps-sm-4 mt-3">
-                            <h3 class="heading-underline mb-4">Comments:</h3>
+                            <h2 class="heading-underline mb-4">Comments:</h2>
                             {% if comments %} {% for comment in comments %}
                             <div class="card p-3 mb-4 comment light-shadow">
                                 <div class="user-comment d-flex flex-row align-items-center">
@@ -169,7 +167,7 @@
                         {% if user.is_authenticated %}
                         <div class="col-lg-4 col-md-5 col-sm-12 col-12 ps-sm-5 mt-3">
                             <div class="add-comment">
-                                <h3 class="heading-underline mb-4">Add a comment:</h3>
+                                <h2 class="heading-underline mb-4">Add a comment:</h2>
                                 <form method="post">
                                     <label for="id_body">
                                         {% csrf_token %} {{ comment_form.as_p }}

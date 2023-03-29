@@ -520,11 +520,6 @@ hr {
     padding: 2em 1.4em;
 }
 
-.post-form .icon {
-    padding: 0.6rem;
-    font-size: 1.5rem;
-}
-
 .post-list-content {
     margin-top: 5.5em;
     margin-bottom: 3em;
@@ -545,13 +540,13 @@ hr {
 
 .btn-read,
 .btn-save {
-    background-color: var(--orange-color);
+    background-color: #ca4f16;
     color: var(--absolute-white-color);
 }
 
 .btn-read:hover,
 .btn-save:hover {
-    background-color: #dd7342;
+    background-color: #bb420a;
     color: var(--absolute-white-color);
 }
 
@@ -581,6 +576,17 @@ hr {
 /*=============== Post Detail ===============*/
 tr td:first-child {
     width: 30%;
+}
+
+#post-detail .post-edit,
+#post-detail .post-delete {
+    padding: 0.6rem;
+    font-size: 1.5rem;
+    margin: 0 0 1rem 1rem;
+}
+
+#post-detail .heading-underline {
+    line-height: 1.5;
 }
 
 #likes-count {
