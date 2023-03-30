@@ -70,7 +70,7 @@ All functionalities have been tested and they work as expected. You can find mor
 ### As an unregistered User,
   - [#3](https://github.com/kerstin-w/Travel-Africa/issues/3) I can view a list of posts so that I can select one to read.
 
-    In the navbar the user can select, wether to see a list of all post or post of a certain region. Afterwards a list of posts will be displayed and the user can select a post to read.
+    In the navbar the user can select, wether to see a list of all posts or posts of a certain region. Afterwards a list of posts will be displayed and the user can select a post to read.
 
     <img src="documentation/testing/user-stories/post-list.png" width="500px" style="margin: 20px;">
 
@@ -84,7 +84,7 @@ All functionalities have been tested and they work as expected. You can find mor
 
   - [#5](https://github.com/kerstin-w/Travel-Africa/issues/5) I can view a list of highlights posts so that I can select one to read.
 
-    On the **Home Page** the user has the option to select 1 of 6 featured posts. The admin user can select featured posts either in the admin panel or on the post update page.
+    On the **Home Page** the user has the option to select 1 of 6 featured posts. The admin can select posts to be featured posts either in the admin panel or on the post update page.
 
     <img src="documentation/testing/user-stories/featured.png" width="500px" style="margin: 20px;">
     <img src="documentation/testing/user-stories/featured-admin.png" width="500px" style="margin: 20px;">
