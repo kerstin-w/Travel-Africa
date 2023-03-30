@@ -306,7 +306,7 @@ hr {
 
 .hero-content h1 {
     color: var(--blue-color);
-    text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.6);
+    text-shadow: 0px 2px 2px var(--orange-color);
     font-size: 60px;
 }
 
@@ -673,7 +673,7 @@ tr td:first-child {
 
 .bucket-list .form-check-label a {
     text-decoration: none;
-    color: var(--blue-color);
+    color: #565d99;
 }
 
 .bucket-list .list-group-item {
