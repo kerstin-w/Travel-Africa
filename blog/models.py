@@ -1,7 +1,8 @@
-from django.db import models
-from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from django.contrib.auth.models import User
+from django.db import models
 from django.urls import reverse
+
 from .fields import CaseInsensitiveCharField
 from users.models import Profile
 
