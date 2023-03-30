@@ -1,11 +1,11 @@
+from django.conf import settings
 from django.contrib import admin
-from django_summernote.admin import SummernoteModelAdmin
-from blog.models import Post, Category, Comment, BucketList
-from users.models import Profile
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
-from django.conf import settings
+from blog.models import BucketList, Category, Comment, Post
+from users.models import Profile
+from django_summernote.admin import SummernoteModelAdmin
 
 
 @admin.register(Post)
