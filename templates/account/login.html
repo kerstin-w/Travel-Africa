@@ -19,7 +19,7 @@
                   <h2 class="fw-normal mb-3 pb-3 heading-underline">{% trans "Sign In" %}</h2>
                   <form class="login" method="POST" action="{% url 'account_login' %}">
                     {% csrf_token %}
-                    {{ form.as_p }}
+                    {{ form|crispy }}
                     {% if redirect_field_value %}
                     <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                     {% endif %}

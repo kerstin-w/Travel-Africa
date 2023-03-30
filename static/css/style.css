@@ -605,6 +605,10 @@ tr td:first-child {
     margin: 0 0 0 .3rem;
 }
 
+#div_id_featured_image .input-group {
+    display: none
+}
+
 .summernote-editor {
     width: 100%;
 }
