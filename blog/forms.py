@@ -1,4 +1,4 @@
-from django.forms import ModelForm, CheckboxInput
+from django.forms import ModelForm
 from django import forms
 from django_summernote.widgets import SummernoteWidget
 from .models import Post, Comment
