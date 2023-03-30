@@ -70,19 +70,19 @@ All functionalities have been tested and they work as expected. You can find mor
 ### As an unregistered User,
   - [#3](https://github.com/kerstin-w/Travel-Africa/issues/3) I can view a list of posts so that I can select one to read.
 
-    In the navbar the user can select, wether to see a list of all posts or posts of a certain region. Afterwards a list of posts will be displayed and the user can select a post to read.
+    In the navbar the user can select, whether to see a list of all posts or posts from a certain region. Afterwards a list of posts will be displayed and the user can select a post to read.
 
     <img src="documentation/testing/user-stories/post-list.png" width="500px" style="margin: 20px;">
 
   - [#4](https://github.com/kerstin-w/Travel-Africa/issues/4) I can select a category so that I can only view relevant posts.
     
-    In the **navbar** the user can select, wether to see a list of all post or post of a certain region. Once a certain category was selected only posts of this category will be displayed. When creating a post, the auther has to select a region in order for the categorization to work. 
+    In the **navbar** the user can select, whether to see a list of all post or post of a certain region. Once a certain category is selected only posts of that category will be displayed. When creating a post, the author has to select a region in order for the categorization to work. 
 
-    This was achieved with a navbar which is fully responsive and functionality has been tested and works as expected.
+    This was achieved with a navbar that is fully responsive and whose functionality has been tested and works as expected.
     <img src="documentation/testing/user-stories/navbar.png" width="500px" style="margin: 20px;">
     <img src="documentation/testing/user-stories/regions.png" width="500px" style="margin: 20px;">
 
-  - [#5](https://github.com/kerstin-w/Travel-Africa/issues/5) I can view a list of highlights posts so that I can select one to read.
+  - [#5](https://github.com/kerstin-w/Travel-Africa/issues/5) I can view a list of highlighted posts so that I can select one to read.
 
     On the **Home Page** the user has the option to select 1 of 6 featured posts. The admin can select posts to be featured posts either in the admin panel or on the post update page.
 
@@ -97,7 +97,7 @@ All functionalities have been tested and they work as expected. You can find mor
 
   - [#13](https://github.com/kerstin-w/Travel-Africa/issues/13) I can search a post by a keyword so that I can try to find posts relative to the keyword.
 
-    From the **navbar** the user can use the search function and enter a keyword. If the keywords was found in one of the post titles or countries those related posts will be displayed as search result.
+    From the **navbar** the user can use the search function and enter a keyword. If the keywords was found in one of the post titles or countries those related posts will be displayed as search results.
     
     <img src="documentation/testing/user-stories/search.png" width="500px" style="margin: 20px;">
 
@@ -168,7 +168,7 @@ All functionalities have been tested and they work as expected. You can find mor
 
   - [#18](https://github.com/kerstin-w/Travel-Africa/issues/18) I can can add a Post to my bucket list so that I can save destinations I want to travel to.
 
-    On the **Post Page** the user can select the Bucket List button to add a post to the bucket list. From the **navbar** the user can click on the list icon to open their personal bucket list, where selected posts are stored. On the **Bucket List Page** the user can click on a certain post to revisit the post or select the bin icon to remove it. One a post is saved to the bucket list, on the Post Page the button is disabled. 
+    On the **Post Page** the user can select the Bucket List button to add a post to the bucket list. From the **navbar** the user can click on the list icon to open their personal bucket list, where selected posts are stored. On the **Bucket List Page** the user can click on a certain post to revisit the post or select the bin icon to remove it. Once a post is saved to the bucket list, on the Post Page the button is disabled. 
 
     <img src="documentation/testing/user-stories/bucketlist-1.png" width="300px" style="margin: 20px;">
     <img src="documentation/testing/user-stories/bucketlist-added.png" width="300px" style="margin: 20px;">
@@ -177,7 +177,7 @@ All functionalities have been tested and they work as expected. You can find mor
 
   - [#19](https://github.com/kerstin-w/Travel-Africa/issues/19) I can delete my comments so that I can control the information that I share.
 
-    On the **Post Page** in the comment section the user can select the bin icon to delete a comment. This functionallity is available for the author of the post, and the commenter. After the user clicked on the bin icon a modal will open to confirm that the user is certain to delete the comment.
+    On the **Post Page** in the comment section the user can select the bin icon to delete a comment. This functionallity is available for the author of the post, and the commenter. After the user clicks on the bin icon a modal will open to confirm that the user wants to delete the comment.
 
     <img src="documentation/testing/user-stories/delete-comment.png" width="300px" style="margin: 20px;">
     <img src="documentation/testing/user-stories/delete-comment-modal.png" width="300px" style="margin: 20px;">
@@ -185,7 +185,7 @@ All functionalities have been tested and they work as expected. You can find mor
 
   - [#26](https://github.com/kerstin-w/Travel-Africa/issues/26) I can rely on the app to log me out automatically so that strangers cannot access my profile in case I am on a public computer.
     
-    A timeout for the user is setup in the settings, loggin the user out after 30mins or once the user closed the browser.
+    A timeout for the user is setup in the settings, logging the user out after 30mins or once the user has closed the browser.
     <br>
         ```
         # Settings for Session Time Out
@@ -195,7 +195,7 @@ All functionalities have been tested and they work as expected. You can find mor
         ```
   - [#27](https://github.com/kerstin-w/Travel-Africa/issues/27) I can be routed to a error page in case a page is not found so that I understand the error and click on a link to get back to the homepage.
 
-    A error page has been setup, in case user try to access a page without permission, the page does not exist or other errors occure.
+    A error page has been setup, in case user try to access a page without permission, the page does not exist or other errors occur.
 
     <img src="documentation/testing/user-stories/error-1.png" width="500px" style="margin: 20px;">
     <img src="documentation/testing/user-stories/error-2.png" width="500px" style="margin: 20px;">
@@ -219,7 +219,7 @@ All functionalities have been tested and they work as expected. You can find mor
 
     <img src="documentation/testing/user-stories/admin-category.png" width="500px" style="margin: 20px;">
     
-  - [#29](https://github.com/kerstin-w/Travel-Africa/issues/29) I want to delete content when inappropriate so that I can maintain the site and ensure that only useful or relevant content remains
+  - [#29](https://github.com/kerstin-w/Travel-Africa/issues/29) I want to delete content when inappropriate so that I can maintain the site and ensure that only useful or relevant content remains.
 
     On the **Post Page** the Superuser has the same option as the post auther and can delete or edit a post. Further, the Superuser can delete posts from the **Admin Panel**
 
@@ -238,7 +238,7 @@ All functionalities have been tested and they work as expected. You can find mor
 
 ### <a name="html">HTML</a>
 All **HTML** code was validated using the [W3C Markup Validation Service](https://validator.w3.org/) regularly during the development process. **The HTML Source Code** was regularly viewed for each page using **Google Chrome** and passed through the [W3C Markup Validation Service](https://validator.w3.org/). Various minor errors were encountered and corrected during the final **HTML** validation check. 
-A few errors occurred with summernote during the validation process. The `summernot-div` had attributes for `cols` and `rows` which resulted in an error during validation. I fixed that by copying the `widget_iframe.html` into my templates and styling the width with my custom CSS. Remaining issues with Summernote are the `<textarea>` element, which is set to `hidden=true` and CSS Parse Erros for blog posts that users created using Summernote. After consulting with Tutor Support about it, they advised me not to try and fix it since I did not develope the package myself and this could result in the package not functioning correctly. Besides Summernote, all HTML code now passes validation with no errors or warnings. 
+A few errors occurred with summernote during the validation process. The `summernot-div` had attributes for `cols` and `rows` which resulted in an error during validation. I fixed that by copying the `widget_iframe.html` into my templates and styling the width with my custom CSS. Remaining issues with Summernote are the `<textarea>` element, which is set to `hidden=true` and CSS Parse Erros for blog posts that users created using Summernote. After consulting with Tutor Support about it, they advised me not to try and fix it since I did not develop the package myself and this could result in the package not functioning correctly. Besides Summernote, all HTML code now passes validation with no errors or warnings. 
 
 ### Errors during validation check
 
@@ -284,8 +284,8 @@ A few errors occurred with summernote during the validation process. The `summer
 Some *"Due to their dynamic nature, CSS variables are currently not statically checked"* warnings were generated.
 These warnings are related to the global variables declared at the top of [style.css](static/css/style.css). 
 The warnings are generated because the [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) does not currently support CSS global variable declaration, and are not considered to be an issue. 
-Some additional *"vendor extension"* warnings were also generated. These warnings are not considered to be an issue since the vendor extensions are to enable correct display of various elements in different browsers. 
-*Imported style sheets are not checked in direct input and file upload modes* warnings were generated. Theses warnings are related to the Google Fonts and are not considered to be an issue, but just an information that imported style sheets cannot be validated. 
+Some additional *"vendor extension"* warnings were also generated. These warnings are not considered to be an issue since the vendor extensions are to enable the correct display of various elements in different browsers. 
+*Imported style sheets are not checked in direct input and file upload modes* warnings were generated. These warnings are related to the Google Fonts and are not considered to be an issue, but just information that imported style sheets cannot be validated. 
 One error was generated using `clipath: circle()` without any values. I corrected this error and afterwards no errors were generated.
 
 <details>
@@ -308,7 +308,7 @@ One error was generated using `clipath: circle()` without any values. I correcte
 The custom [script.js](static/js/script.js) was validated using the [JSHint](https://jshint.com/about/) static code analysis tool. 
 A wanring *"One unused variable"* was generated for the `tooltipList` which I resolved by refactoring the code. Afterwards the test passed without errors or warnings.
 Due to the lack of complexity of **JavaScript** code implemented on the project, **Automated Unit Testing** 
-of the **JavaScript** code was considered unnecessary. All **JavaScript** functions and event handlers in the custom **JavaScript Code Libraries** have been thoroughly manually de-bugged and tested in the console.
+of the **JavaScript** code was considered unnecessary. All **JavaScript** functions and event handlers in the custom **JavaScript Code Libraries** have been thoroughly manually debugged and tested in the console.
 
 <details>
     <summary>Result</summary>
@@ -343,18 +343,18 @@ The settings exclude **django** migrations, `__init__.py`, `.vscode` and `_pycha
 
 ## <a name="performance-testing">Performance Testing</a>
 
-Lighthouse was used (accessed through Developer Tools in Chrome) to analyse for the following:
+Lighthouse was used (accessed through Developer Tools in Chrome) to analyzee for the following:
 
 - Performance
 - Accessibility
 - Best practice
 - SEO
 
-On several pages for **mobile** the performance score raised issues related to Bootstrap, Cloudinary and Heroku: *Eliminate render-blocking resources.* As Bootstrap, Cloudinary and Heroku are not replaceable at this point, I have decided not to pursue any further. For the future it is to be considered to create an extra stylesheet for mobile to load less css.
+On several pages for **mobile** the performance score raised issues related to Bootstrap, Cloudinary and Heroku: *Eliminate render-blocking resources.* As Bootstrap, Cloudinary and Heroku are not replaceable at this point, I have decided not to pursue any further. For the future it is to be considered creating an extra stylesheet for mobile to load less css.
 
-On the **About** page the accessibility score raised an issue related to the *contrast ratio*. I tested this page with the [Wave Tool](https://wave.webaim.org/) which returned no errors. As the addressed elements and their contrast ratio are not critical for the UX and the Wave Report returned not errors, I decided to not pursue any further.
+On the **About** page the accessibility score raised an issue related to the *contrast ratio*. I tested this page with the [Wave Tool](https://wave.webaim.org/) which returned no errors. As the addressed elements and their contrast ratio are not critical for the UX and the Wave Report returned no errors, I decided not to pursue any further.
 
-On the **Profile** page the performance score raised an issue related to the *server response time*. As this is related to the Heroku Dynos, I have decided not to pursue any further.
+On the **Profile** page the performance score raised an issue related to the *server response time*. As this is related to the Heroku Dynos, I have decided not to pursue it any further.
 
 ### <a name="desktop-results">Desktop Results</a>
 
@@ -543,4 +543,4 @@ Tutor support also knew about this problem and could not identify the source of 
 
 - Summernote Editor in Admin Panel:
 
-As described in [HTML](#html), I had to copy the widget_iframe for Summernote into my project and style it with custom css. The consequence is that the `width`, which was set in the custom css file, does not take effect in the admin panel.The editor in the admin panel is therefore currently not as wide as desired. This can be solved by copying and loading the style sheet from the admin panel into the project and adding the desired width for the editor there. Since all features are currently working and no user story is compromised, this has not yet been implemented due to time limitations, but is planned for the future. 
+As described in [HTML](#html), I had to copy the widget_iframe for Summernote into my project and style it with custom CSS. The consequence is that the `width`, which was set in the custom css file, does not take effect in the admin panel. The editor in the admin panel is therefore currently not as wide as desired. This can be solved by copying and loading the style sheet from the admin panel into the project and adding the desired width for the editor there. Since all features are currently working and no user story is compromised, this has not yet been implemented due to time limitations, but is planned for the future. 
