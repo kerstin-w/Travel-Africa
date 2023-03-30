@@ -341,11 +341,119 @@ The settings exclude **django** migrations, `__init__.py`, `.vscode` and `_pycha
 
 <br>
 
-### <a name="performance-testing">Performance Testing</a>
+## <a name="performance-testing">Performance Testing</a>
+
+Lighthouse was used (accessed through Developer Tools in Chrome) to analyse for the following:
+
+- Performance
+- Accessibility
+- Best practice
+- SEO
+
+On several pages for mobile the performance score raised issues related to Bootstrap, Cloudinary and Heroku: *Eliminate render-blocking resources.* As Bootstrap, Cloudinary and Heroku are not replaceable at this point, I have decided not to pursue any further. For the future it is to be considered to create an extra stylesheet for mobile to load less css.
+
+On the **About** page the accessibility score raised an issue related to the contrast ratio. I tested this page with the [Wave Tool](https://wave.webaim.org/) which returned no errors. As the addressed elements and their contrast ratio are not critical for the UX and the Wave Report returned not errors, I decided to not pursue any further.
+
+On the **Profile** page the performance score raised an issue related to the server response time. As this is related to the Heroku Dynos, I have decided not to pursue any further.
+
+### <a name="desktop-results">Destop Results</a>
+
+<details>
+<summary>Homepage</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for homepage](documentation/testing/performance-testing/lh-desktop-homepage.png)
+
+</details>
+<details>
+<summary>About Page</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for about  page](documentation/testing/performance-testing/lh-desktop-about.png)
+
+</details>
+<details>
+<summary>Post List</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for Post List](documentation/testing/performance-testing/lh-desktop-regions.png)
+![Screenshot of Lighthouse Desktop Validator Results for Post List](documentation/testing/performance-testing/lh-regions.png)
+
+</details>
+<details>
+<summary>Post Detail</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for Post Detail](documentation/testing/performance-testing/lh-desktop-post-detail.png)
+
+</details>
+<details>
+<summary>Post Create/Update</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for Post Create](documentation/testing/performance-testing/lh-desktop-post-create.png)
+
+</details>
+<details>
+<summary>Bucketlist</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for Bucketlist](documentation/testing/performance-testing/lh-desktop-bucketlist.png)
+
+</details>
+<details>
+<summary>Profile</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for Profile](documentation/testing/performance-testing/lh-desktop-profile-1.png)
+![Screenshot of Lighthouse Desktop Validator Results for Profile](documentation/testing/performance-testing/lh-desktop-profile-2.png)
+
+</details>
+
+### <a name="mobile-results">Mobile Results</a>
+
+<details>
+<summary>Homepage</summary>
+
+![Screenshot of Lighthouse Mobile Validator Results for homepage](documentation/testing/performance-testing/lh-mobile-homepage.png)
+
+</details>
+<details>
+<summary>About Page</summary>
+
+![Screenshot of Lighthouse Mobile Validator Results for about  page](documentation/testing/performance-testing/lh-mobile-about-1.png)
+![Screenshot of Lighthouse Mobile Validator Results for about  page](documentation/testing/performance-testing/lh-mobile-about-2.png)
+
+</details>
+<details>
+<summary>Post List</summary>
+
+![Screenshot of Lighthouse Mobile Validator Results for Post List](documentation/testing/performance-testing/lh-mobile-regions.png)
+![Screenshot of Lighthouse Mobile Validator Results for Post List](documentation/testing/performance-testing/lh-regions.png)
+
+</details>
+<details>
+<summary>Post Detail</summary>
+
+![Screenshot of Lighthouse Mobile Validator Results for Post Detail](documentation/testing/performance-testing/lh-mobile-post-detail-1.png)
+![Screenshot of Lighthouse Mobile Validator Results for Post Detail](documentation/testing/performance-testing/lh-mobile-post-detail-2.png)
+
+</details>
+<details>
+<summary>Post Create/Update</summary>
+
+![Screenshot of Lighthouse Mobile Validator Results for Post Create](documentation/testing/performance-testing/lh-mobile-post-create.png)
+</details>
+<details>
+<summary>Bucketlist</summary>
+
+![Screenshot of Lighthouse Mobile Validator Results for Bucketlist](documentation/testing/performance-testing/lh-mobile-bucketlist.png)
+</details>
+<details>
+<summary>Profile</summary>
+
+![Screenshot of Lighthouse mobile Validator Results for Profile](documentation/testing/performance-testing/lh-mobile-profile-1.png)
+![Screenshot of Lighthouse mobile Validator Results for Profile](documentation/testing/performance-testing/lh-mobile-profile-2.png)
+![Screenshot of Lighthouse mobile Validator Results for Profile](documentation/testing/performance-testing/lh-profile-network.png)
+
+</details>
 
 <br>
 
-### <a name="browser-compatibility">Browser Compatibility</a>
+## <a name="browser-compatibility">Browser Compatibility</a>
 
 This App was tested on Chrome, Microsoft Edge, and Firefox for desktop.
 
@@ -353,7 +461,7 @@ The App was tested on Safari for mobile and tablet.
 
 <br>
 
-### <a name="responsivity">Responsivity</a>
+## <a name="responsivity">Responsivity</a>
 
 Responsiveness was tested through Chrome Developer tools. The devices tested include:
 
@@ -372,7 +480,7 @@ Responsiveness was tested through Chrome Developer tools. The devices tested inc
 
 I was able to directly test the website on an iPhone 13 mini and an iPad.
 
-### <a name="issues-bugs">Issues/ Bugs Found & Resolved</a>
+## <a name="issues-bugs">Issues/ Bugs Found & Resolved</a>
 
 - Error during first Deploy:
 
@@ -390,7 +498,7 @@ which is was able to fix by adding `backports.zoneinfo==0.2.1;python_version<3.9
 
 For pages with pagination an `UnorderedObjectListWarning' was printed to the console, which I resolved by adding `ordering`to the PostListViews
 
-### <a name="#unresolved">Unresolved</a>
+## <a name="#unresolved">Unresolved</a>
 
 - Random failing in Heroku
 
