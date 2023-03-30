@@ -11,7 +11,7 @@
   - [JS](#js)
   - [Python](#python)
 - [Performance Testing](#performance-testing)
-  - [Destop Results](#desktop-results)
+  - [Desktop Results](#desktop-results)
   - [Mobile Results](#mobile-results)
 - [Browser Compatibility](#browser-compatibility)
 - [Responsivity](#responsivity)
@@ -350,13 +350,13 @@ Lighthouse was used (accessed through Developer Tools in Chrome) to analyse for 
 - Best practice
 - SEO
 
-On several pages for mobile the performance score raised issues related to Bootstrap, Cloudinary and Heroku: *Eliminate render-blocking resources.* As Bootstrap, Cloudinary and Heroku are not replaceable at this point, I have decided not to pursue any further. For the future it is to be considered to create an extra stylesheet for mobile to load less css.
+On several pages for **mobile** the performance score raised issues related to Bootstrap, Cloudinary and Heroku: *Eliminate render-blocking resources.* As Bootstrap, Cloudinary and Heroku are not replaceable at this point, I have decided not to pursue any further. For the future it is to be considered to create an extra stylesheet for mobile to load less css.
 
-On the **About** page the accessibility score raised an issue related to the contrast ratio. I tested this page with the [Wave Tool](https://wave.webaim.org/) which returned no errors. As the addressed elements and their contrast ratio are not critical for the UX and the Wave Report returned not errors, I decided to not pursue any further.
+On the **About** page the accessibility score raised an issue related to the *contrast ratio*. I tested this page with the [Wave Tool](https://wave.webaim.org/) which returned no errors. As the addressed elements and their contrast ratio are not critical for the UX and the Wave Report returned not errors, I decided to not pursue any further.
 
-On the **Profile** page the performance score raised an issue related to the server response time. As this is related to the Heroku Dynos, I have decided not to pursue any further.
+On the **Profile** page the performance score raised an issue related to the *server response time*. As this is related to the Heroku Dynos, I have decided not to pursue any further.
 
-### <a name="desktop-results">Destop Results</a>
+### <a name="desktop-results">Desktop Results</a>
 
 <details>
 <summary>Homepage</summary>
@@ -402,6 +402,18 @@ On the **Profile** page the performance score raised an issue related to the ser
 ![Screenshot of Lighthouse Desktop Validator Results for Profile](documentation/testing/performance-testing/lh-desktop-profile-2.png)
 
 </details>
+<details>
+<summary>Sign Up</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for signup](documentation/testing/performance-testing/lh-desktop-signup.png)
+
+</details>
+<details>
+<summary>Login</summary>
+
+![Screenshot of Lighthouse Desktop Validator Results for Login](documentation/testing/performance-testing/lh-desktop-login.png)
+
+</details>
 
 ### <a name="mobile-results">Mobile Results</a>
 
@@ -422,6 +434,7 @@ On the **Profile** page the performance score raised an issue related to the ser
 <summary>Post List</summary>
 
 ![Screenshot of Lighthouse Mobile Validator Results for Post List](documentation/testing/performance-testing/lh-mobile-regions.png)
+![Screenshot of Lighthouse Mobile Validator Results for Post List](documentation/testing/performance-testing/lh-mobile-regions-1.png)
 ![Screenshot of Lighthouse Mobile Validator Results for Post List](documentation/testing/performance-testing/lh-regions.png)
 
 </details>
@@ -448,6 +461,19 @@ On the **Profile** page the performance score raised an issue related to the ser
 ![Screenshot of Lighthouse mobile Validator Results for Profile](documentation/testing/performance-testing/lh-mobile-profile-1.png)
 ![Screenshot of Lighthouse mobile Validator Results for Profile](documentation/testing/performance-testing/lh-mobile-profile-2.png)
 ![Screenshot of Lighthouse mobile Validator Results for Profile](documentation/testing/performance-testing/lh-profile-network.png)
+
+</details>
+<details>
+<summary>Sign Up</summary>
+
+![Screenshot of Lighthouse Mobile Validator Results for signup](documentation/testing/performance-testing/lh-mobile-signup-1.png)
+![Screenshot of Lighthouse Mobile Validator Results for signup](documentation/testing/performance-testing/lh-mobile-signup-2.png)
+
+</details>
+<details>
+<summary>Login</summary>
+
+![Screenshot of Lighthouse Mobile Validator Results for Login](documentation/testing/performance-testing/lh-mobile-login.png)
 
 </details>
 
