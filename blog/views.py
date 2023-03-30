@@ -128,7 +128,8 @@ class PostCategoryListView(PageTitleViewMixin, ListView):
 
 class PostDetailView(DetailView):
     """
-    Render Post Detail Page
+    Render Post Detail Page with Post information, comments,
+    likes and user profile.
     """
 
     model = Post
@@ -378,7 +379,7 @@ class BucketListView(LoginRequiredMixin, SuccessMessageMixin, TemplateView):
 
 class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     """
-    Display Bucket List and allow user to remove post from bucket list
+    Remove a Comment if user wrote comment, is post author or superuser
     """
 
     model = Comment
