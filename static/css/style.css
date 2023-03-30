@@ -447,6 +447,12 @@ hr {
     height: 100%;
 }
 
+.signup,
+.forgot-password {
+    color: var(--blue-color);
+    font-weight: 500;
+}
+
 /*=============== Profile ===============*/
 #profile-update .row {
     padding-left: 1rem;
