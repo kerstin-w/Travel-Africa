@@ -7,10 +7,11 @@
                 <div class="col col-xl-10">
                     <div class="card box-shadow card-signup">
                         <div class="card-body p-4 p-lg-5">
-                            <h2 class="fw-normal mb-3 pb-3 heading-underline mx-auto text-center">Create Post</h2>
+                            <h2 class="fw-normal mb-3 pb-3 heading-underline mx-auto text-center">Your Post</h2>
                             <form method="post" enctype="multipart/form-data" class="form">
                                 {% csrf_token %} {{ form|crispy }}
-                                <button class="btn btn-save btn-lg" type="submit"><i class="fa-solid fa-floppy-disk icon-save"></i>Save</button>
+                                <button class="btn btn-save btn-lg" type="submit"><i
+                                        class="fa-solid fa-floppy-disk icon-save"></i>Save</button>
                             </form>
                         </div>
                     </div>
