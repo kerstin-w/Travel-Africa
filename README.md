@@ -819,6 +819,7 @@ to copy the URL
 - [Cloudwithdjango](https://www.cloudwithdjango.com/django-shorts-3-sending-emails/): As source for sending emails.
 - [Cloudwithdjango](https://www.cloudwithdjango.com/adding-a-session-timeout-in-django/): As source for Session Timeout settings.
 - [Betterprogramming](https://betterprogramming.pub/django-quick-tips-context-processors-da74f887f1fc): As source for Context Processors.
+- [Stackoverflow](https://stackoverflow.com/questions/18424260/django-serving-robots-txt-efficiently): As source how to wire up a robots.txt.
 
 ### Content
 
