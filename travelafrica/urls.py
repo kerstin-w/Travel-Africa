@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import url
+from django.http import HttpResponse
 from django.urls import path, include
 from users import urls as user_urls
 from blog.views import Error403View, Error404View
@@ -28,6 +30,13 @@ urlpatterns = [
     path("", include("blog.urls"), name="blog-urls"),
     path("accounts/", include("allauth.urls")),
     path("", include(user_urls, namespace="users")),
+    url(
+        r"^robots.txt",
+        lambda x: HttpResponse(
+            "User-Agent: *\nDisallow:", content_type="text/plain"
+        ),
+        name="robots_file",
+    ),
     # Custom Error Page Handlers
     path("403/", handler403, name="handler403"),
     path("404/", handler404, name="handler404"),
