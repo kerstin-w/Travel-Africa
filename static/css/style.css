@@ -17,7 +17,7 @@
 
 /*--------------- General Styles ---------------*/
 * {
-    margin: 0;
+    o margin: 0;
     padding: 0;
     font-family: var(--font-body);
 }
@@ -312,6 +312,8 @@ hr {
 
 .hero-text {
     color: var(--blue-color);
+    font-weight: 500;
+    font-size: 1.2rem;
 }
 
 .overlay {
@@ -538,6 +540,10 @@ hr {
     justify-content: space-between;
 }
 
+.post-card p {
+    font-weight: 500;
+}
+
 .btn-read,
 .btn-save {
     background-color: #ca4f16;
@@ -563,7 +569,7 @@ hr {
 }
 
 .active>.page-link {
-    background-color: var(--orange-color);
+    background-color: #c34c15;
     border: none;
 }
 
