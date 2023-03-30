@@ -138,7 +138,7 @@ class PostDetailView(DetailView):
     def get(self, request, *args, **kwargs):
         self.post = self.get_object()
         if self.post.status == 0:
-            return redirect('handler403')
+            return redirect("handler403")
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -214,7 +214,10 @@ class PostCreateView(
     )
 
     def test_func(self):
-        return self.request.user.is_authenticated
+        return (
+            self.request.user.is_authenticated
+            or self.request.user.is_superuser
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
